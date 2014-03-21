@@ -69,7 +69,7 @@ floor3=T([1,2,3])([1,1,2])(floor3)
 floor4=T([1,2,3])([1,1,15])(floor4)
 building=STRUCT([floor1,floor2,floor3])
 
-#VIEW(building)
+
 floor5=MAP([S1,S3,S2])(floor5)
 floor5=T([3])([18])(floor5)
 
