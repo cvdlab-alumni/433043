@@ -79,21 +79,21 @@ sud= COLOR(rgbToPlasmColor([64,64,64]))(sud)
 
 
 
-#Creo le colonne sx
-colonne_sx_temp=[T(1)(4.8),colonna_ant]
-est=STRUCT(NN(13)(colonne_sx_temp))
-
-
-est=ROTATE([1,3])(PI/2)(est)
-est=T(1)(4.5)(est)
-est= COLOR(rgbToPlasmColor([64,64,64]))(est)
-
-
 #Creo le colonne dx
-ovest=STRUCT(NN(13)(colonne_sx_temp))
-ovest=ROTATE([1,3])(PI/2)(ovest)
-ovest=T(1)(34.5)(ovest)
-ovest= COLOR(rgbToPlasmColor([64,64,64]))(ovest)
+colonne_dx_temp=[T(1)(4.8),colonna_ant]
+colonne_dx=STRUCT(NN(13)(colonne_dx_temp))
+
+
+colonne_dx=ROTATE([1,3])(PI/2)(colonne_dx)
+colonne_dx=T(1)(4.5)(colonne_dx)
+colonne_dx= COLOR(rgbToPlasmColor([64,64,64]))(colonne_dx)
+
+
+#Creo le colonne sx
+colonne_sx=STRUCT(NN(13)(colonne_dx_temp))
+colonne_sx=ROTATE([1,3])(PI/2)(colonne_sx)
+colonne_sx=T(1)(34.5)(colonne_sx)
+colonne_sx= COLOR(rgbToPlasmColor([64,64,64]))(colonne_sx)
 
 
 #Creo le colonne anteriori interne
@@ -167,7 +167,51 @@ colonne_post=STRUCT(NN(6)(colonne_int_temp))
 colonne_post=T([3])([60])(colonne_post)
 colonne_post = COLOR(rgbToPlasmColor([95,95,95]))(colonne_post)
 
+
 north=STRUCT([colonne_ant,colonne_int,colonne_post])
+
+
+
+#Creo le pareti interne
+
+mura1_vertici = [ [0,0], [9,0], [9,40], [0,40] ];
+mura1_num_lati = [range(1,5)] 
+mura1 =MKPOL([mura1_vertici, mura1_num_lati, None])
+mura1=ROTATE([1,3])(PI/2)(mura1)
+
+
+mura2= MKPOL([mura1_vertici, mura1_num_lati, None])
+mura2=T(3)(1)(mura2)
+mura2=ROTATE([1,3])(PI/2)(mura2)
+
+
+mura3_vertici = [ [0,0], [0,1], [9,1], [9,0] ];
+mura3_num_lati = [range(1,5)] 
+mura3 =MKPOL([mura3_vertici, mura3_num_lati, None])
+mura3=ROTATE([1,3])(PI/2)(mura3)
+mura3=ROTATE([1,2])(PI/2)(mura3)
+
+
+mura4= MKPOL([mura3_vertici, mura3_num_lati, None])
+mura4=ROTATE([1,3])(PI/2)(mura4)
+mura4=ROTATE([1,2])(PI/2)(mura4)
+mura4=T(2)(40)(mura4)
+
+murasx=STRUCT([mura1,mura2,mura3,mura4])
+murasx=ROTATE([2,3])(PI/2)(murasx)
+murasx=T([1,2,3])([27,12,12])(murasx)
+murasx=COLOR(rgbToPlasmColor([95,95,95]))(murasx)
+
+ovest=STRUCT([colonne_sx,murasx])
+
+muradx=STRUCT([mura1,mura2,mura3,mura4])
+muradx=ROTATE([2,3])(PI/2)(muradx)
+muradx=T([1,2,3])([7,12,12])(muradx)
+muradx=COLOR(rgbToPlasmColor([95,95,95]))(muradx)
+
+est=STRUCT([colonne_dx,muradx])
+
+
 
 VIEW(STRUCT([exercise1.two_and_half_model,north,sud,est,ovest]))
 
