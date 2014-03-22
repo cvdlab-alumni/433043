@@ -17,7 +17,7 @@ base1_2D = MKPOL([base1_vertici, base1_num_lati, None])
 floor1 = PROD([base1_2D, Q(1)])
 
 #Coloro 
-floor1 = COLOR(rgbToPlasmColor([210,210,210]))(floor1)
+floor1 = COLOR(rgbToPlasmColor([255,255,255]))(floor1)
 
 
 #Creo la seconda base.Approssimata 68x32
@@ -142,7 +142,7 @@ colonne_int_temp=[T(1)(4),colonna_int]
 colonne_int_frontali=STRUCT(NN(6)(colonne_int_temp))
 colonne_int_frontali=T(1)(-5.80)(colonne_int_frontali)
 #Coloro
-colonne_int_frontali = COLOR(rgbToPlasmColor([147,147,147]))(colonne_int_frontali)
+colonne_int_frontali = COLOR(rgbToPlasmColor([255,255,255]))(colonne_int_frontali)
 
 
 #Creo le mura interne frontali
@@ -153,7 +153,7 @@ mura4 = PROD([mura4_2D, Q(12)])
 
 mura4=T([1,2,3])([20,-26.5,3])(mura4)
 mura4=ROTATE([1,2])(PI/2)(mura4)
-mura4 = COLOR(rgbToPlasmColor([210,210,210]))(mura4)
+mura4 = COLOR(rgbToPlasmColor([178,178,178]))(mura4)
 
 
 mura5_vertici = [ [1,1], [2,1], [1,6], [2,6] ];
@@ -163,7 +163,7 @@ mura5 = PROD([mura5_2D, Q(12)])
 
 mura5=T([1,2,3])([19,-12.5,3])(mura5)
 mura5=ROTATE([1,2])(PI/2)(mura5)
-mura5 = COLOR(rgbToPlasmColor([210,210,210]))(mura5)
+mura5 = COLOR(rgbToPlasmColor([178,178,178]))(mura5)
 
 mura_frontali=STRUCT([mura4,mura5])
 
@@ -189,7 +189,7 @@ mura3 = PROD([mura3_2D, Q(12)])
 
 mura3=T([1,2,3])([50,-26.5,3])(mura3)
 mura3=ROTATE([1,2])(PI/2)(mura3)
-mura3 = COLOR(rgbToPlasmColor([210,210,210]))(mura3)
+mura3 = COLOR(rgbToPlasmColor([178,178,178]))(mura3)
 
 #Creo la struttura posteriore
 
@@ -212,7 +212,7 @@ mura1 = PROD([mura1_2D, Q(12)])
 
 mura1=T([1,2,3])([6.2,11.2,3])(mura1)
 #Coloro
-mura1 = COLOR(rgbToPlasmColor([210,210,210]))(mura1)
+mura1 = COLOR(rgbToPlasmColor([178,178,178]))(mura1)
 
 
 #Creo la struttura sx
@@ -233,7 +233,7 @@ mura2 = PROD([mura2_2D, Q(12)])
 
 mura2=T([1,2,3])([21,11.2,3])(mura2)
 #Coloro
-mura2 = COLOR(rgbToPlasmColor([210,210,210]))(mura2)
+mura2 = COLOR(rgbToPlasmColor([178,178,178]))(mura2)
 
 #Creo la struttura sx
 est=STRUCT([colonne_dx,mura2])

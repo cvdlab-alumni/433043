@@ -180,7 +180,7 @@ base3dx_2D = MKPOL([base3sx_vertici, base3sx_num_lati, None])
 
 
 #Coloro 
-base3dx_2D = COLOR(rgbToPlasmColor([95,95,95]))(base3dx_2D)
+base3dx_2D = COLOR(rgbToPlasmColor([147,147,147]))(base3dx_2D)
 
 
 #Creo la la  base posizionata sotto il tetto dx
@@ -204,7 +204,7 @@ floor4=STRUCT([base1dx_2D,base2dx_2D,base3dx_2D,base4dx_2D,tetto1dx_2D])
 base5_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
 base5_num_lati = [range(1,5)] 
 floor5 = MKPOL([base5_vertici, base5_num_lati, None])
-floor5 = COLOR(rgbToPlasmColor([95,95,95]))(floor5)
+floor5 = COLOR(rgbToPlasmColor([210,210,210]))(floor5)
 
 
 

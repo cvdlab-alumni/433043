@@ -23,7 +23,7 @@ Colonna_ant4_2D= T([1,3])([2,-2])(Colonna_ant4_2D)
 Colonna_ant4_2D=ROTATE([1,3])(PI/2)(Colonna_ant4_2D)
 
 colonna_ant_2D=STRUCT([Colonna_ant1_2D,Colonna_ant2_2D,Colonna_ant3_2D,Colonna_ant4_2D])
-
+colonna_ant_2D= COLOR(rgbToPlasmColor([210,210,210]))(colonna_ant_2D)
 
 
 blocchetto_ant1_coords = [[-0.5,11], [-0.5,12], [2.5,12],[2.5,11]]
@@ -57,6 +57,7 @@ blocchetto_ant_2D=STRUCT([blocchetto_ant1_2D,blocchetto_ant2_2D,blocchetto_ant3_
 
 
 blocchetto_ant_2D=T(3)(1.5)(blocchetto_ant_2D)
+blocchetto_ant_2D= COLOR(rgbToPlasmColor([255,255,255]))(blocchetto_ant_2D)
 
 colonna_ant=STRUCT([colonna_ant_2D,blocchetto_ant_2D])
 
@@ -65,8 +66,7 @@ colonne_ant_temp=[T(1)(4.3),colonna_ant]
 colonne_ant=STRUCT(NN(8)(colonne_ant_temp))
 #Traslo su x
 colonne_ant=T([1,3])([-3.8,-1.5])(colonne_ant)
-#Coloro
-colonne_ant= COLOR(rgbToPlasmColor([147,147,147]))(colonne_ant)
+
 
 
 
@@ -75,8 +75,7 @@ sud=STRUCT(NN(8)(colonne_ant_temp))
 #Traslo su x e z
 sud=T([1,3])([-3.8,64.5])(sud)
 #Coloro
-sud= COLOR(rgbToPlasmColor([147,147,147]))(sud)
-
+sud= COLOR(rgbToPlasmColor([64,64,64]))(sud)
 
 
 
@@ -87,14 +86,14 @@ est=STRUCT(NN(13)(colonne_sx_temp))
 
 est=ROTATE([1,3])(PI/2)(est)
 est=T(1)(4.5)(est)
-est= COLOR(rgbToPlasmColor([147,147,147]))(est)
+est= COLOR(rgbToPlasmColor([64,64,64]))(est)
 
 
 #Creo le colonne dx
 ovest=STRUCT(NN(13)(colonne_sx_temp))
 ovest=ROTATE([1,3])(PI/2)(ovest)
 ovest=T(1)(34.5)(ovest)
-ovest= COLOR(rgbToPlasmColor([147,147,147]))(ovest)
+ovest= COLOR(rgbToPlasmColor([64,64,64]))(ovest)
 
 
 #Creo le colonne anteriori interne
@@ -120,7 +119,7 @@ Colonna_int4_2D=ROTATE([1,3])(PI/2)(Colonna_int4_2D)
 colonna_int_2D=STRUCT([col_temp,Colonna_int4_2D])
 
 
-
+#Creo i blocchetti delle colonne interne
 blocchetto_int1_coords = [[-0.5,11], [-0.5,12], [2.5,12],[2.5,11]]
 blocchetto_int1_lati = [range(1,5)] 
 blocchetto_int1_2D = MKPOL([blocchetto_int1_coords, blocchetto_int1_lati, None])
@@ -143,7 +142,6 @@ blocchetto_int_facc1_2D = MKPOL([blocchetto_int_facc1_coords, blocchetto_int_fac
 blocchetto_int_facc1_2D=ROTATE([2,3])(PI/2)(blocchetto_int_facc1_2D)
 blocchetto_int_facc1_2D=T([1,2])([-0.5,11])(blocchetto_int_facc1_2D)
 
-
 blocchetto_int_facc2_2D = MKPOL([blocchetto_int_facc1_coords, blocchetto_int_facc1_lati, None])
 blocchetto_int_facc2_2D=ROTATE([2,3])(PI/2)(blocchetto_int_facc2_2D)
 blocchetto_int_facc2_2D=T([1,2])([-0.5,12])(blocchetto_int_facc2_2D)
@@ -153,10 +151,10 @@ blocchetto_int_2D=STRUCT([blocchetto_int1_2D,blocchetto_int2_2D,blocchetto_int3_
 
 blocchetto_int_2D=T([1,3])([0.5,1])(blocchetto_int_2D)
 
-
+#Essembo
 colonna_int=STRUCT([colonna_int_2D,blocchetto_int_2D])
 
-
+#Duplico
 colonne_int_temp=[T(1)(4.3),colonna_int]
 
 colonne_int=STRUCT(NN(6)(colonne_int_temp))
@@ -172,3 +170,4 @@ colonne_post = COLOR(rgbToPlasmColor([95,95,95]))(colonne_post)
 north=STRUCT([colonne_ant,colonne_int,colonne_post])
 
 VIEW(STRUCT([exercise1.two_and_half_model,north,sud,est,ovest]))
+
