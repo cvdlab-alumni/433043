@@ -1,4 +1,4 @@
-#Creazione Struttura mock_up_3D
+#Creazione Struttura solid_model_3D
 
 
 from pyplasm import*
@@ -155,7 +155,6 @@ mura4=T([1,2,3])([20,-26.5,3])(mura4)
 mura4=ROTATE([1,2])(PI/2)(mura4)
 mura4 = COLOR(rgbToPlasmColor([178,178,178]))(mura4)
 
-
 mura5_vertici = [ [1,1], [2,1], [1,6], [2,6] ];
 mura5_num_lati = [range(1,5)] 
 mura5_2D = MKPOL([mura5_vertici, mura5_num_lati, None])
@@ -168,9 +167,7 @@ mura5 = COLOR(rgbToPlasmColor([178,178,178]))(mura5)
 mura_frontali=STRUCT([mura4,mura5])
 
 #Creo la struttua frontale
-
 north=STRUCT([colonne_frontali,colonne_int_frontali,mura_frontali])
-
 
 #Creo le colonne posteriori e le posiziono
 colonne_posteriori=T(2)(64)(colonne_frontali)
@@ -179,7 +176,6 @@ colonne_posteriori = COLOR(rgbToPlasmColor([95,95,95]))(colonne_posteriori)
 
 #Creo le colonne interne posteriori
 colonne_int_posteriori=T(2)(52)(colonne_int_frontali)
-
 
 #Creo le mura interne posteriori
 mura3_vertici = [ [0,0], [1,0], [0,20], [1,20] ];
@@ -192,9 +188,7 @@ mura3=ROTATE([1,2])(PI/2)(mura3)
 mura3 = COLOR(rgbToPlasmColor([178,178,178]))(mura3)
 
 #Creo la struttura posteriore
-
 sud=STRUCT([colonne_posteriori,colonne_int_posteriori,mura3])
-
 
 #Creo le colonne esterne sx e le posiziono
 colonne_sx=STRUCT(NN(15)(colonne_temp))
@@ -203,17 +197,15 @@ colonne_sx=T(1)(4.3)(colonne_sx)
 #Coloro
 colonne_sx = COLOR(rgbToPlasmColor([95,95,95]))(colonne_sx)
 
-
 #Creo le mura sx e le posiziono
 mura1_vertici = [ [0,0], [1,0], [0,45], [1,45] ];
 mura1_num_lati = [range(1,5)] 
 mura1_2D = MKPOL([mura1_vertici, mura1_num_lati, None])
 mura1 = PROD([mura1_2D, Q(12)])
-
 mura1=T([1,2,3])([6.2,11.2,3])(mura1)
+
 #Coloro
 mura1 = COLOR(rgbToPlasmColor([178,178,178]))(mura1)
-
 
 #Creo la struttura sx
 ovest=STRUCT([colonne_sx,mura1])
@@ -239,7 +231,7 @@ mura2 = COLOR(rgbToPlasmColor([178,178,178]))(mura2)
 est=STRUCT([colonne_dx,mura2])
 
 
-#Creo la struttura finale
+#Creo la struttura finale solida 3D
 Vertical_model=STRUCT([north,sud,ovest,est])
 solid_model_3D=STRUCT([Orizontal_model,Vertical_model])
 VIEW(solid_model_3D)

@@ -1,12 +1,10 @@
-#Creazione Struttura mock_up_3D
-
+#Creazione Struttura Solid_model_3D with stairs
 
 from pyplasm import*
 
 #Creo una funzione per convertire colori RGB in Plasm
 def rgbToPlasmColor(color):
 	return [color[0]/255., color[1]/255., color[2]/255.]
-
 
 #Creazione della base. Approssimata 69x33
 base1_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
@@ -17,7 +15,7 @@ base1_2D = MKPOL([base1_vertici, base1_num_lati, None])
 floor1 = PROD([base1_2D, Q(1)])
 
 #Coloro 
-floor1 = COLOR(rgbToPlasmColor([210,210,210]))(floor1)
+floor1 = COLOR(rgbToPlasmColor([255,255,255]))(floor1)
 
 
 #Creo la seconda base.Approssimata 68x32
@@ -79,7 +77,7 @@ floor5=T([3])([18])(floor5)
 floor5 = COLOR(rgbToPlasmColor([147,147,147]))(floor5)
 
 #Creo la struttura 2,5D
-two_and_half_model=STRUCT([floor1,floor2,floor3,floor4,floor5])
+Orizontal_model=STRUCT([floor1,floor2,floor3,floor4,floor5])
 
 #Creo una funzione per la circonferenza delle colonne esterne
 def base(p): 
@@ -142,7 +140,7 @@ colonne_int_temp=[T(1)(4),colonna_int]
 colonne_int_frontali=STRUCT(NN(6)(colonne_int_temp))
 colonne_int_frontali=T(1)(-5.80)(colonne_int_frontali)
 #Coloro
-colonne_int_frontali = COLOR(rgbToPlasmColor([147,147,147]))(colonne_int_frontali)
+colonne_int_frontali = COLOR(rgbToPlasmColor([255,255,255]))(colonne_int_frontali)
 
 
 #Creo le mura interne frontali
@@ -153,8 +151,7 @@ mura4 = PROD([mura4_2D, Q(12)])
 
 mura4=T([1,2,3])([20,-26.5,3])(mura4)
 mura4=ROTATE([1,2])(PI/2)(mura4)
-mura4 = COLOR(rgbToPlasmColor([210,210,210]))(mura4)
-
+mura4 = COLOR(rgbToPlasmColor([178,178,178]))(mura4)
 
 mura5_vertici = [ [1,1], [2,1], [1,6], [2,6] ];
 mura5_num_lati = [range(1,5)] 
@@ -163,14 +160,12 @@ mura5 = PROD([mura5_2D, Q(12)])
 
 mura5=T([1,2,3])([19,-12.5,3])(mura5)
 mura5=ROTATE([1,2])(PI/2)(mura5)
-mura5 = COLOR(rgbToPlasmColor([210,210,210]))(mura5)
+mura5 = COLOR(rgbToPlasmColor([178,178,178]))(mura5)
 
 mura_frontali=STRUCT([mura4,mura5])
 
 #Creo la struttua frontale
-
 north=STRUCT([colonne_frontali,colonne_int_frontali,mura_frontali])
-
 
 #Creo le colonne posteriori e le posiziono
 colonne_posteriori=T(2)(64)(colonne_frontali)
@@ -180,7 +175,6 @@ colonne_posteriori = COLOR(rgbToPlasmColor([95,95,95]))(colonne_posteriori)
 #Creo le colonne interne posteriori
 colonne_int_posteriori=T(2)(52)(colonne_int_frontali)
 
-
 #Creo le mura interne posteriori
 mura3_vertici = [ [0,0], [1,0], [0,20], [1,20] ];
 mura3_num_lati = [range(1,5)] 
@@ -189,12 +183,10 @@ mura3 = PROD([mura3_2D, Q(12)])
 
 mura3=T([1,2,3])([50,-26.5,3])(mura3)
 mura3=ROTATE([1,2])(PI/2)(mura3)
-mura3 = COLOR(rgbToPlasmColor([210,210,210]))(mura3)
+mura3 = COLOR(rgbToPlasmColor([178,178,178]))(mura3)
 
 #Creo la struttura posteriore
-
 sud=STRUCT([colonne_posteriori,colonne_int_posteriori,mura3])
-
 
 #Creo le colonne esterne sx e le posiziono
 colonne_sx=STRUCT(NN(15)(colonne_temp))
@@ -203,17 +195,15 @@ colonne_sx=T(1)(4.3)(colonne_sx)
 #Coloro
 colonne_sx = COLOR(rgbToPlasmColor([95,95,95]))(colonne_sx)
 
-
 #Creo le mura sx e le posiziono
 mura1_vertici = [ [0,0], [1,0], [0,45], [1,45] ];
 mura1_num_lati = [range(1,5)] 
 mura1_2D = MKPOL([mura1_vertici, mura1_num_lati, None])
 mura1 = PROD([mura1_2D, Q(12)])
-
 mura1=T([1,2,3])([6.2,11.2,3])(mura1)
-#Coloro
-mura1 = COLOR(rgbToPlasmColor([210,210,210]))(mura1)
 
+#Coloro
+mura1 = COLOR(rgbToPlasmColor([178,178,178]))(mura1)
 
 #Creo la struttura sx
 ovest=STRUCT([colonne_sx,mura1])
@@ -233,10 +223,15 @@ mura2 = PROD([mura2_2D, Q(12)])
 
 mura2=T([1,2,3])([21,11.2,3])(mura2)
 #Coloro
-mura2 = COLOR(rgbToPlasmColor([210,210,210]))(mura2)
+mura2 = COLOR(rgbToPlasmColor([178,178,178]))(mura2)
 
 #Creo la struttura sx
 est=STRUCT([colonne_dx,mura2])
+
+
+#Creo la struttura finale solida 3D
+Vertical_model=STRUCT([north,sud,ovest,est])
+solid_model_3D=STRUCT([Orizontal_model,Vertical_model])
 
 
 #Creazione delle scale
@@ -244,9 +239,6 @@ gradino1_vertici = [ [0,0], [5,0], [5,3], [0,3] ];
 gradino1_num_lati = [range(1,5)] 
 gradino1_2D = MKPOL([gradino1_vertici, gradino1_num_lati, None])
 gradino1 = PROD([gradino1_2D, Q(1)])
-
-
-
 
 gradino2_vertici = [ [1,1], [6,1], [6,4], [1,4] ];
 gradino2_num_lati = [range(1,5)] 
@@ -266,15 +258,15 @@ gradino4_2D = MKPOL([gradino4_vertici, gradino4_num_lati, None])
 gradino4 = PROD([gradino4_2D, Q(1)])
 gradino4=T([1,3])([-3,3])(gradino4)
 
-
+#Assemblo la scalinata
 scalinata=STRUCT([gradino1,gradino2,gradino3,gradino4])
+
+#La traslo sui 3 assi al centro della parte frontale
 scalinata=T([1,2,3])([14.5,-6,-3])(scalinata)
 
-
-
 #Creo la struttura finale
-two_and_half_Verticalmodel=STRUCT([north,sud,ovest,est])
-mock_up_3D=STRUCT([two_and_half_model,two_and_half_Verticalmodel])
-struct=STRUCT([mock_up_3D,scalinata])
-VIEW(struct)
+Vertical_model=STRUCT([north,sud,ovest,est])
+solid_model_3D=STRUCT([Orizontal_model,Vertical_model])
+Partenone_stairs=STRUCT([solid_model_3D,scalinata])
+VIEW(Partenone_stairs)
 

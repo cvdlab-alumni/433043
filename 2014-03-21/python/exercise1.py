@@ -46,11 +46,11 @@ base4_2D = COLOR(rgbToPlasmColor([128,128,128]))(base4_2D)
 
 
 #Creo il tetto frontale
-
 tetto1_vertici = [ [0,13], [33,13], [16.5,22.7], ];
 tetto1_num_lati = [range(1,4)] 
 tetto1_2D = MKPOL([tetto1_vertici, tetto1_num_lati, None])
 
+#Coloro
 tetto1_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto1_2D)
 
 #Creo la struttura 
@@ -59,6 +59,7 @@ floor1=STRUCT([base1_2D,base2_2D,base3_2D,base4_2D,tetto1_2D])
 
 
 #CREAZIONE PARTE POSTERIORE
+
 #Creazione della base posteriore
 base5_2D = MKPOL([base1_vertici, base1_num_lati, None])
 
@@ -91,9 +92,9 @@ base8_2D = COLOR(rgbToPlasmColor([128,128,128]))(base8_2D)
 
 
 #Creo il tetto posteriore
-
 tetto2_2D = MKPOL([tetto1_vertici, tetto1_num_lati, None])
 
+#Coloro
 tetto2_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto2_2D)
 
 
@@ -101,9 +102,8 @@ tetto2_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto2_2D)
 floor2=STRUCT([base5_2D,base6_2D,base7_2D,base8_2D,tetto2_2D])
 
 
-
-
 #CREO LA PARTE SX
+
 #Creo la prima base sx
 base1sx_vertici = [ [0,0], [69,0], [69,1], [0,1] ];
 base1sx_num_lati = [range(1,5)] 
@@ -144,13 +144,13 @@ base4sx_2D = COLOR(rgbToPlasmColor([128,128,128]))(base4sx_2D)
 
 
 #Creo il tetto sx
-
 tetto1sx_vertici = [ [0,13], [0,32.3], [69,32.3],[69,13] ];
 tetto1sx_num_lati = [range(1,5)] 
 tetto1sx_2D = MKPOL([tetto1sx_vertici, tetto1sx_num_lati, None])
 tetto1sx_2D = ROTATE([2,3])(-PI/3)(tetto1sx_2D)
 tetto1sx_2D=T([2,3])([6.5,11.5])(tetto1sx_2D)
 
+#Coloro
 tetto1sx_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto1sx_2D)
 
 #Creo la struttura SX
@@ -159,6 +159,7 @@ floor3=STRUCT([base1sx_2D,base2sx_2D,base3sx_2D,base4sx_2D,tetto1sx_2D])
 
 
 #CREO LA PARTE DX
+
 #Creo la base dx
 base1dx_2D = MKPOL([base1sx_vertici, base1sx_num_lati, None])
 
@@ -190,8 +191,7 @@ base4dx_2D = MKPOL([base4sx_vertici, base4sx_num_lati, None])
 base4dx_2D = COLOR(rgbToPlasmColor([128,128,128]))(base4dx_2D)
 
 
-#Creo il tetto
-
+#Creo il tetto della parte DX
 tetto1dx_2D = MKPOL([tetto1sx_vertici, tetto1sx_num_lati, None])
 tetto1dx_2D = ROTATE([2,3])(PI/3)(tetto1dx_2D)
 tetto1dx_2D=T([2,3])([6.5,-11.5])(tetto1dx_2D)
@@ -217,9 +217,12 @@ floor7= MKPOL([base5_vertici, base5_num_lati, None])
 
 #CREO LA TRUTTURA 2.5D
 floor2=T([3])(69)(floor2)
+
 floor3=ROTATE([1,3])(PI/2)(floor3)
+
 floor4=ROTATE([1,3])(PI/2)(floor4)
 floor4=T([1,3])(33)(floor4)
+
 floor5=ROTATE([2,3])(PI/2)(floor5)
 floor5=T(2)(3)(floor5)
 
@@ -228,4 +231,5 @@ floor6=T(2)(12)(floor6)
 
 floor7=ROTATE([2,3])(PI/2)(floor7)
 
+#Struttura finale
 two_and_half_model=STRUCT([floor1,floor2,floor3,floor4,floor5,floor6,floor7])
