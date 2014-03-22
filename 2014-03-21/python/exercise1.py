@@ -60,9 +60,7 @@ floor1=STRUCT([base1_2D,base2_2D,base3_2D,base4_2D,tetto1_2D])
 
 #CREAZIONE PARTE POSTERIORE
 #Creazione della base posteriore
-base5_vertici = [ [0,0], [33,0], [0,1], [33,1] ];
-base5_num_lati = [range(1,5)] 
-base5_2D = MKPOL([base5_vertici, base5_num_lati, None])
+base5_2D = MKPOL([base1_vertici, base1_num_lati, None])
 
 
 #Coloro 
@@ -70,9 +68,7 @@ base5_2D = COLOR(rgbToPlasmColor([210,210,210]))(base5_2D)
 
 
 #Creo la seconda base posteriore
-base6_vertici = [ [0,1], [33,1], [33,2], [0,2] ];
-base6_num_lati = [range(1,5)] 
-base6_2D = MKPOL([base6_vertici, base6_num_lati, None])
+base6_2D = MKPOL([base2_vertici, base2_num_lati, None])
 
 
 #Coloro 
@@ -80,19 +76,15 @@ base6_2D = COLOR(rgbToPlasmColor([147,147,147]))(base6_2D)
 
 
 #Creo la terza base su cui poggeranno le colonne posteriori
-base7_vertici = [ [0,2], [33,2], [33,3], [0,3] ];
-base7_num_lati = [range(1,5)] 
-base7_2D = MKPOL([base7_vertici, base7_num_lati, None])
+base7_2D = MKPOL([base3_vertici, base3_num_lati, None])
 
 
 #Coloro 
 base7_2D = COLOR(rgbToPlasmColor([95,95,95]))(base7_2D)
 
 
-#Creo la la  base posizionata sotto il tetto posteriore
-base8_vertici =  [ [0,12], [33,12], [33,13], [0,13] ]; 
-base8_num_lati = [range(1,5)] 
-base8_2D = MKPOL([base8_vertici, base8_num_lati, None])
+#Creo la la  base posizionata sotto il tetto posteriore 
+base8_2D = MKPOL([base4_vertici, base4_num_lati, None])
 
 #Coloro 
 base8_2D = COLOR(rgbToPlasmColor([128,128,128]))(base8_2D)
@@ -100,9 +92,7 @@ base8_2D = COLOR(rgbToPlasmColor([128,128,128]))(base8_2D)
 
 #Creo il tetto posteriore
 
-tetto2_vertici = [ [0,13], [33,13], [16.5,22.7], ];
-tetto2_num_lati = [range(1,4)] 
-tetto2_2D = MKPOL([tetto2_vertici, tetto2_num_lati, None])
+tetto2_2D = MKPOL([tetto1_vertici, tetto1_num_lati, None])
 
 tetto2_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto2_2D)
 
@@ -170,9 +160,7 @@ floor3=STRUCT([base1sx_2D,base2sx_2D,base3sx_2D,base4sx_2D,tetto1sx_2D])
 
 #CREO LA PARTE DX
 #Creo la base dx
-base1dx_vertici = [ [0,0], [69,0], [69,1], [0,1] ];
-base1dx_num_lati = [range(1,5)] 
-base1dx_2D = MKPOL([base1dx_vertici, base1dx_num_lati, None])
+base1dx_2D = MKPOL([base1sx_vertici, base1sx_num_lati, None])
 
 
 #Coloro Grigio 20%
@@ -180,9 +168,7 @@ base1dx_2D = COLOR(rgbToPlasmColor([210,210,210]))(base1dx_2D)
 
 
 #Creo la seconda base dx
-base2dx_vertici = [ [0,1], [69,1], [69,2], [0,2] ];
-base2dx_num_lati = [range(1,5)] 
-base2dx_2D = MKPOL([base2dx_vertici, base2dx_num_lati, None])
+base2dx_2D = MKPOL([base2sx_vertici, base2sx_num_lati, None])
 
 
 #Coloro 
@@ -190,9 +176,7 @@ base2dx_2D = COLOR(rgbToPlasmColor([147,147,147]))(base2dx_2D)
 
 
 #Creo la terza base su cui poggeranno le colonne dx
-base3dx_vertici = [ [0,2], [69,2], [69,3], [0,3] ];
-base3dx_num_lati = [range(1,5)] 
-base3dx_2D = MKPOL([base3dx_vertici, base3dx_num_lati, None])
+base3dx_2D = MKPOL([base3sx_vertici, base3sx_num_lati, None])
 
 
 #Coloro 
@@ -200,9 +184,7 @@ base3dx_2D = COLOR(rgbToPlasmColor([95,95,95]))(base3dx_2D)
 
 
 #Creo la la  base posizionata sotto il tetto dx
-base4dx_vertici =  [ [0,12], [69,12], [69,13], [0,13] ]; 
-base4dx_num_lati = [range(1,5)] 
-base4dx_2D = MKPOL([base4dx_vertici, base4dx_num_lati, None])
+base4dx_2D = MKPOL([base4sx_vertici, base4sx_num_lati, None])
 
 #Coloro 	
 base4dx_2D = COLOR(rgbToPlasmColor([128,128,128]))(base4dx_2D)
@@ -210,9 +192,7 @@ base4dx_2D = COLOR(rgbToPlasmColor([128,128,128]))(base4dx_2D)
 
 #Creo il tetto
 
-tetto1dx_vertici = [ [0,13], [0,32.3], [69,32.3],[69,13] ];
-tetto1dx_num_lati = [range(1,5)] 
-tetto1dx_2D = MKPOL([tetto1dx_vertici, tetto1dx_num_lati, None])
+tetto1dx_2D = MKPOL([tetto1sx_vertici, tetto1sx_num_lati, None])
 tetto1dx_2D = ROTATE([2,3])(PI/3)(tetto1dx_2D)
 tetto1dx_2D=T([2,3])([6.5,-11.5])(tetto1dx_2D)
 tetto1dx_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto1dx_2D)
@@ -220,12 +200,32 @@ tetto1dx_2D = COLOR(rgbToPlasmColor([147,147,147]))(tetto1dx_2D)
 #Creo la struttura dx
 floor4=STRUCT([base1dx_2D,base2dx_2D,base3dx_2D,base4dx_2D,tetto1dx_2D])
 
+#Creo il piano dove poggiano le colonne
+base5_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
+base5_num_lati = [range(1,5)] 
+floor5 = MKPOL([base5_vertici, base5_num_lati, None])
+floor5 = COLOR(rgbToPlasmColor([95,95,95]))(floor5)
+
+
+
+#Creo il piano superiore del tetto
+floor6= MKPOL([base5_vertici, base5_num_lati, None])
+
+#Creo il piamo inferiore
+floor7= MKPOL([base5_vertici, base5_num_lati, None])
+
 
 #CREO LA TRUTTURA 2.5D
 floor2=T([3])(69)(floor2)
 floor3=ROTATE([1,3])(PI/2)(floor3)
 floor4=ROTATE([1,3])(PI/2)(floor4)
 floor4=T([1,3])(33)(floor4)
+floor5=ROTATE([2,3])(PI/2)(floor5)
+floor5=T(2)(3)(floor5)
 
-two_and_half_model=STRUCT([floor1,floor2,floor3,floor4])
-VIEW(two_and_half_model)
+floor6=ROTATE([2,3])(PI/2)(floor6)
+floor6=T(2)(12)(floor6)
+
+floor7=ROTATE([2,3])(PI/2)(floor7)
+
+two_and_half_model=STRUCT([floor1,floor2,floor3,floor4,floor5,floor6,floor7])
