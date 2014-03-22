@@ -204,7 +204,7 @@ floor4=STRUCT([base1dx_2D,base2dx_2D,base3dx_2D,base4dx_2D,tetto1dx_2D])
 base5_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
 base5_num_lati = [range(1,5)] 
 floor5 = MKPOL([base5_vertici, base5_num_lati, None])
-floor5 = COLOR(rgbToPlasmColor([210,210,210]))(floor5)
+floor5 = COLOR(rgbToPlasmColor([255,255,255]))(floor5)
 
 
 
