@@ -79,7 +79,7 @@ floor5=T([3])([18])(floor5)
 floor5 = COLOR(rgbToPlasmColor([147,147,147]))(floor5)
 
 #Creo la struttura 2,5D
-two_and_half_model=STRUCT([floor1,floor2,floor3,floor4,floor5])
+Orizontal_model=STRUCT([floor1,floor2,floor3,floor4,floor5])
 
 #Creo una funzione per la circonferenza delle colonne esterne
 def base(p): 
@@ -240,7 +240,7 @@ est=STRUCT([colonne_dx,mura2])
 
 
 #Creo la struttura finale
-two_and_half_Verticalmodel=STRUCT([north,sud,ovest,est])
-mock_up_3D=STRUCT([two_and_half_model,two_and_half_Verticalmodel])
-VIEW(mock_up_3D)
+Vertical_model=STRUCT([north,sud,ovest,est])
+solid_model_3D=STRUCT([Orizontal_model,Vertical_model])
+VIEW(solid_model_3D)
 
