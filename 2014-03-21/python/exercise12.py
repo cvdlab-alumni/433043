@@ -1,3 +1,6 @@
+#Creazione Struttura mock_up_3D
+
+
 from pyplasm import*
 
 #Creo una funzione per convertire colori RGB in Plasm
