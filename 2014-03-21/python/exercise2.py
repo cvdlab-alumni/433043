@@ -304,6 +304,6 @@ murAnt_2=COLOR(rgbToPlasmColor([95,95,95]))(murAnt_2)
 north=STRUCT([colonne_ant,colonne_int,colonne_post,murAnt_1,murAnt_2])
 
 
- 
-VIEW(STRUCT([exercise1.two_and_half_model,north,sud,est,ovest]))
+mock_up_3D=STRUCT([exercise1.two_and_half_model,north,sud,est,ovest])
+VIEW(mock_up_3D)
 
