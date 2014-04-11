@@ -1,4 +1,4 @@
-import strutturaImport
+import partenoneImport 
 from pyplasm import*
 
 #Creo una funzione per convertire colori RGB in Plasm
@@ -12,7 +12,7 @@ base = PROD([base_25D, Q(90)])
 base=ROTATE([2,3])(-PI/2)(base)
 base=T(3)(11)(base)
 base=COLOR(rgbToPlasmColor([3,192,60]))(base)
-strutturaImport.solid_model_3D=T([1,2,3])([8,10,11])(strutturaImport.solid_model_3D)
+partenoneImport.solid_model_3D=T([1,2,3])([8,10,11])(partenoneImport.solid_model_3D)
 
 
 prato_vertici = [ [0,0], [150,0], [0,150], [150,150] ];
@@ -20,7 +20,7 @@ prato_num_lati = [range(1,5)]
 prato_25D = MKPOL([prato_vertici, prato_num_lati, None])
 prato = PROD([prato_25D, Q(1)])
 prato=COLOR(rgbToPlasmColor([107,142,35]))(prato)
-partenone=STRUCT([strutturaImport.solid_model_3D,base])
+partenone=STRUCT([partenoneImport.solid_model_3D,base])
 partenone=T([1,2])([5,50])(partenone)
 
 
@@ -253,7 +253,7 @@ villa=T(2)(20)(villa)
 
 T3=T(1)(25)
 complessoVille=STRUCT(NN(4)([T3, villa]))
-complessoVille=T([1,3])([30,1])(complessoVille)
+complessoVille=T([1,3])([20,1])(complessoVille)
 
 
 
