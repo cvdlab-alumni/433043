@@ -121,7 +121,33 @@ piano_25D = MKPOL([piano_vertici, piano_num_lati, None])
 piano = PROD([piano_25D, Q(0.5)])
 piano=T(1)(-20)(piano)
 
-piano = COLOR(rgbToPlasmColor([192,192,192]))(piano)
+piano = COLOR(rgbToPlasmColor([85,104,50]))(piano)
+
+pianta= CUBOID([1.5,1,1])
+Tp=T(1)(2.01)
+piante1=STRUCT(NN(30)([Tp, pianta]))
+piante1=T([1,3])([-22,0.3])(piante1)
+
+piante2=STRUCT(NN(30)([Tp, pianta]))
+piante2=T([1,2,3])([-22,39,0.3])(piante2)
+
+piante3=STRUCT(NN(20)([Tp, pianta]))
+piante3=ROTATE([1,2])(PI/2)(piante3)
+piante3=T([1,2,3])([-19,-2,0.3])(piante3)
+
+piante4=STRUCT(NN(20)([Tp, pianta]))
+piante4=ROTATE([1,2])(PI/2)(piante4)
+piante4=T([1,2,3])([40,-2,0.3])(piante4)
+
+piante=STRUCT([piante1,piante2,piante3,piante4])
+piante = COLOR(rgbToPlasmColor([128,128,0]))(piante)
+
+
+piano=STRUCT([piano,piante])
+
+
+
+
 
 base_vertici = [ [0,0], [10,0], [0,10], [10,10] ];
 base_num_lati = [range(1,5)] 
@@ -169,6 +195,11 @@ terrazzo=ROTATE([1,2])(PI/2)(terrazzo)
 terrazzo=T([1,2,3])([12.1,1,1])(terrazzo)
 
 
+
+
+
+
+
 palazzo_temp=STRUCT([porta1,base,fin,terrazzo])
 palazzo_temp=T([1,2,3])([2.5,2.5,0.5])(palazzo_temp)
 
@@ -204,6 +235,24 @@ plinti4 = COLOR(rgbToPlasmColor([255,140,105]))(plinti4)
 plinti5=STRUCT([plinti3,plinti4])
 
 base=STRUCT([plintiT,plinti5])
+
+#Creo una siepe
+
+pianta= CUBOID([1.5,1,1])
+Tp=T(1)(2)
+piante1=STRUCT(NN(8)([Tp, pianta]))
+piante1=T([1,3])([-2,0.2])(piante1)
+
+piante2=STRUCT(NN(8)([Tp, pianta]))
+piante2=ROTATE([1,2])(-PI/2)(piante2)
+piante2=T([1,2,3])([15,17.5,0.2])(piante2)
+
+piante1 = COLOR(rgbToPlasmColor([85,104,50]))(piante1)
+piante2 = COLOR(rgbToPlasmColor([85,104,50]))(piante2)
+
+base=STRUCT([base,piante1,piante2])
+
+
 
 #Creo la struttura base della casa
 casa_vertici = [ [0,0], [10,0], [0,5], [10,5] ];
@@ -309,7 +358,40 @@ panchine=STRUCT(NN(2)([Tc, panchina]))
 panchine=T([1,2,3])([-1,12,0.2])(panchine)
 panchine=ROTATE([1,2])(-PI/4)(panchine)
 panchine = COLOR(rgbToPlasmColor([123,27,2]))(panchine)
-villa=STRUCT([villa,panchine])
+
+
+#Creo un tavolino
+tav1 = CYLINDER([0.3, (10.0/12)*0.1])(150)
+tav1 = COLOR(rgbToPlasmColor([123,27,2]))(tav1)
+
+tav2 = CYLINDER([1, (10.0/12)*0.1])(150)
+tav2 = COLOR(rgbToPlasmColor([123,27,2]))(tav2)
+tav2=T(3)(1.1)(tav2)
+
+bas1 = CYLINDER([0.05, (10.0/12)*1.1])(150)
+bas1 = COLOR(rgbToPlasmColor([123,27,2]))(bas1)
+bas1=T(3)(0.1)(bas1)
+
+tavolo=STRUCT([tav1,tav2,bas1])
+tavolo=T([1,2,3])([10,5,0.2])(tavolo)
+
+#Creo un cestino
+cest1 = CYLINDER([0.5, (10.0/12)*1])(150)
+cest1 = COLOR(rgbToPlasmColor([123,27,2]))(cest1)
+
+cest2 = CYLINDER([0.3, (10.0/12)*0.8])(150)
+cest2=T(3)(0.2)(cest2)
+
+cestino=DIFFERENCE([cest1,cest2])
+cestino=COLOR(rgbToPlasmColor([218,253,218]))(cestino)
+cestino=T([1,2,3])([3,3,0.2])(cestino)
+
+
+
+
+
+
+villa=STRUCT([villa,panchine,tavolo,cestino])
 
 villa=T(3)(0.3)(villa)
 villa=T(2)(18)(villa)
@@ -317,6 +399,8 @@ villa=T(2)(18)(villa)
 T3=T(1)(28)
 complessoVille=STRUCT(NN(5)([T3, villa]))
 complessoVille=T([1,2,3])([-19,2,1])(complessoVille)
+
+
 
 #Creo un altro edificio
 base2_vertici = [ [0,0], [20,0], [0,20], [20,20] ];
