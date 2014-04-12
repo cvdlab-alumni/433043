@@ -261,8 +261,128 @@ fermata2=T([1,2,3])([113,30,1])(fermata2)
 fermata3=STRUCT([fermata_t,piazzola,panchina])
 fermata3=T([1,2,3])([83,103,1])(fermata3)
 
+fermate=STRUCT([fermata1,fermata2,fermata3])
 
-urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni,fermata1,fermata2,fermata3])
+
+
+#Creo la struttura di una macchina
+
+car1=CUBOID([2,1,0.2])
+
+
+car2_vertici = [ [1.5,0], [1.5,1.5], [2,0.3], [2,0.6] ];
+car2_num_lati = [range(1,5)] 
+car2_25D = MKPOL([car2_vertici, car2_num_lati, None])
+car2 = PROD([car2_25D, Q(1)])
+car2=ROTATE([1,3])(PI/2)(car2)
+car2=ROTATE([1,2])(PI/2)(car2)
+car2=T([1,2,3])([1.8,1,-1.3])(car2)
+
+car_base=STRUCT([car1,car2])
+
+Tcar1 = T(1)(1.6)
+Tcar2 = T(2)(0.9)
+
+ruota = CYLINDER([0.2, (10.0/12)*0.2])(50)
+ruota=ROTATE([2,3])(PI/2)(ruota)
+
+ruote=STRUCT(NN(2)([Tcar1, STRUCT(NN(2)([Tcar2, ruota]))]))
+ruote=T([1,2,3])([-1.4,-0.78,-0.1])(ruote)
+
+
+parab_vertici = [ [0,0], [0.3,0], [0,0.8], [0.3,0.8] ];
+parab_num_lati = [range(1,5)] 
+parab_25D = MKPOL([parab_vertici, parab_num_lati, None])
+parab = PROD([parab_25D, Q(0.1)])
+parab=ROTATE([1,3])(PI/6)(parab)
+parab=T([1,2,3])([0.70,0.1,0.32])(parab)
+
+antenna=CYLINDER([0.005, (10.0/12)*0.5])(100)
+antenna=T([1,2,3])([1.9,0.2,0.1])(antenna)
+
+finestrino_vertici = [ [0,0], [0.3,0.3], [0.3,0]];
+finestrino_num_lati = [range(1,4)] 
+finestrino_25D = MKPOL([finestrino_vertici, finestrino_num_lati, None])
+finestrino = PROD([finestrino_25D, Q(0.1)])
+finestrino=ROTATE([2,3])(PI/2)(finestrino)
+
+T1 = T(2)(0.95)
+
+finestrini=STRUCT(NN(2)([T1, finestrino]))
+
+
+finestrini=T([1,2,3])([0.90,-0.88,0.32])(finestrini)
+
+
+
+luceC = CYLINDER([0.1, (10.0/12)*0.1])(50)
+Tluce = T(1)(0.5)
+luciC=STRUCT(NN(2)([Tluce, luceC]))
+luciC=ROTATE([2,3])(PI/2)(luciC)
+luciC=ROTATE([1,2])(PI/2)(luciC)
+
+
+luciC=T([1,2,3])([-0.01,-0.25,0.1])(luciC)
+
+marmitta = CYLINDER([0.01, (10.0/12)*0.3])(50)
+marmitta= ROTATE([1,3])(PI/2)(marmitta)
+marmitta=T([1,2,3])([2.1,0.2,0.1])(marmitta)
+
+car_base = COLOR(rgbToPlasmColor([255,0,0]))(car_base)
+ruote = COLOR(rgbToPlasmColor([0,0,0]))(ruote)
+antenna = COLOR(rgbToPlasmColor([0,0,0]))(antenna)
+parab = COLOR(rgbToPlasmColor([70,130,180]))(parab)
+finestrini = COLOR(rgbToPlasmColor([70,130,180]))(finestrini)
+luciC = COLOR(rgbToPlasmColor([255,255,102]))(luciC)
+marmitta = COLOR(rgbToPlasmColor([0,0,0]))(marmitta)
+
+#Creo un insieme di macchine
+
+car=STRUCT([car_base,ruote,parab,antenna,finestrini,luciC,marmitta])
+car=T([1,2,3])([80,115,3])(car)
+car3=STRUCT([car_base,ruote,parab,antenna,finestrini,luciC,marmitta])
+car3=T([1,2,3])([80,117,3])(car3)
+car4=STRUCT([car_base,ruote,parab,antenna,finestrini,luciC,marmitta])
+car4=T([1,2,3])([80,119,3])(car4)
+car5=STRUCT([car_base,ruote,parab,antenna,finestrini,luciC,marmitta])
+car5=T([1,2,3])([80,121,3])(car5)
+car6=STRUCT([car_base,ruote,parab,antenna,finestrini,luciC,marmitta])
+car6=T([1,2,3])([80,123,3])(car6)
+
+#Le posiziono nel parcheggio delll'edificio
+cars1=STRUCT([car,car3,car4,car5,car6])
+Tcar3=T(1)(5)
+cars2=STRUCT(NN(3)([Tcar3, cars1]))
+cars2=T(1)(-16)(cars2)
+
+
+#Creo un'altra tipologia di macchina
+car7=CUBOID([2,1,0.2])
+
+
+car8_vertici = [ [1.5,0], [1.5,1.5], [2,0.3], [2,0.6] ];
+car8_num_lati = [range(1,5)] 
+car8_25D = MKPOL([car8_vertici, car8_num_lati, None])
+car8 = PROD([car8_25D, Q(1)])
+car8=ROTATE([1,3])(PI/2)(car8)
+car8=ROTATE([1,2])(PI/2)(car8)
+car8=T([1,2,3])([1.8,1,-1.3])(car8)
+
+#La duplico
+car_base2=STRUCT([car7,car8])
+car_base2 = COLOR(rgbToPlasmColor([255,216,0]))(car_base2)
+car9=STRUCT([car_base2,ruote,parab,antenna,finestrini,luciC,marmitta])
+
+Tcar4=T(2)(3)
+cars3=STRUCT(NN(4)([Tcar4, car9]))
+cars3=T([1,2,3])([57.2,20,1.5])(cars3)
+
+#Creo un parcheggio
+parcheggio=CUBOID([5,13,0.2])
+parcheggio=T([1,2,3])([56.4,21,1])(parcheggio)
+
+#Creo la struttura finale
+urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni,fermate,cars2,cars3,parcheggio])
 
 
 VIEW(urban)
