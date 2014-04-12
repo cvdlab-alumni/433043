@@ -334,6 +334,7 @@ mura5=ROTATE([1,2])(PI/2)(mura5)
 mura5 = COLOR(rgbToPlasmColor([178,178,178]))(mura5)
 
 mura_frontali=STRUCT([mura4,mura5])
+mura_frontali=T(2)(-6)(mura_frontali)
 
 #Creo la struttua frontale
 north=STRUCT([colonne_frontali,colonne_int_frontali,mura_frontali])
@@ -352,17 +353,16 @@ mura3_num_lati = [range(1,5)]
 mura3_2D = MKPOL([mura3_vertici, mura3_num_lati, None])
 mura3 = PROD([mura3_2D, Q(12)])
 
-mura3=T([1,2,3])([50,-26.5,3])(mura3)
+mura3=T([1,2,3])([44,-26.5,3])(mura3)
 mura3=ROTATE([1,2])(PI/2)(mura3)
 mura3 = COLOR(rgbToPlasmColor([178,178,178]))(mura3)
 
 #CREO LE MURA POSTERIORI.CODICE AGIGUNTO RISPETTO AL PRIMO HW
 mura_posteriori=STRUCT([mura4,mura5])
-mura_posteriori=T(2)(33)(mura_posteriori)
+mura_posteriori=T([2])([32])(mura_posteriori)
 
 #Creo la struttura posteriore
 sud=STRUCT([colonne_posteriori,colonne_int_posteriori,mura3,mura_posteriori])
-
 #Creo le colonne esterne sx e le posiziono
 colonne_sx=STRUCT(NN(15)(colonne_temp))
 colonne_sx=ROTATE([1,2])(PI/2)(colonne_sx)
