@@ -121,7 +121,33 @@ piano_25D = MKPOL([piano_vertici, piano_num_lati, None])
 piano = PROD([piano_25D, Q(0.5)])
 piano=T(1)(-20)(piano)
 
-piano = COLOR(rgbToPlasmColor([192,192,192]))(piano)
+piano = COLOR(rgbToPlasmColor([85,104,50]))(piano)
+
+pianta= CUBOID([1.5,1,1])
+Tp=T(1)(2.01)
+piante1=STRUCT(NN(30)([Tp, pianta]))
+piante1=T([1,3])([-22,0.3])(piante1)
+
+piante2=STRUCT(NN(30)([Tp, pianta]))
+piante2=T([1,2,3])([-22,39,0.3])(piante2)
+
+piante3=STRUCT(NN(20)([Tp, pianta]))
+piante3=ROTATE([1,2])(PI/2)(piante3)
+piante3=T([1,2,3])([-19,-2,0.3])(piante3)
+
+piante4=STRUCT(NN(20)([Tp, pianta]))
+piante4=ROTATE([1,2])(PI/2)(piante4)
+piante4=T([1,2,3])([40,-2,0.3])(piante4)
+
+piante=STRUCT([piante1,piante2,piante3,piante4])
+piante = COLOR(rgbToPlasmColor([128,128,0]))(piante)
+
+
+piano=STRUCT([piano,piante])
+
+
+
+
 
 base_vertici = [ [0,0], [10,0], [0,10], [10,10] ];
 base_num_lati = [range(1,5)] 
@@ -167,6 +193,11 @@ terrazzo=STRUCT([terr,finTerr])
 terrazzo=STRUCT(NN(5)([Tterr, terrazzo]))
 terrazzo=ROTATE([1,2])(PI/2)(terrazzo)
 terrazzo=T([1,2,3])([12.1,1,1])(terrazzo)
+
+
+
+
+
 
 
 palazzo_temp=STRUCT([porta1,base,fin,terrazzo])
