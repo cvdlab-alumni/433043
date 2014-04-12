@@ -79,7 +79,7 @@ deco3_temp=T([1,2,3])([1,0.7,16.3])(deco3_temp)
 deco3_temp=ROTATE([1,2])(PI/2)(deco3_temp)
 deco3_temp=T(1)(1.7)(deco3_temp)
 
-deco7_vertici =  [ [0,0], [66.7,0], [0,2.7], [66.7,2.7] ]; 
+deco7_vertici =  [ [0.3,0.3], [66.7,0.3], [0.3,2.7], [66.7,2.7] ]; 
 deco7_num_lati = [range(1,5)] 
 deco7_2D = MKPOL([deco7_vertici, deco7_num_lati, None])
 deco7_temp = PROD([deco7_2D, Q(0.3)])
@@ -109,6 +109,52 @@ deco8_temp=T(1)(33)(deco8_temp)
 deco4=DIFFERENCE([deco4_temp,deco8_temp])
 deco4=COLOR(rgbToPlasmColor([79,79,79]))(deco4)
 
+#Creo le rifiniture interne
+
+pl1=CUBOID([0.1,0.3,1.8])
+
+pl2=CUBOID([0.1,0.3,1.8])
+pl2=T(1)(0.3)(pl2)
+
+pl3=CUBOID([0.1,0.3,1.8])
+pl3=T(1)(0.6)(pl3)
+
+pl4=CUBOID([0.9,0.3,0.3])
+pl4=T([1,3])([-0.1,1.8])(pl4)
+
+pl=STRUCT([pl1,pl2,pl3,pl4])
+
+
+TF=T(1)(2)
+plF=STRUCT(NN(15)([TF, pl]))
+plF=T([2,3])([0.5,16.8])(plF)
+plF = COLOR(rgbToPlasmColor([95,95,95]))(plF)
+
+plF2=STRUCT(NN(15)([TF, pl]))
+plF2=T([2,3])([68,16.8])(plF2)
+plF2 = COLOR(rgbToPlasmColor([95,95,95]))(plF2)
+
+plF3=STRUCT(NN(33)([TF, pl]))
+plF3=T([2,3])([0.5,16.8])(plF3)
+plF3 = COLOR(rgbToPlasmColor([95,95,95]))(plF3)
+plF3=ROTATE([1,2])(PI/2)(plF3)
+plF3=T(1)(1)(plF3)
+plF3 = COLOR(rgbToPlasmColor([95,95,95]))(plF3)
+
+plF4=STRUCT(NN(33)([TF, pl]))
+plF4=T([2,3])([0.5,16.8])(plF4)
+plF4 = COLOR(rgbToPlasmColor([95,95,95]))(plF4)
+plF4=ROTATE([1,2])(PI/2)(plF4)
+plF4=T(1)(32.75)(plF4)
+plF4=COLOR(rgbToPlasmColor([95,95,95]))(plF4)
+
+
+
+
+
+
+
+
 #Creo la seconda base posizionata sotto il tetto
 base6_2D = MKPOL([base4_vertici, base4_num_lati, None])
 floor6 = PROD([base6_2D, Q(1)])
@@ -129,7 +175,6 @@ base8_2D = MKPOL([base8_vertici, base8_num_lati, None])
 floor8 = PROD([base8_2D, Q(0.3)])
 
 #Creo il tetto.Approssimato 69x33x5
-from pyplasm import*
 tetto_vertici = [ [0,0], [33,0], [16,5], ];
 tetto_num_lati = [range(1,4)] 
 tetto_2D = MKPOL([tetto_vertici, tetto_num_lati, None])
@@ -180,7 +225,7 @@ floor6=T([1,2,3])([1,1,15])(floor6)
 floor7=T([3])([19.3])(floor7)
 floor8=T([1,2,3])([0.7,0.7,16])(floor8)
 floor8=COLOR(rgbToPlasmColor([210,210,210]))(floor8)
-floor4=STRUCT([floor4,deco1,deco2,deco3,deco4])
+floor4=STRUCT([floor4,deco1,deco2,deco3,deco4,plF,plF2,plF3,plF4])
 floor5=MAP([S1,S3,S2])(floor5)
 floor5=T([3])([19.8])(floor5)
 

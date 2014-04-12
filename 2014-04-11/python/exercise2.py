@@ -57,7 +57,6 @@ deco1_vertici =  [ [0,0], [31,0], [0,3], [31,3] ];
 deco1_num_lati = [range(1,5)] 
 deco1_2D = MKPOL([deco1_vertici, deco1_num_lati, None])
 deco1_temp = PROD([deco1_2D, Q(0.3)])
-
 deco2_temp= PROD([deco1_2D, Q(0.3)])
 
 deco1_temp=MAP([S1,S3,S2])(deco1_temp)
@@ -65,7 +64,6 @@ deco1_temp=T([1,2,3])([1,0.7,16.3])(deco1_temp)
 
 deco2_temp=MAP([S1,S3,S2])(deco2_temp)
 deco2_temp=T([1,2,3])([1,68,16.3])(deco2_temp)
-
 
 deco5_vertici =  [ [0.3,0.3], [30.7,0.3], [0.3,2.7], [30.7,2.7] ]; 
 deco5_num_lati = [range(1,5)] 
@@ -75,14 +73,17 @@ deco5_temp = PROD([deco5_2D, Q(0.3)])
 deco5_temp=MAP([S1,S3,S2])(deco5_temp)
 deco5_temp=T([1,2,3])([1,0.7,16.3])(deco5_temp)
 
+#Differenza per la prima decorazione
 deco1=DIFFERENCE([deco1_temp,deco5_temp])
+deco1=COLOR(rgbToPlasmColor([95,95,95]))(deco1)
 
 deco6_temp= PROD([deco5_2D, Q(0.3)])
 deco6_temp=MAP([S1,S3,S2])(deco6_temp)
 deco6_temp=T([1,2,3])([1,68,16.3])(deco6_temp)
 
+#Differenza per la seconda decorazione
 deco2=DIFFERENCE([deco2_temp,deco6_temp])
-
+deco2=COLOR(rgbToPlasmColor([95,95,95]))(deco2)
 
 deco3_vertici =  [ [0,0], [67,0], [0,3], [67,3] ]; 
 deco3_num_lati = [range(1,5)] 
@@ -94,7 +95,7 @@ deco3_temp=T([1,2,3])([1,0.7,16.3])(deco3_temp)
 deco3_temp=ROTATE([1,2])(PI/2)(deco3_temp)
 deco3_temp=T(1)(1.7)(deco3_temp)
 
-deco7_vertici =  [ [0,0], [66.7,0], [0,2.7], [66.7,2.7] ]; 
+deco7_vertici =  [ [0.3,0.3], [66.7,0.3], [0.3,2.7], [66.7,2.7] ]; 
 deco7_num_lati = [range(1,5)] 
 deco7_2D = MKPOL([deco7_vertici, deco7_num_lati, None])
 deco7_temp = PROD([deco7_2D, Q(0.3)])
@@ -104,8 +105,9 @@ deco7_temp=T([1,2,3])([1,0.7,16.3])(deco7_temp)
 deco7_temp=ROTATE([1,2])(PI/2)(deco7_temp)
 deco7_temp=T(1)(1.7)(deco7_temp)
 
+#Differenza per la terza decorazione
 deco3=DIFFERENCE([deco3_temp,deco7_temp])
-
+deco3=COLOR(rgbToPlasmColor([95,95,95]))(deco3)
 
 deco4_temp=PROD([deco3_2D, Q(0.3)])
 deco4_temp=MAP([S1,S3,S2])(deco4_temp)
@@ -119,9 +121,48 @@ deco8_temp=T([1,2,3])([1,0.7,16.3])(deco8_temp)
 deco8_temp=ROTATE([1,2])(PI/2)(deco8_temp)
 deco8_temp=T(1)(33)(deco8_temp)
 
+#Differenza della quarta decorazione
 deco4=DIFFERENCE([deco4_temp,deco8_temp])
+deco4=COLOR(rgbToPlasmColor([95,95,95]))(deco4)
+
+#Creo le rifiniture interne
+
+pl1=CUBOID([0.1,0.3,1.8])
+
+pl2=CUBOID([0.1,0.3,1.8])
+pl2=T(1)(0.3)(pl2)
+
+pl3=CUBOID([0.1,0.3,1.8])
+pl3=T(1)(0.6)(pl3)
+
+pl4=CUBOID([0.9,0.3,0.3])
+pl4=T([1,3])([-0.1,1.8])(pl4)
+
+pl=STRUCT([pl1,pl2,pl3,pl4])
 
 
+TF=T(1)(2)
+plF=STRUCT(NN(15)([TF, pl]))
+plF=T([2,3])([0.5,16.8])(plF)
+plF = COLOR(rgbToPlasmColor([95,95,95]))(plF)
+
+plF2=STRUCT(NN(15)([TF, pl]))
+plF2=T([2,3])([68,16.8])(plF2)
+plF2 = COLOR(rgbToPlasmColor([95,95,95]))(plF2)
+
+plF3=STRUCT(NN(33)([TF, pl]))
+plF3=T([2,3])([0.5,16.8])(plF3)
+plF3 = COLOR(rgbToPlasmColor([95,95,95]))(plF3)
+plF3=ROTATE([1,2])(PI/2)(plF3)
+plF3=T(1)(1)(plF3)
+plF3 = COLOR(rgbToPlasmColor([95,95,95]))(plF3)
+
+plF4=STRUCT(NN(33)([TF, pl]))
+plF4=T([2,3])([0.5,16.8])(plF4)
+plF4 = COLOR(rgbToPlasmColor([95,95,95]))(plF4)
+plF4=ROTATE([1,2])(PI/2)(plF4)
+plF4=T(1)(32.75)(plF4)
+plF4=COLOR(rgbToPlasmColor([95,95,95]))(plF4)
 
 #Creo la seconda base posizionata sotto il tetto
 base6_2D = MKPOL([base4_vertici, base4_num_lati, None])
@@ -170,7 +211,6 @@ dec2_num_lati = [range(1,4)]
 dec2_2D = MKPOL([dec2_vertici, dec2_num_lati, None])
 dec2 = PROD([dec2_2D, Q(0.5)])
 
-
 dec2=MAP([S1,S3,S2])(dec2)
 dec2=T([2,3])([-0.4,19.5])(dec2)
 
@@ -187,13 +227,11 @@ dec4_2D = MKPOL([dec2_vertici, dec2_num_lati, None])
 dec4 = PROD([dec4_2D, Q(0.5)])
 dec4 = COLOR(rgbToPlasmColor([210,210,210]))(dec4)
 
-
 dec4=MAP([S1,S3,S2])(dec4)
 dec4=T([2,3])([69,19.5])(dec4)
 
 dec5 = DIFFERENCE([dec3,dec4])
 dec5 = COLOR(rgbToPlasmColor([210,210,210]))(dec5)
-
 
 
 
@@ -205,7 +243,7 @@ floor6=T([1,2,3])([1,1,15])(floor6)
 floor7=T([3])([19.3])(floor7)
 floor8=T([1,2,3])([0.7,0.7,16])(floor8)
 floor8=COLOR(rgbToPlasmColor([210,210,210]))(floor8)
-floor4=STRUCT([floor4,deco1,deco2,deco3,deco4])
+floor4=STRUCT([floor4,deco1,deco2,deco3,deco4,plF,plF2,plF3,plF4])
 floor5=MAP([S1,S3,S2])(floor5)
 floor5=T([3])([19.8])(floor5)
 
