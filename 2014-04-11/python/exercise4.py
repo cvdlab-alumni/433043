@@ -186,7 +186,15 @@ T3=T(1)(15)
 lampioni4=STRUCT(NN(4)([T3, lampione_temp1]))
 lampioni4=T([1,2,3])([80,56,1])(lampioni4)
 
-urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni1,lampioni2,lampioni3,lampioni4])
+
+
+T3=T(1)(16)
+lampioni5=STRUCT(NN(9)([T3, lampione_temp1]))
+lampioni5=T([1,2,3])([-11,37,1])(lampioni5)
+
+lampioni=STRUCT([lampioni1,lampioni2,lampioni3,lampioni4,lampioni5])
+
+urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni])
 
 
 VIEW(urban)
