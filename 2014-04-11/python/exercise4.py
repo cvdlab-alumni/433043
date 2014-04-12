@@ -83,7 +83,65 @@ T4=T(2)(10)
 alberi3=STRUCT(NN(10)([T4, albero]))
 alberi3=T([1,2,3])([56,45,1])(alberi3)
 
-alberi=STRUCT([alberi1,alberi2,alberi3])
+#Creo un altra tipologia di alberi
+
+tronco1 = CYLINDER([1, (10.0/12)*5])(50)
+tronco1 = COLOR(rgbToPlasmColor([101, 67, 33]))(tronco1)
+foglie1 = SPHERE(3)([60,60])
+foglie1 = COLOR(rgbToPlasmColor([1,50,32]))(foglie1)
+
+foglie1 = T(3)(4)(foglie1)
+alberoP = STRUCT([tronco1,foglie1])
+
+
+
+TA=T(1)(10)
+alberi4=STRUCT(NN(3)([TA, alberoP]))
+alberi4=T([1,2,3])([-2,5,1])(alberi4)
+
+alberi5=STRUCT(NN(3)([TA, alberoP]))
+alberi5=T([1,2,3])([29,5,1])(alberi5)
+
+TB=T(1)(9)
+alberi6=STRUCT(NN(3)([TB, alberoP]))
+alberi6=T([1,2,3])([58,5,1])(alberi6)
+
+alberi7=STRUCT(NN(3)([TA, alberoP]))
+alberi7=T([1,2,3])([84,5,1])(alberi7)
+
+alberi8=STRUCT(NN(3)([TA, alberoP]))
+alberi8=T([1,2,3])([115,5,1])(alberi8)
+
+TR=T(2)(8)
+alberi9=STRUCT(NN(3)([TA, STRUCT(NN(2)([TR, alberoP]))]))
+alberi9=T([1,2,3])([84,36,1])(alberi9)
+
+tronco2 = CYLINDER([0.5, (10.0/12)*5])(50)
+tronco2 = COLOR(rgbToPlasmColor([101, 67, 33]))(tronco2)
+foglie2 = CONE([2, (10.0/12)*6])(100)
+foglie2 = COLOR(rgbToPlasmColor([85,104,50]))(foglie2)
+
+foglie2 = T(3)(4)(foglie2)
+alberoQ = STRUCT([tronco2,foglie2])
+
+TQ=T(2)(5)
+alberi10=STRUCT(NN(3)([TA, STRUCT(NN(3)([TQ, alberoQ]))]))
+alberi10=T([1,2,3])([115,38,1])(alberi10)
+
+TZ=T(1)(5)
+alberi11=STRUCT(NN(5)([TZ, STRUCT(NN(3)([TQ, alberoQ]))]))
+alberi11=T([1,2,3])([60,38,1])(alberi11)
+
+tronco3 = CYLINDER([1.5, (10.0/12)*10])(100)
+tronco3 = COLOR(rgbToPlasmColor([101, 67, 33]))(tronco3)
+foglie3 = SPHERE(5)([60,60])
+foglie3 = COLOR(rgbToPlasmColor([128,128,0]))(foglie3)
+
+foglie3 = T(3)(10)(foglie3)
+alberoF = STRUCT([tronco3,foglie3])
+alberoF=T([1,2,3])([76,96,1])(alberoF)
+
+alberi=STRUCT([alberi1,alberi2,alberi3,alberi4,alberi5,alberi6,alberi7,alberi8,alberi9,alberi10,alberi11,alberoF])
 
 #Creo il lampione
 

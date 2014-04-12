@@ -270,7 +270,31 @@ villa=STRUCT([villa,base,fin1,fin2,port1])
 
 
 
-#sposto la villa completa sul giardiano in fondo
+
+#Creo una panchina
+
+panchina1 = CUBOID([2,1,0.2])
+panchina2= CUBOID([2,0.2,1])
+panchina2=T(2)(1)(panchina2)
+gamba = CYLINDER([0.1, (10.0/12)*0.5])(50)
+
+Ta=T(1)(1.5)
+Tb=T(2)(1)
+gambe=STRUCT(NN(2)([Ta, STRUCT(NN(2)([Tb, gamba]))]))
+gambe=T([1,2])([-1.25,-0.9])(gambe)
+
+panchina_temp=STRUCT([panchina1,panchina2])
+panchina_temp=T(3)(0.4)(panchina_temp)
+
+panchina=STRUCT([panchina_temp,gambe])
+
+Tc=T(1)(2.5)
+panchine=STRUCT(NN(2)([Tc, panchina]))
+panchine=T([1,2,3])([-1,12,0.2])(panchine)
+panchine=ROTATE([1,2])(-PI/4)(panchine)
+panchine = COLOR(rgbToPlasmColor([123,27,2]))(panchine)
+villa=STRUCT([villa,panchine])
+
 villa=T(3)(0.3)(villa)
 villa=T(2)(18)(villa)
 
@@ -317,9 +341,64 @@ piano2 = COLOR(rgbToPlasmColor([117,102,63]))(piano2)
 edificio_temp=STRUCT([porta3,base2,fin3])
 edificio_temp=T([1,2,3])([1,20,1])(edificio_temp)
 edificio=STRUCT([edificio_temp,piano2])
-
 edificio=T([1,2,3])([64.5,110,1])(edificio)
 
+#Creo una piazzetta
+tronco1 = CYLINDER([1, (10.0/12)*5])(50)
+tronco1 = COLOR(rgbToPlasmColor([101, 67, 33]))(tronco1)
+foglie1 = SPHERE(3)([60,60])
+foglie1 = COLOR(rgbToPlasmColor([1,50,32]))(foglie1)
+
+foglie1 = T(3)(4)(foglie1)
+alberoP = STRUCT([tronco1,foglie1])
 
 
-struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille,edificio])
+Tc=T(1)(2.5)
+panchine=STRUCT(NN(2)([Tc, panchina]))
+panchine=T([1,2,3])([-1,12,0.2])(panchine)
+panchine=ROTATE([1,2])(-PI/4)(panchine)
+panchine = COLOR(rgbToPlasmColor([123,27,2]))(panchine)
+
+
+piazza_vertici = [ [0,0], [20,0], [0,20], [20,20] ];
+piazza_num_lati = [range(1,5)] 
+piazza_25D = MKPOL([piazza_vertici, piazza_num_lati, None])
+piazza = PROD([piazza_25D, Q(0.2)])
+piazza = COLOR(rgbToPlasmColor([107,142,35]))(piazza)
+
+Te = T(1)(3)
+
+
+panchine2=STRUCT(NN(4)([Tc, panchina]))
+panchine3=STRUCT(NN(4)([Tc, panchina]))
+panchine2=T([1,2])([3,18])(panchine2)
+panchine3=T([1,2])([-18,-2])(panchine3)
+panchine3=ROTATE([1,2])(-PI)(panchine3)
+
+panchine2 = COLOR(rgbToPlasmColor([123,27,2]))(panchine2)
+panchine3 = COLOR(rgbToPlasmColor([123,27,2]))(panchine3)
+
+Tp = T(1)(18)
+To = T(2)(18)
+
+alberi5=STRUCT(NN(2)([Tp, STRUCT(NN(2)([To, alberoP]))]))
+alberi5=T([1,2])([-17,-17])(alberi5)
+
+fontana1=CYLINDER([5, (10.0/12)*0.5])(100)
+fontana1=T([1,2,3])([10,10,0.2])(fontana1)
+fontana1 = COLOR(rgbToPlasmColor([218,253,218]))(fontana1)
+
+
+fontana2=CYLINDER([3, (10.0/12)*0.5])(100)
+fontana2=T([1,2,3])([10,10,0.3])(fontana2)
+fontana2= COLOR(rgbToPlasmColor([0,149,182]))(fontana2)
+
+
+fontana=STRUCT([fontana1,fontana2])
+piazza=STRUCT([panchine2,panchine3,piazza,alberi5,fontana])
+piazza=T([1,2,3])([66,62,1])(piazza)
+
+struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille,edificio,piazza])
+
+
+
