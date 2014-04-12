@@ -278,7 +278,48 @@ T3=T(1)(28)
 complessoVille=STRUCT(NN(5)([T3, villa]))
 complessoVille=T([1,2,3])([-19,2,1])(complessoVille)
 
+#Creo un altro edificio
+base2_vertici = [ [0,0], [20,0], [0,20], [20,20] ];
+base2_num_lati = [range(1,5)] 
+base2_25D = MKPOL([base2_vertici, base2_num_lati, None])
+base2 = PROD([base2_25D, Q(15)])
+base2 = COLOR(rgbToPlasmColor([65,105,225]))(base2)
+
+porta_vertici = [ [1.5,0], [2.5,0], [1.5,2], [2.5,2] ]
+porta_num_lati = [range(1,5)]
+porta1 = MKPOL([porta_vertici, porta_num_lati, None])
+porta1 = COLOR(rgbToPlasmColor([205,127,50]))(porta1)
+porta1=ROTATE([2,3])(PI/2)(porta1)
+
+
+T3=T(1)(4)
+porta3=STRUCT(NN(3)([T3, porta1]))
+porta3=T([1,2])([0.5,-0.1])(porta3)
+
+fin2 = CUBOID([2,2])
+fin2 = T([1,2])([-0.8,2.3])(fin2)
+fin2=ROTATE([2,3])(PI/2)(fin2)
+
+Tc = T(1)(3)
+Tz = T(3)(5)
+
+fin3=STRUCT(NN(2)([Tz, STRUCT(NN(6)([Tc, fin2]))]))
+fin3=T(1)(-1)(fin3)
+fin3= COLOR(rgbToPlasmColor([255,255,102]))(fin3)
+fin3=T(2)(-0.1)(fin3)
+
+piano2_vertici = [ [0,0], [22,0], [0,40], [22,40] ];
+piano2_num_lati = [range(1,5)] 
+piano2_25D = MKPOL([piano2_vertici, piano2_num_lati, None])
+piano2 = PROD([piano2_25D, Q(1)])
+piano2 = COLOR(rgbToPlasmColor([117,102,63]))(piano2)
+
+edificio_temp=STRUCT([porta3,base2,fin3])
+edificio_temp=T([1,2,3])([1,20,1])(edificio_temp)
+edificio=STRUCT([edificio_temp,piano2])
+
+edificio=T([1,2,3])([64.5,110,1])(edificio)
 
 
 
-struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille])
+struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille,edificio])
