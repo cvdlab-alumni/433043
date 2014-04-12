@@ -4,51 +4,35 @@ from pyplasm import*
 def rgbToPlasmColor(color):
 	return [color[0]/255., color[1]/255., color[2]/255.]
 
-
-#Creazione della base. Approssimata 69x33
+#Creazione della base. Approssimata 
 base1_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
 base1_num_lati = [range(1,5)] 
 base1_2D = MKPOL([base1_vertici, base1_num_lati, None])
-
-#Porto in 2,5D
 floor1 = PROD([base1_2D, Q(1)])
-
 #Coloro 
 floor1 = COLOR(rgbToPlasmColor([255,255,255]))(floor1)
 
-
-#Creo la seconda base.Approssimata 68x32
+#Creo la seconda base.Approssimata 
 base2_vertici = [ [0,0], [0,68], [32,68], [32,0] ];
 base2_num_lati = [range(1,5)] 
 base2_2D = MKPOL([base2_vertici, base2_num_lati, None])
-
-#Porto in 2,5D
 floor2 = PROD([base2_2D, Q(1)])
-
 #Coloro 
 floor2 = COLOR(rgbToPlasmColor([147,147,147]))(floor2)
 
-
-#Creo la terza base su cui poggeranno le colonne: 68x30
+#Creo la terza base su cui poggeranno le colonne: 
 base3_vertici = [ [0,0], [0,67], [31,67], [31,0] ];
 base3_num_lati = [range(1,5)] 
 base3_2D = MKPOL([base3_vertici, base3_num_lati, None])
-
-#Porto in 2,5D
 floor3 = PROD([base3_2D, Q(1)])
-
 #Coloro 
 floor3 = COLOR(rgbToPlasmColor([95,95,95]))(floor3)
-
 
 #Creo la la  base posizionata sotto il tetto
 base4_vertici =  [ [0,0], [0,67], [31,67], [31,0] ]; 
 base4_num_lati = [range(1,5)] 
 base4_2D = MKPOL([base4_vertici, base4_num_lati, None])
-
-#Porto in 2,5D
 floor4 = PROD([base4_2D, Q(3)])
-
 #Coloro 
 floor4 = COLOR(rgbToPlasmColor([128,128,128]))(floor4)
 
@@ -126,7 +110,6 @@ deco4=DIFFERENCE([deco4_temp,deco8_temp])
 deco4=COLOR(rgbToPlasmColor([95,95,95]))(deco4)
 
 #Creo le rifiniture interne
-
 pl1=CUBOID([0.1,0.3,1.8])
 
 pl2=CUBOID([0.1,0.3,1.8])
@@ -166,10 +149,7 @@ plF4=COLOR(rgbToPlasmColor([95,95,95]))(plF4)
 
 #Creo la seconda base posizionata sotto il tetto
 base6_2D = MKPOL([base4_vertici, base4_num_lati, None])
-
-#Porto in 2,5D
 floor6 = PROD([base6_2D, Q(1)])
-
 #Coloro 
 floor6 = COLOR(rgbToPlasmColor([128,128,128]))(floor6)
 
@@ -181,13 +161,12 @@ floor7 = PROD([base7_2D, Q(0.5)])
 floor7 = COLOR(rgbToPlasmColor([210,210,210]))(floor7)
 
 #Creo un ulteriore base posta tra le colonne
-
 base8_vertici =  [ [0,0], [0,67.5], [31.5,67.5], [31.5,0] ]; 
 base8_num_lati = [range(1,5)] 
 base8_2D = MKPOL([base8_vertici, base8_num_lati, None])
 floor8 = PROD([base8_2D, Q(0.3)])
 
-#Creo il tetto.Approssimato 69x33x5
+#Creo il tetto
 tetto_vertici = [ [0,0], [33,0], [16,5], ];
 tetto_num_lati = [range(1,4)] 
 tetto_2D = MKPOL([tetto_vertici, tetto_num_lati, None])
@@ -195,9 +174,7 @@ floor5 = PROD([tetto_2D, Q(69)])
 
 #Decoro il tetto
 #Creo i piccoli cilindri posizionati sul tetto come riportato in figura
-
 cilind_T = CYLINDER([0.1, (10.0/12)*0.3])(50)
-
 
 T4=T(2)(2)
 cilind1=STRUCT(NN(35)([T4, cilind_T]))
@@ -248,8 +225,6 @@ dec4=T([2,3])([69,19.5])(dec4)
 
 dec5 = DIFFERENCE([dec3,dec4])
 dec5 = COLOR(rgbToPlasmColor([210,210,210]))(dec5)
-
-
 
 #Assemblo le 3 basi e il tetto
 floor2=T([1,2,3])([0.5,0.5,1])(floor2)
@@ -339,7 +314,6 @@ colonne_int_frontali=T(1)(-5.80)(colonne_int_frontali)
 #Coloro
 colonne_int_frontali = COLOR(rgbToPlasmColor([255,255,255]))(colonne_int_frontali)
 
-
 #Creo le mura interne frontali
 mura4_vertici = [ [0,0], [1,0], [0,5], [1,5] ];
 mura4_num_lati = [range(1,5)] 
@@ -402,7 +376,6 @@ mura1_num_lati = [range(1,5)]
 mura1_2D = MKPOL([mura1_vertici, mura1_num_lati, None])
 mura1 = PROD([mura1_2D, Q(12)])
 mura1=T([1,2,3])([6.2,11.2,3])(mura1)
-
 #Coloro
 mura1 = COLOR(rgbToPlasmColor([178,178,178]))(mura1)
 

@@ -4,7 +4,7 @@ from pyplasm import*
 def rgbToPlasmColor(color):
 	return [color[0]/255., color[1]/255., color[2]/255.]
 
-#Creazione della base. Approssimata 69x33
+#Creazione della base. Approssimata 
 base1_vertici = [ [0,0], [0,69], [33,69], [33,0] ];
 base1_num_lati = [range(1,5)] 
 base1_2D = MKPOL([base1_vertici, base1_num_lati, None])
@@ -12,7 +12,7 @@ floor1 = PROD([base1_2D, Q(1)])
 #Coloro 
 floor1 = COLOR(rgbToPlasmColor([255,255,255]))(floor1)
 
-#Creo la seconda base.Approssimata 68x32
+#Creo la seconda base.Approssimata 
 base2_vertici = [ [0,0], [0,68], [32,68], [32,0] ];
 base2_num_lati = [range(1,5)] 
 base2_2D = MKPOL([base2_vertici, base2_num_lati, None])
@@ -20,7 +20,7 @@ floor2 = PROD([base2_2D, Q(1)])
 #Coloro 
 floor2 = COLOR(rgbToPlasmColor([147,147,147]))(floor2)
 
-#Creo la terza base su cui poggeranno le colonne: 68x30
+#Creo la terza base su cui poggeranno le colonne:
 base3_vertici = [ [0,0], [0,67], [31,67], [31,0] ];
 base3_num_lati = [range(1,5)] 
 base3_2D = MKPOL([base3_vertici, base3_num_lati, None])
@@ -148,13 +148,6 @@ plF4=ROTATE([1,2])(PI/2)(plF4)
 plF4=T(1)(32.75)(plF4)
 plF4=COLOR(rgbToPlasmColor([95,95,95]))(plF4)
 
-
-
-
-
-
-
-
 #Creo la seconda base posizionata sotto il tetto
 base6_2D = MKPOL([base4_vertici, base4_num_lati, None])
 floor6 = PROD([base6_2D, Q(1)])
@@ -182,9 +175,7 @@ floor5 = PROD([tetto_2D, Q(69)])
 
 #Decoro il tetto
 #Creo i piccoli cilindri posizionati sul tetto come riportato in figura
-
 cilind_T = CYLINDER([0.1, (10.0/12)*0.3])(50)
-
 
 T4=T(2)(2)
 cilind1=STRUCT(NN(35)([T4, cilind_T]))
@@ -198,10 +189,6 @@ cilind2=T([1,2,3])([0.2,-1,19.9])(cilind2)
 cilind3=STRUCT(NN(35)([T4, cilind_T]))
 cilind3 = COLOR(rgbToPlasmColor([147,147,147]))(cilind3)
 cilind3=T([1,2,3])([32.7,-1,19.9])(cilind3)
-
-
-
-
 
 #Creo le decorazioni del tetto
 dec1_vertici = [ [0,0], [33,0], [16,5], ];
@@ -253,7 +240,6 @@ floor5=MAP([S1,S3,S2])(floor5)
 floor5=T([3])([19.8])(floor5)
 floor5=STRUCT([floor5,cilind1,cilind2,cilind3])
 
-
 #Coloro il tetto dopo la traslazione.
 floor5 = COLOR(rgbToPlasmColor([147,147,147]))(floor5)
 tettoP=STRUCT([floor5,dec,dec5])
@@ -301,7 +287,6 @@ colonne_int_frontali=T(1)(-5.80)(colonne_int_frontali)
 #Coloro
 colonne_int_frontali = COLOR(rgbToPlasmColor([255,255,255]))(colonne_int_frontali)
 
-
 #Creo la struttua frontale
 north=STRUCT([colonne_int_frontali])
 
@@ -310,7 +295,6 @@ colonne_int_posteriori=T(2)(52)(colonne_int_frontali)
 
 #Creo la struttura
 sud=STRUCT([colonne_int_posteriori,])
-
 
 #CREO LE SECONDE COLONNE INTERNE.CODICE AGGIUNTIVO RISPETTO AL PRIMO HW
 
@@ -363,9 +347,6 @@ colonne_int3=T([1,2,3])([10.5,47,3])(colonne_int3)
 colonne_int3=COLOR(rgbToPlasmColor([255,255,255]))(colonne_int3)
 
 #Creo la scalinata frontale
-
-#Creo la scalinata frontale
-
 gradino2_vertici = [ [1,1], [4,1], [4,2], [1,2] ];
 gradino2_num_lati = [range(1,5)] 
 gradino2_2D = MKPOL([gradino2_vertici, gradino2_num_lati, None])
@@ -384,9 +365,6 @@ scalinata=STRUCT([gradino2,gradino3,gradino4])
 #La traslo sui 3 assi al centro della parte frontale
 scalinata=T([1,2,3])([14.5,-3,-1])(scalinata)
 scalinata = COLOR(rgbToPlasmColor([95,95,95]))(scalinata)
-
-
-
 
 half_model=STRUCT([north,sud])
 solid_model_3D=STRUCT([Orizontal_model,half_model,colonne_int2,colonne_int3,scalinata])
