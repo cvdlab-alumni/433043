@@ -1,6 +1,3 @@
-#Creazione Struttura solid_model_3D
-
-
 from pyplasm import*
 
 #Creo una funzione per convertire colori RGB in Plasm

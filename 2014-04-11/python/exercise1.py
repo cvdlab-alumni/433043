@@ -164,7 +164,7 @@ dec3=T([2,3])([69,19.5])(dec3)
 
 dec4_2D = MKPOL([dec2_vertici, dec2_num_lati, None])
 dec4 = PROD([dec4_2D, Q(0.5)])
-dec4 = COLOR(rgbToPlasmColor([255,0,0]))(dec4)
+dec4 = COLOR(rgbToPlasmColor([210,210,210]))(dec4)
 
 dec4=MAP([S1,S3,S2])(dec4)
 dec4=T([2,3])([69,19.5])(dec4)
