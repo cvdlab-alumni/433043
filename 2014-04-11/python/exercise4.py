@@ -141,7 +141,13 @@ foglie3 = T(3)(10)(foglie3)
 alberoF = STRUCT([tronco3,foglie3])
 alberoF=T([1,2,3])([76,96,1])(alberoF)
 
-alberi=STRUCT([alberi1,alberi2,alberi3,alberi4,alberi5,alberi6,alberi7,alberi8,alberi9,alberi10,alberi11,alberoF])
+Tg=T(1)(4)
+Th=T(2)(6)
+alberi12=STRUCT(NN(2)([Tg, STRUCT(NN(3)([Th, albero]))]))
+alberi12=T([1,2,3])([137,17,1])(alberi12)
+
+alberi=STRUCT([alberi1,alberi2,alberi3,alberi4,alberi5,alberi6,alberi7,alberi8,alberi9,alberi10,
+	alberi11,alberoF,alberi12])
 
 #Creo il lampione
 
@@ -194,7 +200,69 @@ lampioni5=T([1,2,3])([-11,37,1])(lampioni5)
 
 lampioni=STRUCT([lampioni1,lampioni2,lampioni3,lampioni4,lampioni5])
 
-urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni])
+#Creo una fermata dell'autobus
+
+piazzola=CUBOID([4,4,0.1])
+piazzola = COLOR(rgbToPlasmColor([123,160,91]))(piazzola)
+
+paloF = CYLINDER([0.2, (10.0/12)*3.5])(100)
+
+paloF1_vertici = [ [0,0], [1,0], [0,0.1], [1,0.1] ];
+paloF1_num_lati = [range(1,5)] 
+paloF1_25D = MKPOL([paloF1_vertici,paloF1_num_lati, None])
+paloF1 = PROD([paloF1_25D, Q(0.2)])
+paloF1=T([3])([2.5])(paloF1)
+
+
+paloF2_vertici = [ [0,0], [1,0], [0,0.1], [1,0.1] ];
+paloF2_num_lati = [range(1,5)] 
+paloF2_25D = MKPOL([paloF2_vertici,paloF2_num_lati, None])
+paloF2 = PROD([paloF2_25D, Q(0.2)])
+paloF2=T([3])([2])(paloF2)
+
+
+tabellone_vertici = [ [0,0], [1.5,0], [0,0.1], [1.5,0.1] ];
+tabellone_num_lati = [range(1,5)] 
+tabellone_25D = MKPOL([tabellone_vertici,tabellone_num_lati, None])
+tabellone = PROD([tabellone_25D, Q(1.8)])
+tabellone=T([1,3])([0.5,1])(tabellone)
+
+
+fermata_t=STRUCT([paloF,paloF1,paloF2,tabellone])
+fermata_t = COLOR(rgbToPlasmColor([255,216,0]))(fermata_t)
+fermata_t=T([1,2,3])([3,2,0.1])(fermata_t)
+fermata=STRUCT([fermata_t,piazzola])
+
+panchina1 = CUBOID([2,1,0.2])
+panchina2= CUBOID([2,0.2,1])
+panchina2=T(2)(1)(panchina2)
+gamba = CYLINDER([0.1, (10.0/12)*0.5])(50)
+
+Ta=T(1)(1.5)
+Tb=T(2)(1)
+gambe=STRUCT(NN(2)([Ta, STRUCT(NN(2)([Tb, gamba]))]))
+gambe=T([1,2])([-1.25,-0.9])(gambe)
+
+panchina_temp=STRUCT([panchina1,panchina2])
+panchina_temp=T(3)(0.4)(panchina_temp)
+
+panchina=STRUCT([panchina_temp,gambe])
+panchina=ROTATE([1,2])(PI/2)(panchina)
+panchina = COLOR(rgbToPlasmColor([145,129,81]))(panchina)
+panchina=T([1,2])([1.5,1])(panchina)
+
+fermata1=STRUCT([fermata_t,piazzola,panchina])
+fermata1=T([1,2,3])([29,30,1])(fermata1)
+
+
+fermata2=STRUCT([fermata_t,piazzola,panchina])
+fermata2=T([1,2,3])([113,30,1])(fermata2)
+
+fermata3=STRUCT([fermata_t,piazzola,panchina])
+fermata3=T([1,2,3])([83,103,1])(fermata3)
+
+
+urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni,fermata1,fermata2,fermata3])
 
 
 VIEW(urban)
