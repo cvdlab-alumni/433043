@@ -282,5 +282,3 @@ complessoVille=T([1,2,3])([-19,2,1])(complessoVille)
 
 
 struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille])
-
-VIEW(struttura)
