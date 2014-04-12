@@ -188,13 +188,29 @@ base8_2D = MKPOL([base8_vertici, base8_num_lati, None])
 floor8 = PROD([base8_2D, Q(0.3)])
 
 #Creo il tetto.Approssimato 69x33x5
-from pyplasm import*
 tetto_vertici = [ [0,0], [33,0], [16,5], ];
 tetto_num_lati = [range(1,4)] 
 tetto_2D = MKPOL([tetto_vertici, tetto_num_lati, None])
-
-#Porto in 2,5D
 floor5 = PROD([tetto_2D, Q(69)])
+
+#Decoro il tetto
+#Creo i piccoli cilindri posizionati sul tetto come riportato in figura
+
+cilind_T = CYLINDER([0.1, (10.0/12)*0.3])(50)
+
+
+T4=T(2)(2)
+cilind1=STRUCT(NN(35)([T4, cilind_T]))
+cilind1 = COLOR(rgbToPlasmColor([147,147,147]))(cilind1)
+cilind1=T([1,2,3])([16,-2,24.8])(cilind1)
+
+cilind2=STRUCT(NN(35)([T4, cilind_T]))
+cilind2 = COLOR(rgbToPlasmColor([147,147,147]))(cilind2)
+cilind2=T([1,2,3])([0.2,-1,19.9])(cilind2)
+
+cilind3=STRUCT(NN(35)([T4, cilind_T]))
+cilind3 = COLOR(rgbToPlasmColor([147,147,147]))(cilind3)
+cilind3=T([1,2,3])([32.7,-1,19.9])(cilind3)
 
 #Creo le decorazioni del tetto
 dec1_vertici = [ [0,0], [33,0], [16,5], ];
@@ -246,6 +262,7 @@ floor8=COLOR(rgbToPlasmColor([210,210,210]))(floor8)
 floor4=STRUCT([floor4,deco1,deco2,deco3,deco4,plF,plF2,plF3,plF4])
 floor5=MAP([S1,S3,S2])(floor5)
 floor5=T([3])([19.8])(floor5)
+floor5=STRUCT([floor5,cilind1,cilind2,cilind3])
 
 #Coloro il tetto dopo la traslazione.
 floor5 = COLOR(rgbToPlasmColor([147,147,147]))(floor5)
@@ -459,6 +476,26 @@ colonne_int3=STRUCT([colonne_int3_dx,colonne_int3_sx])
 colonne_int3=T([1,2,3])([10.5,47,3])(colonne_int3)
 colonne_int3=COLOR(rgbToPlasmColor([255,255,255]))(colonne_int3)
 
+#Creo la scalinata frontale
+
+gradino2_vertici = [ [1,1], [4,1], [4,2], [1,2] ];
+gradino2_num_lati = [range(1,5)] 
+gradino2_2D = MKPOL([gradino2_vertici, gradino2_num_lati, None])
+gradino2 = PROD([gradino2_2D, Q(1)])
+gradino2=T([1,2,3])([-1,1,1])(gradino2)
+
+gradino3 = PROD([gradino2_2D, Q(1)])
+gradino3=T([1,2,3])([-1,1.5,2])(gradino3)
+
+gradino4 = PROD([gradino2_2D, Q(1)])
+gradino4=T([1,2,3])([-1,2,3])(gradino4)
+
+#Assemblo la scalinata
+scalinata=STRUCT([gradino2,gradino3,gradino4])
+
+#La traslo sui 3 assi al centro della parte frontale
+scalinata=T([1,2,3])([14.5,-3,-1])(scalinata)
+scalinata = COLOR(rgbToPlasmColor([95,95,95]))(scalinata)
 
 Vertical_model=STRUCT([north,sud,ovest,est])
-solid_model_3D=STRUCT([Orizontal_model,Vertical_model,colonne_int2,colonne_int3])
+solid_model_3D=STRUCT([Orizontal_model,Vertical_model,colonne_int2,colonne_int3,scalinata])
