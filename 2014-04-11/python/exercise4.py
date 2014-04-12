@@ -83,8 +83,52 @@ T4=T(2)(10)
 alberi3=STRUCT(NN(10)([T4, albero]))
 alberi3=T([1,2,3])([56,45,1])(alberi3)
 
+alberi=STRUCT([alberi1,alberi2,alberi3])
 
-urban=STRUCT([urbanImport.struttura,strade,alberi1,alberi2,alberi3])
+#Creo il lampione
+
+palo1 = CYLINDER([0.3, (10.0/12)*6])(100)
+
+palo2 = CYLINDER([0.3, (10.0/12)*4])(100)
+palo2=ROTATE([1,3])(-PI/4)(palo2)
+palo2=T(3)(4)(palo2)
+
+palo3_vertici = [ [0,0], [2,0], [0,0.8], [2,0.8] ];
+palo3_num_lati = [range(1,5)] 
+palo3_25D = MKPOL([palo3_vertici, palo3_num_lati, None])
+palo3 = PROD([palo3_25D, Q(0.5)])
+palo3=T([1,2,3])([2,-0.4,6.1])(palo3)
+
+palo=STRUCT([palo1,palo2,palo3])
+palo = COLOR(rgbToPlasmColor([178,178,178]))(palo)
+
+luce= CUBOID([0.5,0.5,0.2])
+luce=T([1,2,3])([3.2,-0.2,6])(luce)
+luce = COLOR(rgbToPlasmColor([255,255,0]))(luce)
+
+lampione=STRUCT([palo,luce])
+
+T5=T(2)(20)
+lampioni1=STRUCT(NN(6)([T5, lampione]))
+lampioni1=T([1,2,3])([60,25,1])(lampioni1)
+
+
+lampione_temp1=ROTATE([1,2])(PI/4)(lampione)
+
+T3=T(1)(16)
+lampioni2=STRUCT(NN(9)([T3, lampione_temp1]))
+lampioni2=T([1,2,3])([-11,15,1])(lampioni2)
+
+
+lampione_temp2=ROTATE([1,2])(PI)(lampione)
+lampioni3=STRUCT(NN(6)([T5, lampione_temp2]))
+lampioni3=T([1,2,3])([90,25,1])(lampioni3)
+
+T3=T(1)(15)
+lampioni4=STRUCT(NN(4)([T3, lampione_temp1]))
+lampioni4=T([1,2,3])([80,56,1])(lampioni4)
+
+urban=STRUCT([urbanImport.struttura,strade,alberi,lampioni1,lampioni2,lampioni3,lampioni4])
 
 
 VIEW(urban)
