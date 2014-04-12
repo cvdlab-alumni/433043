@@ -332,7 +332,7 @@ car6=T([1,2,3])([80,123,3])(car6)
 cars1=STRUCT([car,car3,car4,car5,car6])
 Tcar3=T(1)(5)
 cars2=STRUCT(NN(3)([Tcar3, cars1]))
-cars2=T(1)(-16)(cars2)
+cars2=T([1,3])([-16,-0.1])(cars2)
 
 #Creo un'altra tipologia di macchina
 car7=CUBOID([2,1,0.2])
