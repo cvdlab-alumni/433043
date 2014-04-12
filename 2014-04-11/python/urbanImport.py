@@ -127,21 +127,19 @@ base_vertici = [ [0,0], [10,0], [0,10], [10,10] ];
 base_num_lati = [range(1,5)] 
 base_25D = MKPOL([base_vertici, base_num_lati, None])
 base = PROD([base_25D, Q(30)])
-base = COLOR(rgbToPlasmColor([255,36,0]))(base)
+base = COLOR(rgbToPlasmColor([210,105,30]))(base)
 
 
 porta_vertici = [ [1.5,0], [2.5,0], [1.5,2], [2.5,2] ]
 porta_num_lati = [range(1,5)]
 porta1 = MKPOL([porta_vertici, porta_num_lati, None])
-porta2 = MKPOL([porta_vertici, porta_num_lati, None])
-porta1 = COLOR(rgbToPlasmColor([70,130,180]))(porta1)
-porta2 = COLOR(rgbToPlasmColor([70,130,180]))(porta2)
+porta1 = COLOR(rgbToPlasmColor([150,0,24]))(porta1)
 porta1=ROTATE([2,3])(PI/2)(porta1)
-porta2=ROTATE([2,3])(PI/2)(porta2)
-porta1=T(1)(1)(porta1)
-porta2=T(1)(5)(porta2)
 
-fin1 = CUBOID([2,0.5])
+porta1=T([1,2])([3,-0.1])(porta1)
+
+
+fin1 = CUBOID([2,1.5])
 fin1 = T([1,2])([0.5,2.5])(fin1)
 fin1=ROTATE([2,3])(PI/2)(fin1)
 
@@ -149,11 +147,29 @@ Tc = T(1)(3)
 Tz = T(3)(5)
 
 fin=STRUCT(NN(5)([Tz, STRUCT(NN(2)([Tc, fin1]))]))
-fin=T(1)(-1)(fin)
+fin=T([1,2])([-1,-0.1])(fin)
 fin= COLOR(rgbToPlasmColor([28,57,187]))(fin)
 
+#Creo il terrazzo
+terr1 = CUBOID([8,2,2])
+terr2 = CUBOID([6,1,2])
+terr2=T([1,2,3])([1,1,0.5])(terr2)
+terr=DIFFERENCE([terr1,terr2])
+terr = COLOR(rgbToPlasmColor([210,105,30]))(terr)
 
-palazzo_temp=STRUCT([porta1,porta2,base,fin])
+
+finTerr=CUBOID([2,0.2,2.5])
+finTerr=T([1,2,3])([3,2,0.5])(finTerr)
+finTerr = COLOR(rgbToPlasmColor([28,57,187]))(finTerr)
+
+Tterr=T(3)(5)
+terrazzo=STRUCT([terr,finTerr])
+terrazzo=STRUCT(NN(5)([Tterr, terrazzo]))
+terrazzo=ROTATE([1,2])(PI/2)(terrazzo)
+terrazzo=T([1,2,3])([12.1,1,1])(terrazzo)
+
+
+palazzo_temp=STRUCT([porta1,base,fin,terrazzo])
 palazzo_temp=T([1,2,3])([2.5,2.5,0.5])(palazzo_temp)
 
 T1=T(1)(20)
@@ -397,6 +413,7 @@ fontana2= COLOR(rgbToPlasmColor([0,149,182]))(fontana2)
 fontana=STRUCT([fontana1,fontana2])
 piazza=STRUCT([panchine2,panchine3,piazza,alberi5,fontana])
 piazza=T([1,2,3])([66,62,1])(piazza)
+
 
 struttura=STRUCT([partenone,prato,complesso,complesso2,complessoVille,edificio,piazza])
 
