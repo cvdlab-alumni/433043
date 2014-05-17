@@ -45,13 +45,12 @@ diagram1 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram2 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram3 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram4 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
-ToMerge=([11,29,17,35])
 
+ToMerge=([11,29,17,35])
 hpc=InserisciDiagram([diagram1,diagram2,diagram3,diagram4],master,ToMerge)
 VIEW(hpc)
 
 ToMerge=([11,29])
 hpc=InserisciDiagram([diagram1,diagram2],master,ToMerge)
-
 VIEW(hpc)
 
