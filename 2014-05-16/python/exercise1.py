@@ -129,10 +129,11 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
-toRemove = [21,12,31,14,23,33,16,25,35,51]
+toRemove = [21,12,31,14,23,33,16,25,35,51,47,49]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 cucina=DRAW2(master)
 cucina=T([1,2])([13.2,4.1])(cucina)
+
 
 
  #Bagno2
