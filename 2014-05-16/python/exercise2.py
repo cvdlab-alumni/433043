@@ -23,10 +23,24 @@ master = diagram2cell(diagram0,master,toMerge)
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
+#Finestra
+toMerge = 7
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
-toRemove = [9,15,25]
+toMerge = 12
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+toRemove = [8,13,23,31,40]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 camera1=DRAW2(master)
+
 
 
 #Camera2
@@ -45,18 +59,29 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
-#Porta
-toMerge = 3
-diagram1 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.5]])
-master = diagram2cell(diagram1,master,toMerge)
+#Finestra
+toMerge = 11
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
-toRemove = [24,8,13,28]
+
+toMerge = 15
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+toRemove = [9,13,23,31,40]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 camera2=DRAW2(master)
-camera2=T(2)(5.5)(camera2)
+camera2=T(2)(5)(camera2)
+
+
+
 
 
 #Bagno
@@ -99,7 +124,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
 
-toRemove = [29,8,14,20]
+#Finestra
+toMerge = 22
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+
+toRemove = [28,8,14,20,31,34]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 scale=DRAW2(master)
 scale=T([1,2])([4.1,6.6])(scale)
@@ -170,19 +204,34 @@ soggiorno3=T([1])([7.6])(soggiorno3)
 
 
 
-
-
 #Soggiorno4
-master = assemblyDiagramInit([3,3,2])([[.1,4,.1],[.1,4,.1],[.1,2.7]])
+master = assemblyDiagramInit([4,3,2])([[.1,1.5,3,.1],[.1,4,.1],[.1,2.7]])
 V,CV= master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
 
 
-toRemove = [9,3,11,5]
+#Finestra
+toMerge = 13
+diagram0 = assemblyDiagramInit([1,1,3])([[3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+toMerge = 7
+diagram0 = assemblyDiagramInit([1,1,3])([[3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+
+toRemove = [23,8,13,3,5,10,15]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 soggiorno4=DRAW2(master)
 soggiorno4=T([1])([13.2])(soggiorno4)
+
+
 
 
 #Soggiorno5
