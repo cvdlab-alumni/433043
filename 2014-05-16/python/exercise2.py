@@ -13,6 +13,7 @@ from mapper import *
 from boolean import *
 
 from sysml import *
+from splines import*
 import exercise1Imp
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
 DRAW2 = COMP([STRUCT,MKPOLS])
@@ -275,9 +276,22 @@ master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemo
 dispensa=DRAW2(master)
 dispensa=T([1,2])([4,2.5])(dispensa)
 
+#Inserimento di Curve nel progetto
+controlpoints=[
+   [[0,0,0],[0.3,0.3,0],[0.3,0.4,0]],
+   [[0,0,0.5],[0.3,0.3,0.5],[0.3,0.4,0.5]],
+   [[0,0,0.9],[0.3,0.3,0.9],[0.3,0.4,0.9]] ]
+dom = larDomain([20])
+dom2D = larExtrude1(dom, 20*[1./20])
+mapping = larBiquadraticSurface(controlpoints)
+patch = larMap(mapping)(dom2D)
+curva1=STRUCT(MKPOLS(patch))
+curva1=T([1,2])([7.7,9.2])(curva1)
+#urva1=ROTATE([1,2])(-PI)(curva1)
+
 
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa])
+	remove,dispensa,curva1])
 
 plan1=exercise1Imp.plan1
 plan2=T([1,2])([17.3,0.1])(plan2)
