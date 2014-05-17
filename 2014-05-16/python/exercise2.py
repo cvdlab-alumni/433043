@@ -217,7 +217,7 @@ master = diagram2cell(diagram2,master,toMerge)
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
-#Porta
+#Apertura
 toMerge = 32
 diagram2 = assemblyDiagramInit([1,1,3])([[2],[.1],[1,1.2,.5]])
 master = diagram2cell(diagram2,master,toMerge)
@@ -322,6 +322,9 @@ plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno
 
 plan1=exercise1Imp.plan1
 plan2=T([1,2])([17.3,0.1])(plan2)
-plan=STRUCT([plan1,plan2])
+planInf=STRUCT([plan1,plan2])
+planSup=STRUCT([plan1,plan2])
+planSup=T(3)(2.8)(planSup)
+plan=STRUCT([planInf,planSup])
 VIEW(plan)
 
