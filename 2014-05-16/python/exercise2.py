@@ -78,7 +78,7 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 toRemove = [9,13,23,31,40]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 camera2=DRAW2(master)
-camera2=T(2)(5)(camera2)
+camera2=T(2)(5.5)(camera2)
 
 
 

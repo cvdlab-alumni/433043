@@ -336,13 +336,29 @@ camino=T([1,2])([6.5,2])(camino)
 
 #Remove2
 
-master = assemblyDiagramInit([4,4,2])([[.1,2.5,3.1,.1],[.1,2.8,2.2,.1],[.1,2.7]])
+master = assemblyDiagramInit([4,5,2])([[.1,2.8,2.8,.1],[.1,2.8,1.1,1.1,.1],[.1,2.7]])
 V,CV= master
-hpc1 = SKEL_1(STRUCT(MKPOLS(master)))
-hpc1 = cellNumbering (master,hpc1)(range(len(CV)),CYAN,2)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
 
 
-toRemove = [29,27,9,17,3,13,21,11,19,1,25,31]
+#Finestra
+toMerge = 19
+diagram0 = assemblyDiagramInit([3,1,3])([[3,3,3],[.1],[1,1.2,.5]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+
+toMerge = 7
+diagram = assemblyDiagramInit([1,1,2])([[2],[.1],[2.2,.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+toRemove = [47,42,12,21,14,23,16,25,3,10,1,19,31,29,33,35,37,27]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 remove2=DRAW2(master)
 remove2=T([1,2])([7.5,5.3])(remove2)
@@ -360,6 +376,8 @@ toRemove = [1,3,5,7,9,11,13,15,17]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 remove3=DRAW2(master)
 remove3=T([1,2])([2.4,3.1])(remove3)
+
+
 
 #Scale
 
