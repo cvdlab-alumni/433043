@@ -128,8 +128,14 @@ master = diagram2cell(diagram,master,toMerge)
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
+toMerge = 43
+diagram = assemblyDiagramInit([1,1,2])([[2],[.1],[2.2,.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
-toRemove = [50,48,21,12,31,14,23,33,16,25,35]
+
+toRemove = [50,48,21,12,31,14,23,33,16,25,35,51]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 cucina=DRAW2(master)
 cucina=T([1,2])([13.2,4.1])(cucina)
@@ -285,9 +291,9 @@ remove3=DRAW2(master)
 remove3=T([1,2])([2.4,3.1])(remove3)
 
 
-plan = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
+plan1 = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
 	,bagno2,remove,remove2,remove3])
-VIEW(plan)
+VIEW(plan1)
 
 
 

@@ -1,3 +1,5 @@
+
+
 from architectural import *
 from pyplasm import *
 from scipy import *
@@ -11,6 +13,7 @@ from mapper import *
 from boolean import *
 
 from sysml import *
+import exercise1Imp
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
 DRAW2 = COMP([STRUCT,MKPOLS])
 
@@ -40,6 +43,7 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
 #hpc=T(2)(5.1)(hpc)
 
+
 #Porta
 toMerge = 13
 diagram1 = assemblyDiagramInit([3,1,2])([[3,3,3],[.1],[2.2,.5]])
@@ -48,7 +52,15 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
-toRemove = [9,14,25]
+#Porta
+toMerge = 3
+diagram1 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.5]])
+master = diagram2cell(diagram1,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+toRemove = [24,8,13,28]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 camera2=DRAW2(master)
 camera2=T(2)(5.5)(camera2)
@@ -182,7 +194,7 @@ soggiorno4=T([1])([13.2])(soggiorno4)
 
 #Soggiorno5
 
-master = assemblyDiagramInit([3,7,2])([[.1,5.6,.1],[.1,1.5,.3,2,0.6,.2,.1],[.1,2.7]])
+master = assemblyDiagramInit([3,7,2])([[.1,5.5,.1],[.1,1.5,.3,2,0.6,.2,.1],[.1,2.7]])
 V,CV= master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
@@ -264,6 +276,11 @@ dispensa=DRAW2(master)
 dispensa=T([1,2])([4,2.5])(dispensa)
 
 
-plan = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
+plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
 	remove,dispensa])
+
+plan1=exercise1Imp.plan1
+plan2=T([1,2])([17.3,0.1])(plan2)
+plan=STRUCT([plan1,plan2])
 VIEW(plan)
+
