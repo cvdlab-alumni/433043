@@ -1,16 +1,10 @@
-from architectural import *
 from pyplasm import *
-from scipy import *
 import os,sys
 sys.path.insert(0, 'lib/py/')
 from lar2psm import *
-from simplexn import *
 from larcc import *
-from largrid import *
-from mapper import *
-from boolean import *
-
 from sysml import *
+
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
 DRAW2 = COMP([STRUCT,MKPOLS])
 
