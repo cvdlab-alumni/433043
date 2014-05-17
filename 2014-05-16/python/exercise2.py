@@ -287,11 +287,46 @@ mapping = larBiquadraticSurface(controlpoints)
 patch = larMap(mapping)(dom2D)
 curva1=STRUCT(MKPOLS(patch))
 curva1=T([1,2])([7.7,9.2])(curva1)
-#urva1=ROTATE([1,2])(-PI)(curva1)
 
+controlpoints=[
+   [[0,0,0],[0,0.3,0],[0.3,0,0],[0.3,0.3,0],[0.2,0.2,0]],
+  [[0,0,0.5],[0,0.3,0.5],[0.3,0,0.5],[0.3,0.3,0.5],[0.2,0.2,0.5]],
+   [[0,0,0.9],[0,0.3,0.9],[0.3,0,0.9],[0.3,0.3,0.9],[0.2,0.2,0.9]] ]
+dom = larDomain([20])
+dom2D = larExtrude1(dom, 20*[1./20])
+mapping = larBiquadraticSurface(controlpoints)
+patch = larMap(mapping)(dom2D)
+curva2=STRUCT(MKPOLS(patch))
+
+dom = larDomain([20])
+dom2D = larExtrude1(dom, 20*[1./20])
+mapping = larBiquadraticSurface(controlpoints)
+patch = larMap(mapping)(dom2D)
+curva3=STRUCT(MKPOLS(patch))
+curva3=T([2])([-4])(curva3)
+curva3=ROTATE([1,2])(PI/2)(curva3)
+
+dom = larDomain([20])
+dom2D = larExtrude1(dom, 20*[1./20])
+mapping = larBiquadraticSurface(controlpoints)
+patch = larMap(mapping)(dom2D)
+curva4=STRUCT(MKPOLS(patch))
+curva4=T([2])([-4])(curva4)
+curva4=ROTATE([1,2])(PI)(curva4)
+
+controlpoints=[
+   [[0,0,0],[0.3,0.3,0],[0.3,0.4,0]],
+   [[0,0,0.5],[0.3,0.3,0.5],[0.3,0.4,0.5]],
+   [[0,0,0.9],[0.3,0.3,0.9],[0.3,0.4,0.9]] ]
+dom = larDomain([20])
+dom2D = larExtrude1(dom, 20*[1./20])
+mapping = larBiquadraticSurface(controlpoints)
+patch = larMap(mapping)(dom2D)
+curva5=STRUCT(MKPOLS(patch))
+curva5=T([1,2])([-13.2,5.3])(curva5)
 
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,curva1])
+	remove,dispensa,curva1,curva2,curva3,curva4,curva5])
 
 plan1=exercise1Imp.plan1
 plan2=T([1,2])([17.3,0.1])(plan2)
