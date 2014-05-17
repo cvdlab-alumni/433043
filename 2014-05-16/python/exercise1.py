@@ -265,27 +265,33 @@ hpc1 = SKEL_1(STRUCT(MKPOLS(master)))
 hpc1 = cellNumbering (master,hpc1)(range(len(CV)),CYAN,2)
 
 
-
-
-
 toRemove = [29,27,9,17,3,13,21,11,19,1,25,31]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 remove2=DRAW2(master)
 remove2=T([1,2])([7.5,5.3])(remove2)
 
+#Remove3
+
+master = assemblyDiagramInit([3,3,2])([[.1,2.1,.1],[.1,2,.1],[.1,2.7]])
+V,CV= master
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
+
+
+toRemove = [1,3,5,7,9,11,13,15,17]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+remove3=DRAW2(master)
+remove3=T([1,2])([2.4,3.1])(remove3)
+
 
 plan = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
-	,bagno2,remove,remove2])
+	,bagno2,remove,remove2,remove3])
 VIEW(plan)
 
-#Porte
 
 
 
-
-toRemove = [9]
-master = V0,[cell for k,cell in enumerate(CV) if not (k in toRemove)]
-#DRAW(master)
 
 
 
