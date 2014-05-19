@@ -4,6 +4,7 @@ sys.path.insert(0, 'lib/py/')
 from lar2psm import *
 from larcc import *
 from sysml import *
+from architectural import *
 from splines import*
 import exercise1Imp
 
@@ -135,8 +136,8 @@ scale=T([1,2])([4.1,7.6])(scale)
 #Garage1
 master = assemblyDiagramInit([4,5,2])([[.1,2.5,3.2,.1],[.3,1,3,2.8,.1],[.1,2.7]])
 V,CV= master
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+hpc1 = SKEL_1(STRUCT(MKPOLS(master)))
+hpc1 = cellNumbering (master,hpc1)(range(len(CV)),CYAN,2)
 
 #Porta
 toMerge = 3
@@ -155,8 +156,8 @@ garage1=T([1,2])([7.6,5.3])(garage1)
 #Garage2
 master = assemblyDiagramInit([5,4,2])([[.1,3.5,2,2.9,.1],[.1,1,6.7,.1],[.1,2.7]])
 V,CV= master
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+hpc2 = SKEL_1(STRUCT(MKPOLS(master)))
+hpc2 = cellNumbering (master,hpc2)(range(len(CV)),CYAN,2)
 
 
 
@@ -298,11 +299,21 @@ master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemo
 dispensa=DRAW2(master)
 dispensa=T([1,2])([4,2.5])(dispensa)
 
+#Camino
+camino=CUBOID([1,1,8.5])
+camino=T([1])([17.3])(camino)
 
+#Esterni
+ext1=CUBOID([14.3,7.3,0.1])
+ext1=T([1,2,3])([7.6,5.2,2.8])(ext1)
+
+ext2=CUBOID([8.7,1,0.1])
+ext2=T([1,2,3])([13.2,4.6,2.8])(ext2)
 
 #Assemblamento secondo piano
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa])
+	remove,dispensa,camino,ext1,ext2])
+
 
 #Richiamo il piano terra
 plan1=exercise1Imp.plan1
