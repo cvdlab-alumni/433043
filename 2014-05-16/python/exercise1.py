@@ -571,7 +571,7 @@ muro2=T(2)(5.3)(muro2)
 
 #ParteSupTettoMansarda
 ParteSupTettoMansarda=CUBOID([10,9.7,0.3])
-ParteSupTettoMansarda=T(3)(2.4)(ParteSupTettoMansarda)
+ParteSupTettoMansarda=T([2,3])([-0.7,2.4])(ParteSupTettoMansarda)
 
 #TettoMansarda
 tettoM_vertici = [ [0,0], [9.7,0], [4.85,1.5], ];
@@ -581,7 +581,7 @@ tettoM_2D = MKPOL([tettoM_vertici, tettoM_num_lati, None])
 tettoM = PROD([tettoM_2D, Q(10)])
 tettoM=ROTATE([2,3])(PI/2)(tettoM)
 tettoM=ROTATE([1,2])(PI/2)(tettoM)
-tettoM=T(3)(2.7)(tettoM)
+tettoM=T([2,3])([-0.7,2.7])(tettoM)
 
 
 Mansarda=STRUCT([cameraMan,bagnoMan,balcone,muro,muro2,ParteSupTettoMansarda,tettoM])
@@ -595,14 +595,14 @@ tetto=DIFFERENCE([tetto,rimozione])
 
 #Muri Stireria
 muroStir=CUBOID([6.4,3.6,3])
-muroStir=T([1,2,3])([7.5,6.9,2.8])(muroStir)
+muroStir=T([1,2,3])([7.5,6.9,2.6])(muroStir)
 #Assemblo
 plan1 = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
 	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno,parteSup,tetto,Mansarda,muroStir])
 
 
 #Visualizzo
-#VIEW(plan1)
+VIEW(plan1)
 
 
 
