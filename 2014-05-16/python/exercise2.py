@@ -6,7 +6,7 @@ from larcc import *
 from sysml import *
 from architectural import *
 from splines import*
-import exercise1Imp
+import exercise1
 
 #Funzioni Utili
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
@@ -316,7 +316,7 @@ plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno
 
 
 #Richiamo il piano terra
-plan1=exercise1Imp.plan1
+plan1=exercise1.plan1
 #Traslo il piano a fianco
 plan1=T([2,3])([1,2.8])(plan1)
 #Creo una struttura unica

@@ -115,7 +115,7 @@ toRemove = [34,28,9,14,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 DRAW2(master)
 stireria=DRAW2(master)
-stireria=T([1,2])([10.2,8.2])(stireria)
+stireria=T([1,2])([10.8,8.2])(stireria)
 
 #Cucina
 master = assemblyDiagramInit([5,6,2])([[.1,1,1,2,.1],[.1,1.5,1,1.2,0.3,.1],[.1,2.7]])
@@ -324,7 +324,7 @@ camino=DRAW2(master)
 camino=T([1,2])([6.5,2])(camino)
 
 #Remove2
-master = assemblyDiagramInit([4,5,2])([[.1,2.8,2.8,.1],[.1,2.8,1.1,1.1,.1],[.1,2.7]])
+master = assemblyDiagramInit([4,5,2])([[.1,3.6,2.6,.1],[.1,2.8,1.1,1.1,.1],[.1,2.7]])
 V,CV= master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
@@ -450,7 +450,7 @@ ext4_2D = MKPOL([ext4_vertici, ext4_num_lati, None])
 ext4 = PROD([ext4_2D, Q(2.8)])
 ext4=T(2)(-2)(ext4)
 
-ext5_vertici = [ [0,0], [0,6], [2.8,0],[2.8,0.5],[1,6] ];
+ext5_vertici = [ [0,0], [0,6], [2.8,0],[2.8,2.5],[0.3,6] ];
 ext5_num_lati = [range(1,6)] 
 ext5_2D = MKPOL([ext5_vertici, ext5_num_lati, None])
 ext5 = PROD([ext5_2D, Q(0.5)])
@@ -459,12 +459,150 @@ ext5=ROTATE([1,2])(PI)(ext5)
 ext5=T([1,2])([16.9,0.5])(ext5)
 
 esterno=STRUCT([est1,est2,ext4,ext5,colonne])
+
+#ParteSuperiore
+parteSup=CUBOID([17.4,10.3,0.7])
+parteSup=T([2,3])([-2,2.8])(parteSup)
+#Tetto
+
+tetto_vertici = [ [0,0], [10.3,0], [5.15,2], ];
+tetto_num_lati = [range(1,4)] 
+tetto_2D = MKPOL([tetto_vertici, tetto_num_lati, None])
+#Porto in 2,5D
+tetto = PROD([tetto_2D, Q(17.4)])
+tetto=ROTATE([2,3])(PI/2)(tetto)
+tetto=ROTATE([1,2])(PI/2)(tetto)
+tetto=T([2,3])([-2,3.5])(tetto)
+
+
+#Creo La mansarda
+
+#Camera1
+master = assemblyDiagramInit([7,6,2])([[.1,0.5,1.1,2,1,1,.1],[.1,0.5,1.3,2,1.3,.2],[.1,2.3]])
+V,CV = master
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc= cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
+
+#Finestra
+toMerge = 49
+diagram0 = assemblyDiagramInit([1,1,3])([[3],[.1],[1,1.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+#Porta
+toMerge = 35
+diagram0 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+toMerge = 25
+diagram0 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+
+toMerge = 9
+diagram0 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+toMerge = 5
+diagram0 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+#Rimozione
+toRemove = [80,88,84,86,24,26,28,30,35,37,39,41,46,48,50,52,58,60,62,64,13,15,17,19]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+cameraMan=DRAW2(master)
+cameraMan=T([1])([4.2])(cameraMan)
+
+#bagnoMan
+master = assemblyDiagramInit([5,5,2])([[.1,0.5,1.5,2,.1],[.1,0.5,1.3,1.5,.1],[.1,2.5]])
+V,CV = master
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc= cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
+
+
+toMerge = 21
+diagram0 = assemblyDiagramInit([1,1,3])([[3],[.1],[1,1.2,.3]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+#Rimozione
+toRemove = [50,17,26,36,46,15,24,34,44,13,22,32,42]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+bagnoMan=DRAW2(master)
+
+
+#Balcone
+
+master = assemblyDiagramInit([3,3,3])([[.1,9.8,.1],[.1,1.3,.1],[.1,1.5,.1]])
+V,CV = master
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc= cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
+#Rimozione
+toRemove = [13,16,17,14]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+balcone=DRAW2(master)
+balcone=T(2)(-1.5)(balcone)
+
+#muro
+muro=CUBOID([0.1,1.8,2.8])
+muro=T(2)(3.5)(muro)
+
+#muro2
+muro2=CUBOID([4.5,0.1,2.8])
+muro2=T(2)(5.3)(muro2)
+
+
+#ParteSupTettoMansarda
+ParteSupTettoMansarda=CUBOID([10,9.7,0.3])
+ParteSupTettoMansarda=T(3)(2.4)(ParteSupTettoMansarda)
+
+#TettoMansarda
+tettoM_vertici = [ [0,0], [9.7,0], [4.85,1.5], ];
+tettoM_num_lati = [range(1,4)] 
+tettoM_2D = MKPOL([tettoM_vertici, tettoM_num_lati, None])
+#Porto in 2,5D
+tettoM = PROD([tettoM_2D, Q(10)])
+tettoM=ROTATE([2,3])(PI/2)(tettoM)
+tettoM=ROTATE([1,2])(PI/2)(tettoM)
+tettoM=T(3)(2.7)(tettoM)
+
+
+Mansarda=STRUCT([cameraMan,bagnoMan,balcone,muro,muro2,ParteSupTettoMansarda,tettoM])
+
+Mansarda=T([1,2,3])([3.9,1.5,3])(Mansarda)
+
+#Rimozione
+rimozione=CUBOID([10,7,4])
+rimozione=T([1,3])([4,3])(rimozione)
+tetto=DIFFERENCE([tetto,rimozione])
+
+#Muri Stireria
+muroStir=CUBOID([6.4,3.6,3])
+muroStir=T([1,2,3])([7.5,6.9,2.8])(muroStir)
 #Assemblo
 plan1 = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
-	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno])
+	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno,parteSup,tetto,Mansarda,muroStir])
+
 
 #Visualizzo
-VIEW(plan1)
+#VIEW(plan1)
 
 
 
