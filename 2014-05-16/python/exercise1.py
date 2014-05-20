@@ -429,8 +429,8 @@ scalinata2=ROTATE([1,2])(-PI)(scalinata2)
 est1= CUBOID([4.2,6,0.1])
 est1=T([1,2])([13.2,-5.5])(est1)
 
-est2= CUBOID([13.2,3,0.1])
-est2=T([2])([-2.5])(est2)
+est2= CUBOID([14.7,3,0.1])
+est2=T([1,2])([-1.5,-2.5])(est2)
 
 
 
@@ -600,8 +600,8 @@ muroStir=T([1,2,3])([7.5,6.9,2.6])(muroStir)
 #Giardino
 domain1D = larDomain([32])
 domain2D = larIntervals([32,48],'simplex')([1,1])
-b1 = BEZIER(S1)([[0,4], [0.5,-7], [6.5,-7], [7.5,0]])
-b2=BEZIER(S1)([[0,4], [0.5,5], [6.5,5], [7.5,0]])
+b1 = BEZIER(S1)([[-1.5,4], [0.5,-7], [6.5,-7], [7.5,0]])
+b2=BEZIER(S1)([[-1.5,4], [0.5,5], [6.5,5], [7.5,0]])
 controls = [b1,b2]
 mapping = BEZIER(S2)(controls)
 path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
@@ -619,8 +619,8 @@ giardino2=T([2,3])([-14.3,-2.9])(giardino2)
 
 
 
-giardino3=CUBOID([17.3,6,2.8])
-giardino3=T([2,3])([-10.4,-2.9])(giardino3)
+giardino3=CUBOID([18.8,6,2.8])
+giardino3=T([1,2,3])([-1.5,-10.4,-2.9])(giardino3)
 
 giardino4=CUBOID([13,6,2.8])
 giardino4=T([1,2,3])([2,-14,-2.9])(giardino4)
@@ -629,6 +629,8 @@ giardino4=T([1,2,3])([2,-14,-2.9])(giardino4)
 giardino=STRUCT([giardino1,giardino2,
 	giardino3,giardino4])
 giardino=T([2])(3.4)(giardino)
+
+
 
 
 #Assemblo

@@ -182,7 +182,7 @@ pianoGarage=T([1])([17.3])(pianoGarage)
 
 #SalitaGarage
 
-salita_vertici = [ [0,0], [0,1.5], [6,0],[6,0.1] ];
+salita_vertici = [ [0,0], [0,1.2], [6,0],[6,0.1] ];
 salita_num_lati = [range(1,5)] 
 salita_2D = MKPOL([salita_vertici, salita_num_lati, None])
 #Porto in 2,5D
@@ -330,9 +330,88 @@ ext1=T([1,2,3])([7.6,5.2,2.8])(ext1)
 ext2=CUBOID([8.7,1,0.1])
 ext2=T([1,2,3])([13.2,4.6,2.8])(ext2)
 
+#Vialetto
+
+domain1D = larDomain([32])
+domain2D = larIntervals([32,48],'simplex')([1,1])
+b1 = BEZIER(S1)([[-3.8,5], [0.5,-12.4], [10,-11.4]])
+b2=BEZIER(S1)([[-0.6,5], [1.5,-5.5], [9.5,-6]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+vialetto1 = PROD([path, Q(1.2)])
+vialetto1=T([1,2,3])([-1,-11])(vialetto1)
+
+
+b1 = BEZIER(S1)([[8.5,-11.4], [17.5,-12.4], [21.9,5]])
+b2=BEZIER(S1)([[8.5,-6], [16.5,-5.7], [17.3,5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+vialetto2 = PROD([path, Q(1.2)])
+vialetto2=T([2,3])([-11])(vialetto2)
+vialetto=STRUCT([vialetto1,vialetto2,garage])
+
+#Scale vialetto
+
+b1 = BEZIER(S1)([[-1.5,-5.5],[6.5,-16.5], [14,-5.5]])
+b2=BEZIER(S1)([[0.2,-5.5],[6.5,-9], [11,-5.5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+grad1 = PROD([path, Q(0.2)])
+grad1=T([1,2,3])([2,-8,1])(grad1)
+
+b1 = BEZIER(S1)([[1.5,-5.5],[6.5,-9], [10.9,-5.5]])
+b2=BEZIER(S1)([[1.5,-5.5],[6.5,-6], [10.9,-5.5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+grad2 = PROD([path, Q(0.2)])
+grad2=T([1,2,3])([2,-8.3,1.2])(grad2)
+
+b1 = BEZIER(S1)([[2.5,-5.5],[6.5,-8], [9.9,-5.5]])
+b2=BEZIER(S1)([[2.5,-5.5],[6.5,-6], [9.9,-5.5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+grad3 = PROD([path, Q(0.2)])
+grad3=T([1,2,3])([2,-8.2,1.4])(grad3)
+
+b1 = BEZIER(S1)([[2.5,-5.5],[6.5,-8], [9.9,-5.5]])
+b2=BEZIER(S1)([[2.5,-5.5],[6.5,-6], [9.9,-5.5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+grad4 = PROD([path, Q(0.2)])
+grad4=T([1,2,3])([2,-7.8,1.6])(grad4)
+
+grad5=CUBOID([7.4,1,0.15])
+grad5=T([1,2,3])([4.5,-13.6,1.8])(grad5)
+
+grad6=CUBOID([7.4,0.6,0.15])
+grad6=T([1,2,3])([4.5,-13.2,1.95])(grad6)
+
+grad7=CUBOID([7.4,0.6,0.15])
+grad7=T([1,2,3])([4.5,-12.8,2.10])(grad7)
+
+grad8=CUBOID([7.4,0.6,0.15])
+grad8=T([1,2,3])([4.5,-12.4,2.25])(grad8)
+
+grad9=CUBOID([7.4,0.6,0.15])
+grad9=T([1,2,3])([4.5,-12,2.40])(grad9)
+
+grad10=CUBOID([7.4,3,0.15])
+grad10=T([1,2,3])([4.5,-11.6,2.55])(grad10)
+
+
+
+scaleEXT=STRUCT([grad1,grad2,grad3,grad4,grad5,grad6,grad7,grad8,grad9,grad10])
+
+
 #Assemblamento secondo piano
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,camino,ext1,ext2])
+	remove,dispensa,camino,ext1,ext2,vialetto,scaleEXT])
 
 
 #Richiamo il piano terra
