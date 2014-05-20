@@ -429,11 +429,18 @@ SalitaPos=ROTATE([2,3])(PI/2)(SalitaPos)
 SalitaPos=ROTATE([1,2])(PI/2)(SalitaPos)
 SalitaPos=T([1,2])([-4.75,2])(SalitaPos)
 
+#Muretto
+muretto=CUBOID([0.2,9.2,2.8])
+muretto=T([1])([-1.5])(muretto)
+
+#baseMuretto
+baseMuretto=CUBOID([1.7,9.2,0.1])
+baseMuretto=T([1])([-1.5])(baseMuretto)
 
 #Assemblamento secondo piano
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
 	remove,dispensa,camino,ext1,ext2,giardinoPost,stradaPost,stradaPost2,
-	SalitaPos,vialetto,scaleEXT])
+	SalitaPos,vialetto,scaleEXT,muretto,baseMuretto])
 
 
 #Richiamo il piano terra
