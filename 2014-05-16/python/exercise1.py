@@ -9,6 +9,9 @@ from sysml import *
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
 DRAW2 = COMP([STRUCT,MKPOLS])
 
+def rgbToPlasmColor(color):
+	return [color[0]/255., color[1]/255., color[2]/255.]
+
 #Camera1
 master = assemblyDiagramInit([5,3,2])([[.1,1.5,1,1.5,.1],[.1,3,.1],[.1,2.7]])
 V,CV = master
@@ -444,6 +447,7 @@ colonna4=CUBOID([0.5,0.5,2.8])
 colonna4=T([1,2])([14,-1])(colonna4)
 colonne=STRUCT([colonna1,colonna2,colonna3,colonna4])
 
+
 ext4_vertici = [ [0,0], [0,2], [0.5,0], [0.5,2] ];
 ext4_num_lati = [range(1,5)] 
 ext4_2D = MKPOL([ext4_vertici, ext4_num_lati, None])
@@ -458,7 +462,9 @@ ext5=ROTATE([1,3])(PI/2)(ext5)
 ext5=ROTATE([1,2])(PI)(ext5)
 ext5=T([1,2])([16.9,0.5])(ext5)
 
-esterno=STRUCT([est1,est2,ext4,ext5,colonne])
+baseEsterno=STRUCT([est1,est2])
+esterno=STRUCT([ext4,ext5,colonne])
+
 
 #ParteSuperiore
 parteSup=CUBOID([17.4,10.3,0.7])
@@ -527,7 +533,7 @@ cameraMan=DRAW2(master)
 cameraMan=T([1])([4.2])(cameraMan)
 
 #bagnoMan
-master = assemblyDiagramInit([5,5,2])([[.1,0.5,1.5,2,.1],[.1,0.5,1.3,1.5,.1],[.1,2.5]])
+master = assemblyDiagramInit([5,5,2])([[.1,0.5,1.5,2,.1],[.1,0.5,1.3,1.5,.1],[.1,2.3]])
 V,CV = master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc= cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
@@ -561,11 +567,11 @@ balcone=DRAW2(master)
 balcone=T(2)(-1.5)(balcone)
 
 #muro
-muro=CUBOID([0.1,1.8,2.8])
+muro=CUBOID([0.1,1.8,2.4])
 muro=T(2)(3.5)(muro)
 
 #muro2
-muro2=CUBOID([4.5,0.1,2.8])
+muro2=CUBOID([4.5,0.1,2.4])
 muro2=T(2)(5.3)(muro2)
 
 
@@ -583,18 +589,25 @@ tettoM=ROTATE([2,3])(PI/2)(tettoM)
 tettoM=ROTATE([1,2])(PI/2)(tettoM)
 tettoM=T([2,3])([-0.7,2.7])(tettoM)
 
+tettoM=COLOR(rgbToPlasmColor([206,48,24]))(tettoM)
+ParteSupTettoMansarda=COLOR(rgbToPlasmColor([123,27	,2	]))(ParteSupTettoMansarda)
+cameraMan=COLOR(rgbToPlasmColor([255	,204,153]))(cameraMan)
+bagnoMan=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoMan)
+balcone=COLOR(rgbToPlasmColor([255	,204,153]))(balcone)
+muro=COLOR(rgbToPlasmColor([255	,204,153]))(muro)
+muro2=COLOR(rgbToPlasmColor([255	,204,153]))(muro2)
 
 Mansarda=STRUCT([cameraMan,bagnoMan,balcone,muro,muro2,ParteSupTettoMansarda,tettoM])
 
 Mansarda=T([1,2,3])([3.9,1.5,3])(Mansarda)
 
 #Rimozione
-rimozione=CUBOID([10,7,4])
-rimozione=T([1,3])([4,3])(rimozione)
+rimozione=CUBOID([10.1,7,4])
+rimozione=T([1,3])([3.9,3])(rimozione)
 tetto=DIFFERENCE([tetto,rimozione])
 
 #Muri Stireria
-muroStir=CUBOID([6.4,3.6,3])
+muroStir=CUBOID([6.4,3.6,2.8])
 muroStir=T([1,2,3])([7.5,6.9,2.6])(muroStir)
 
 #Giardino
@@ -622,20 +635,41 @@ giardino2=T([2,3])([-14.3,-2.9])(giardino2)
 giardino3=CUBOID([18.8,6,2.8])
 giardino3=T([1,2,3])([-1.5,-10.4,-2.9])(giardino3)
 
+
 giardino4=CUBOID([13,6,2.8])
 giardino4=T([1,2,3])([2,-14,-2.9])(giardino4)
 
 #Assemblo
 giardino=STRUCT([giardino1,giardino2,
-	giardino3,giardino4])
+	giardino4])
 giardino=T([2])(3.4)(giardino)
+giardino3=T([2])(3.4)(giardino3)
 
 
 
 
 #Assemblo
-plan1 = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
-	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno,parteSup,tetto,Mansarda,muroStir,giardino])
+
+principale=STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,cucina
+	,bagno2,remove,remove2,remove3])
+
+#Coloro
+principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
+camino=COLOR(rgbToPlasmColor([240,248,255]))(camino)
+scalinata=COLOR(rgbToPlasmColor([153,51,0]))(scalinata)
+scalinata2=COLOR(rgbToPlasmColor([229,228,226]))(scalinata2)
+parteSup=COLOR(rgbToPlasmColor([123	,27	,2	]))(parteSup)
+esterno=COLOR(rgbToPlasmColor([255	,204,153]))(esterno)
+baseEsterno=COLOR(rgbToPlasmColor([255	,204,153]))(baseEsterno)
+tetto=COLOR(rgbToPlasmColor([206,48,24]))(tetto)
+muroStir= COLOR(rgbToPlasmColor([255	,204,153]))(muroStir)
+giardino=COLOR(rgbToPlasmColor([184	,115	,51]))(giardino)
+giardino3= COLOR(rgbToPlasmColor([255	,204,153]))(giardino3)
+
+
+
+plan1 = STRUCT([principale,scalinata,scalinata2,esterno,baseEsterno,parteSup,tetto,Mansarda,muroStir,giardino,camino,
+	Mansarda,giardino3])
 
 
 #Visualizzo

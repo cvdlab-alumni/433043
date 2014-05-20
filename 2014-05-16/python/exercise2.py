@@ -12,6 +12,9 @@ import exercise1Imp
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
 DRAW2 = COMP([STRUCT,MKPOLS])
 
+def rgbToPlasmColor(color):
+	return [color[0]/255., color[1]/255., color[2]/255.]
+
 #Camera1
 master = assemblyDiagramInit([4,5,2])([[.1,1.9,2,.1],[.1,1,2,1,.1],[.1,2.7]])
 V,CV = master
@@ -150,6 +153,7 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 toRemove = [39,12,22,14,24,16,26,36,34,32,30]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 garage1=DRAW2(master)
+garage1=COLOR(rgbToPlasmColor([255	,204,153]))(garage1)
 garage1=T([1,2])([7.6,5.3])(garage1)
 
 
@@ -174,6 +178,7 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 toRemove = [5,13,21,28,11,26,39,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 garage2=DRAW2(master)
+garage2=COLOR(rgbToPlasmColor([255	,204,153]))(garage2)
 garage2=T([1,2])([13.3,4.6])(garage2)
 
 #pianoGarage
@@ -193,7 +198,10 @@ salita=T([1,2])([17.3,-6])(salita)
 
 
 #Assemblo
-garage=STRUCT([garage1,garage2,pianoGarage,salita])
+
+
+garage=STRUCT([garage1,garage2])
+garage=COLOR(rgbToPlasmColor([255	,204,153]))(garage)
 
 
 #Soggiorno2
@@ -410,8 +418,8 @@ scaleEXT=STRUCT([grad1,grad2,grad3,grad4,grad5,grad6,grad7,grad8,grad9,grad10])
 
 #GiardinoPosteriore
 
-giardinoPost=CUBOID([14.3,4,0.2])
-giardinoPost=T([1,2,3])([7.6,12,2.7])(giardinoPost)
+giardinoPost=CUBOID([14.3,3.5,0.2])
+giardinoPost=T([1,2,3])([7.6,12.5,2.7])(giardinoPost)
 
 stradaPost=CUBOID([12.4,6.8,2.9])
 stradaPost=T([1,2])([-4.7,9.2])(stradaPost)
@@ -437,10 +445,21 @@ muretto=T([1])([-1.5])(muretto)
 baseMuretto=CUBOID([1.7,9.2,0.1])
 baseMuretto=T([1])([-1.5])(baseMuretto)
 
+
+principale=STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
+	remove,dispensa,camino,muretto,baseMuretto])
+
+principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
+
+esterno=STRUCT([stradaPost,stradaPost2,SalitaPos,vialetto,scaleEXT
+	,pianoGarage,salita])
+
+esterno=COLOR(rgbToPlasmColor([128,128,128]))(esterno)
+giardinoPost=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoPost)
+ext1=COLOR(rgbToPlasmColor([255	,204,153]))(ext1)
+ext2=COLOR(rgbToPlasmColor([255	,204,153]))(ext2)
 #Assemblamento secondo piano
-plan2 = STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,camino,ext1,ext2,giardinoPost,stradaPost,stradaPost2,
-	SalitaPos,vialetto,scaleEXT,muretto,baseMuretto])
+plan2 = STRUCT([principale,esterno,ext1,ext2,giardinoPost])
 
 
 #Richiamo il piano terra
