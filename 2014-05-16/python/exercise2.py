@@ -334,7 +334,7 @@ ext2=T([1,2,3])([13.2,4.6,2.8])(ext2)
 
 domain1D = larDomain([32])
 domain2D = larIntervals([32,48],'simplex')([1,1])
-b1 = BEZIER(S1)([[-3.8,5], [0.5,-12.4], [10,-11.4]])
+b1 = BEZIER(S1)([[-3.8,5], [0.5,-10.4], [10,-9]])
 b2=BEZIER(S1)([[-0.6,5], [1.5,-5.5], [9.5,-6]])
 controls = [b1,b2]
 mapping = BEZIER(S2)(controls)
@@ -343,7 +343,7 @@ vialetto1 = PROD([path, Q(1.2)])
 vialetto1=T([1,2,3])([-1,-11])(vialetto1)
 
 
-b1 = BEZIER(S1)([[8.5,-11.4], [17.5,-12.4], [21.9,5]])
+b1 = BEZIER(S1)([[8.5,-9], [17.5,-10.4], [21.9,5]])
 b2=BEZIER(S1)([[8.5,-6], [16.5,-5.7], [17.3,5]])
 controls = [b1,b2]
 mapping = BEZIER(S2)(controls)
@@ -408,10 +408,32 @@ grad10=T([1,2,3])([4.5,-11.6,2.55])(grad10)
 
 scaleEXT=STRUCT([grad1,grad2,grad3,grad4,grad5,grad6,grad7,grad8,grad9,grad10])
 
+#GiardinoPosteriore
+
+giardinoPost=CUBOID([14.3,4,0.2])
+giardinoPost=T([1,2,3])([7.6,12,2.7])(giardinoPost)
+
+stradaPost=CUBOID([12.4,6.8,2.9])
+stradaPost=T([1,2])([-4.7,9.2])(stradaPost)
+
+stradaPost2=CUBOID([3.3,10,1.2])
+stradaPost2=T([1,2])([-4.7,-6.10])(stradaPost2)
+
+#Salita Posteriore
+SalitaPos_vertici = [ [0,0], [0,1.2], [7.3,0],[7.3,2.9] ];
+SalitaPos_num_lati = [range(1,5)] 
+SalitaPos_2D = MKPOL([SalitaPos_vertici, SalitaPos_num_lati, None])
+#Porto in 2,5D
+SalitaPos = PROD([SalitaPos_2D, Q(3.3)])
+SalitaPos=ROTATE([2,3])(PI/2)(SalitaPos)
+SalitaPos=ROTATE([1,2])(PI/2)(SalitaPos)
+SalitaPos=T([1,2])([-4.75,2])(SalitaPos)
+
 
 #Assemblamento secondo piano
 plan2 = STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,camino,ext1,ext2,vialetto,scaleEXT])
+	remove,dispensa,camino,ext1,ext2,giardinoPost,stradaPost,stradaPost2,
+	SalitaPos,vialetto,scaleEXT])
 
 
 #Richiamo il piano terra
