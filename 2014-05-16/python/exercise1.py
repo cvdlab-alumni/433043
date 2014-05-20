@@ -596,9 +596,44 @@ tetto=DIFFERENCE([tetto,rimozione])
 #Muri Stireria
 muroStir=CUBOID([6.4,3.6,3])
 muroStir=T([1,2,3])([7.5,6.9,2.6])(muroStir)
+
+#Giardino
+domain1D = larDomain([32])
+domain2D = larIntervals([32,48],'simplex')([1,1])
+b1 = BEZIER(S1)([[0,4], [0.5,-7], [6.5,-7], [7.5,0]])
+b2=BEZIER(S1)([[0,4], [0.5,5], [6.5,5], [7.5,0]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+giardino1 = PROD([path, Q(2.8)])
+giardino1=T([2,3])([-14.3,-2.9])(giardino1)
+
+
+b1 = BEZIER(S1)([[9.5,0], [10.5,-7], [16.5,-7], [17.3,4]])
+b2=BEZIER(S1)([[9.5,0], [9.5,5], [16.5,5], [17.3,4]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+giardino2 = PROD([path, Q(2.8)])
+giardino2=T([2,3])([-14.3,-2.9])(giardino2)
+
+
+
+giardino3=CUBOID([17.3,6,2.8])
+giardino3=T([2,3])([-10.4,-2.9])(giardino3)
+
+giardino4=CUBOID([13,6,2.8])
+giardino4=T([1,2,3])([2,-14,-2.9])(giardino4)
+
+#Assemblo
+giardino=STRUCT([giardino1,giardino2,
+	giardino3,giardino4])
+giardino=T([2])(3.4)(giardino)
+
+
 #Assemblo
 plan1 = STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,camino,cucina
-	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno,parteSup,tetto,Mansarda,muroStir])
+	,bagno2,remove,remove2,remove3,scalinata,scalinata2,esterno,parteSup,tetto,Mansarda,muroStir,giardino])
 
 
 #Visualizzo
