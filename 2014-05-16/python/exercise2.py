@@ -161,6 +161,7 @@ hpc2 = cellNumbering (master,hpc2)(range(len(CV)),CYAN,2)
 
 
 
+
 #Porta
 toMerge = 25
 diagram2 = assemblyDiagramInit([1,1,2])([[2],[.1],[2.2,.5]])
@@ -174,6 +175,25 @@ toRemove = [5,13,21,28,11,26,39,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 garage2=DRAW2(master)
 garage2=T([1,2])([13.3,4.6])(garage2)
+
+#pianoGarage
+pianoGarage=CUBOID([4.6,4.6,0.1])
+pianoGarage=T([1])([17.3])(pianoGarage)
+
+#SalitaGarage
+
+salita_vertici = [ [0,0], [0,1.5], [6,0],[6,0.1] ];
+salita_num_lati = [range(1,5)] 
+salita_2D = MKPOL([salita_vertici, salita_num_lati, None])
+#Porto in 2,5D
+salita = PROD([salita_2D, Q(4.6)])
+salita=ROTATE([2,3])(PI/2)(salita)
+salita=ROTATE([1,2])(PI/2)(salita)
+salita=T([1,2])([17.3,-6])(salita)
+
+
+#Assemblo
+garage=STRUCT([garage1,garage2,pianoGarage,salita])
 
 
 #Soggiorno2
@@ -311,7 +331,7 @@ ext2=CUBOID([8.7,1,0.1])
 ext2=T([1,2,3])([13.2,4.6,2.8])(ext2)
 
 #Assemblamento secondo piano
-plan2 = STRUCT([camera1,camera2,bagno,scale,garage1,garage2,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
+plan2 = STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
 	remove,dispensa,camino,ext1,ext2])
 
 
