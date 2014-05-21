@@ -197,15 +197,23 @@ salita=ROTATE([1,2])(PI/2)(salita)
 salita=T([1,2])([17.3,-6])(salita)
 
 #MuroGarage
-muroGarage=CUBOID([0.1,18.5,2.9])
+muroGarage=CUBOID([0.4,18.5,2.9])
 muroGarage=T([1,2])([21.9,-6])(muroGarage)
+
+#MuroGarage2
+muroGarage2=CUBOID([0.4,10.7,0.5])
+muroGarage2=T([1,2,3])([21.9,-5.8,2.9])(muroGarage2)
+
+
+#MuroGarage3
+muroGarage3=CUBOID([4.9,0.4,0.5])
+muroGarage3=T([1,2,3])([17.4,4.6,2.9])(muroGarage3)
 
 #Assemblo
 
 
 garage=STRUCT([garage1,garage2])
 garage=COLOR(rgbToPlasmColor([255	,204,153]))(garage)
-
 
 #Soggiorno2
 master = assemblyDiagramInit([3,3,2])([[.1,3.3,.1],[.1,7.5,.1],[.1,2.7]])
@@ -421,14 +429,26 @@ scaleEXT=STRUCT([grad1,grad2,grad3,grad4,grad5,grad6,grad7,grad8,grad9,grad10])
 
 #GiardinoPosteriore
 
-giardinoPost=CUBOID([14.3,3.5,0.2])
-giardinoPost=T([1,2,3])([7.6,12.5,2.7])(giardinoPost)
+giardinoPost=CUBOID([14.3,4,2.9])
+giardinoPost=T([1,2])([7.6,12.5])(giardinoPost)
 
-stradaPost=CUBOID([12.4,6.8,2.9])
+#giardinoPost2
+giardinoPost2=CUBOID([3.5,4,2.9])
+giardinoPost2=T([1,2])([21.9,12.5])(giardinoPost2)
+
+stradaPost=CUBOID([12.4,7.3,2.9])
 stradaPost=T([1,2])([-4.7,9.2])(stradaPost)
 
 stradaPost2=CUBOID([3.3,10,1.2])
 stradaPost2=T([1,2])([-4.7,-6.10])(stradaPost2)
+
+#StradaDX
+StradaDX=CUBOID([3.1,18.5,2.9])
+StradaDX=T([1,2])([22.3,-6])(StradaDX)
+
+
+
+
 
 #Salita Posteriore
 SalitaPos_vertici = [ [0,0], [0,1.2], [7.3,0],[7.3,2.9] ];
@@ -448,9 +468,47 @@ muretto=T([1])([-1.5])(muretto)
 baseMuretto=CUBOID([1.7,9.2,0.1])
 baseMuretto=T([1])([-1.5])(baseMuretto)
 
+#Siepe Posteriore
+pianta= CUBOID([0.5,0.5,1.5])
+Tp=T(1)(0.6)
+siepe1=STRUCT(NN(50)([Tp, pianta]))
+siepe1=T([1,2,3])([-5.3,16,2.9])(siepe1)
+siepe1=COLOR(rgbToPlasmColor([85,104	,5]))(siepe1)
+
+#Siepe sx
+pianta= CUBOID([0.5,0.5,1.5])
+Tp=T(2)(-0.6)
+siepe2=STRUCT(NN(11)([Tp, pianta]))
+siepe2=T([1,2,3])([-5.3,15.8,2.9])(siepe2)
+siepe2=COLOR(rgbToPlasmColor([85,104	,5]))(siepe2)
+
+
+siepe3=STRUCT(NN(14)([Tp, pianta]))
+siepe3=T([1,2,3])([-5.3,3,1.2])(siepe3)
+siepe3=COLOR(rgbToPlasmColor([85,104	,5]))(siepe3)
+
+pianta1=T([1,2,3])([-5.3,3,1.4])(pianta)
+pianta2=T([1,2,3])([-5.3,3.8,1.6])(pianta)
+pianta3=T([1,2,3])([-5.3,4.4,1.8])(pianta)
+pianta4=T([1,2,3])([-5.3,5,1.9])(pianta)
+pianta5=T([1,2,3])([-5.3,5.6,2.1])(pianta)
+pianta6=T([1,2,3])([-5.3,6.2,2.2])(pianta)
+pianta7=T([1,2,3])([-5.3,6.8,2.3])(pianta)
+pianta8=T([1,2,3])([-5.3,7.4,2.4])(pianta)
+pianta9=T([1,2,3])([-5.3,8,2.6])(pianta)
+pianta10=T([1,2,3])([-5.3,8.6,2.8])(pianta)
+
+siepe4=STRUCT([pianta1,pianta2,pianta3,pianta4,pianta5,pianta6,pianta7,pianta8,pianta9,pianta10])
+siepe4=COLOR(rgbToPlasmColor([85,104	,5]))(siepe4)
+
+siepe5=STRUCT(NN(36)([Tp, pianta]))
+siepe5=T([1,2,3])([25,16,2.9])(siepe5)
+siepe5=COLOR(rgbToPlasmColor([85,104	,5]))(siepe5)
+
+
 
 principale=STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,camino,muretto,baseMuretto,muroGarage])
+	remove,dispensa,camino,muretto,baseMuretto,muroGarage,muroGarage2,muroGarage3])
 
 principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
 
@@ -459,10 +517,17 @@ esterno=STRUCT([stradaPost,stradaPost2,SalitaPos,vialetto,scaleEXT
 
 esterno=COLOR(rgbToPlasmColor([128,128,128]))(esterno)
 giardinoPost=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoPost)
+giardinoPost2=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoPost2)
 ext1=COLOR(rgbToPlasmColor([255	,204,153]))(ext1)
 ext2=COLOR(rgbToPlasmColor([255	,204,153]))(ext2)
+StradaDX=COLOR(rgbToPlasmColor([150,75,0]))(StradaDX)
+
+
+
+siepe=STRUCT([siepe1,siepe2,siepe3,siepe4,siepe5])
+
 #Assemblamento secondo piano
-plan2 = STRUCT([principale,esterno,ext1,ext2,giardinoPost])
+plan2 = STRUCT([principale,esterno,ext1,ext2,giardinoPost,giardinoPost2,siepe,StradaDX])
 
 
 
