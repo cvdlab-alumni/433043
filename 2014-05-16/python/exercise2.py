@@ -15,6 +15,24 @@ DRAW2 = COMP([STRUCT,MKPOLS])
 def rgbToPlasmColor(color):
 	return [color[0]/255., color[1]/255., color[2]/255.]
 
+def creaFinestre(x,z):
+ finestra0=CUBOID([x,0.1,z])
+ anta1=CUBOID([0.1,0.1,z-0.1])
+ anta1=T([2,3])([-0.1,0.1])(anta1)
+ anta2=CUBOID([0.1,0.1,z-0.1])
+ anta2=T([1,2,3])([x-0.1,-0.1,0.1])(anta2)
+ anta3=CUBOID([x,0.1,0.1])
+ anta3=T(2)(-0.1)(anta3)
+ anta4=CUBOID([x,0.1,0.1])
+ anta4=T([2,3])([-0.1,z-0.1])(anta4)
+ anta5=CUBOID([0.1,0.1,z-0.1])
+ anta5=T([1,2,3])([(x-0.1)/2,-0.1,0.1])(anta5)
+ ante=STRUCT([anta1,anta2,anta3,anta4,anta5])
+ ante=COLOR(rgbToPlasmColor([153,51,0]))(ante)
+ finestra0=COLOR(rgbToPlasmColor([153,203,255]))(finestra0)
+ finestra=STRUCT([finestra0,ante])
+ return finestra
+
 #Camera1
 master = assemblyDiagramInit([4,5,2])([[.1,1.9,2,.1],[.1,1,2,1,.1],[.1,2.7]])
 V,CV = master
