@@ -6,7 +6,7 @@ from larcc import *
 from sysml import *
 
 
-#Funzione per la numerazione di celle
+#Funzione per la numerazione di celle.
 def NumberCell(master,hpc):
     hpc = cellNumbering(master,hpc)(range(len(master[1])),CYAN,2)
     return hpc
@@ -14,7 +14,7 @@ def NumberCell(master,hpc):
 
 #Prende in input una lista di Diagram da inserire, il master e la lista di celle
 #in cui inserire i vari Diagram. Come ulteriore parametro gli si da in input
-#la lista di celle da rimuovere
+#la lista di celle da rimuovere.
 
 def InserisciEliminaDiagram(diagram,master,toMerge,toRemove):
  master = master[0],[cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
@@ -30,7 +30,7 @@ def InserisciEliminaDiagram(diagram,master,toMerge,toRemove):
 
  return hpc
 
-#Esempio di utilizzo
+#Esempio di utilizzo.
 master = assemblyDiagramInit([5,5,2])([[.3,3.2,.1,5,.3],[.3,4,.1,2.9,.3],[.3,2.7]])
 V,CV = master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
