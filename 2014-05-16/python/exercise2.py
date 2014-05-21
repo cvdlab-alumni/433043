@@ -197,12 +197,13 @@ salita=ROTATE([1,2])(PI/2)(salita)
 salita=T([1,2])([17.3,-6])(salita)
 
 #MuroGarage
-muroGarage=CUBOID([0.4,18.5,2.9])
-muroGarage=T([1,2])([21.9,-6])(muroGarage)
+muroGarage=CUBOID([0.4,18.6,2.9])
+muroGarage=T([1,2])([21.9,-6.2])(muroGarage)
+
 
 #MuroGarage2
-muroGarage2=CUBOID([0.4,10.9,0.5])
-muroGarage2=T([1,2,3])([21.9,-5.8,2.9])(muroGarage2)
+muroGarage2=CUBOID([0.4,11.1,0.5])
+muroGarage2=T([1,2,3])([21.9,-6.2,2.9])(muroGarage2)
 
 
 #MuroGarage3
@@ -443,9 +444,32 @@ stradaPost2=CUBOID([3.3,10,1.2])
 stradaPost2=T([1,2])([-4.7,-6.10])(stradaPost2)
 
 #StradaDX
-StradaDX=CUBOID([3.1,18.5,2.9])
-StradaDX=T([1,2])([22.3,-6])(StradaDX)
+StradaDX=CUBOID([3.1,15.5,2.9])
+StradaDX=T([1,2])([22.3,-3])(StradaDX)
 
+#ScaleDX
+scaleDX1=CUBOID([3.1,1,2.9])
+scaleDX1=T([1,2])([22.3,-4])(scaleDX1)
+
+scaleDX2=CUBOID([3.1,2.9,2.2])
+scaleDX2=T([1,2])([22.3,-5.8])(scaleDX2)
+
+scaleDX3=CUBOID([3.1,3.3,1.6])
+scaleDX3=T([1,2])([22.3,-6.1])(scaleDX3)
+
+
+scaleDX=STRUCT([scaleDX1,scaleDX2,scaleDX3])
+
+#VialeDX
+
+
+b1 = BEZIER(S1)([[14,-4], [15.5,-10.4], [21.9,5]])
+b2=BEZIER(S1)([[14,-4.5], [20,-5.7], [25.4,5]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+vialettoDX = PROD([path, Q(1.2)])
+vialettoDX=T([2,3])([-11])(vialettoDX)
 
 
 
@@ -501,7 +525,7 @@ pianta10=T([1,2,3])([-5.3,8.6,2.8])(pianta)
 siepe4=STRUCT([pianta1,pianta2,pianta3,pianta4,pianta5,pianta6,pianta7,pianta8,pianta9,pianta10])
 siepe4=COLOR(rgbToPlasmColor([85,104	,5]))(siepe4)
 
-siepe5=STRUCT(NN(36)([Tp, pianta]))
+siepe5=STRUCT(NN(33)([Tp, pianta]))
 siepe5=T([1,2,3])([25,16,2.9])(siepe5)
 siepe5=COLOR(rgbToPlasmColor([85,104	,5]))(siepe5)
 
@@ -513,7 +537,7 @@ principale=STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,sogg
 principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
 
 esterno=STRUCT([stradaPost,stradaPost2,SalitaPos,vialetto,scaleEXT
-	,pianoGarage,salita])
+	,pianoGarage,salita,scaleDX,vialettoDX])
 
 esterno=COLOR(rgbToPlasmColor([128,128,128]))(esterno)
 giardinoPost=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoPost)

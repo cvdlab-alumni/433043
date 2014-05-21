@@ -706,10 +706,6 @@ giardino3= COLOR(rgbToPlasmColor([255	,204,153]))(giardino3)
 
 #Creo la siepe
 
-pianta= CUBOID([0.5,0.5,0.8])
-Tp=T(2)(0.6)
-piante1=STRUCT(NN(8)([Tp, pianta]))
-piante1=T([1,2])([-1.3,-8.2])(piante1)
 
 pianta2=T([1,2])([-1.1,-8.2])(pianta)
 pianta3=T([1,2])([-1.0,-8.8])(pianta)
