@@ -445,7 +445,9 @@ colonna3=CUBOID([0.5,0.5,2.8])
 colonna3=T([1,2])([10.5,-1])(colonna3)
 colonna4=CUBOID([0.5,0.5,2.8])
 colonna4=T([1,2])([14,-1])(colonna4)
-colonne=STRUCT([colonna1,colonna2,colonna3,colonna4])
+colonna5=CUBOID([0.5,0.5,2.8])
+colonna5=T([1,2])([3.9,10])(colonna5)
+colonne=STRUCT([colonna1,colonna2,colonna3,colonna4,colonna5])
 
 
 ext4_vertici = [ [0,0], [0,2], [0.5,0], [0.5,2] ];
@@ -471,7 +473,7 @@ parteSup=CUBOID([17.4,10.3,0.7])
 parteSup=T([2,3])([-2,2.8])(parteSup)
 #Tetto
 
-tetto_vertici = [ [0,0], [10.3,0], [5.15,2], ];
+tetto_vertici = [ [0,0], [10.3,0], [5.15,1.5], ];
 tetto_num_lati = [range(1,4)] 
 tetto_2D = MKPOL([tetto_vertici, tetto_num_lati, None])
 #Porto in 2,5D
@@ -526,8 +528,9 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
+
 #Rimozione
-toRemove = [80,88,84,86,24,26,28,30,35,37,39,41,46,48,50,52,58,60,62,64,13,15,17,19]
+toRemove = [80,88,84,86,24,26,28,30,35,37,39,41,46,48,50,52,58,60,62,64,13,15,17,19,82]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 cameraMan=DRAW2(master)
 cameraMan=T([1])([4.2])(cameraMan)
@@ -589,6 +592,29 @@ tettoM=ROTATE([2,3])(PI/2)(tettoM)
 tettoM=ROTATE([1,2])(PI/2)(tettoM)
 tettoM=T([2,3])([-0.7,2.7])(tettoM)
 
+
+
+#Sottotetto
+master = assemblyDiagramInit([5,5,2])([[.1,3,.1,6.7,.1],[.1,1,1,1.4,.1],[.1,2.3]])
+V,CV = master
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc= cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
+toMerge = 25
+diagram0 = assemblyDiagramInit([1,1,2])([[3],[.1],[2.2,.2]])
+master = diagram2cell(diagram0,master,toMerge)
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
+
+
+#Rimozione
+toRemove = [11,21,30,49,13,15,17,36,34,32]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+sottotetto=DRAW2(master)
+sottotetto=T([2])(5.4)(sottotetto)
+
+
+
 tettoM=COLOR(rgbToPlasmColor([206,48,24]))(tettoM)
 ParteSupTettoMansarda=COLOR(rgbToPlasmColor([123,27	,2	]))(ParteSupTettoMansarda)
 cameraMan=COLOR(rgbToPlasmColor([255	,204,153]))(cameraMan)
@@ -597,18 +623,30 @@ balcone=COLOR(rgbToPlasmColor([255	,204,153]))(balcone)
 muro=COLOR(rgbToPlasmColor([255	,204,153]))(muro)
 muro2=COLOR(rgbToPlasmColor([255	,204,153]))(muro2)
 
-Mansarda=STRUCT([cameraMan,bagnoMan,balcone,muro,muro2,ParteSupTettoMansarda,tettoM])
 
-Mansarda=T([1,2,3])([3.9,1.5,3])(Mansarda)
+
+tettoM=COLOR(rgbToPlasmColor([206,48,24]))(tettoM)
+ParteSupTettoMansarda=COLOR(rgbToPlasmColor([123,27	,2	]))(ParteSupTettoMansarda)
+cameraMan=COLOR(rgbToPlasmColor([255	,204,153]))(cameraMan)
+sottotetto=COLOR(rgbToPlasmColor([255	,204,153]))(sottotetto)
+bagnoMan=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoMan)
+balcone=COLOR(rgbToPlasmColor([255	,204,153]))(balcone)
+muro=COLOR(rgbToPlasmColor([255	,204,153]))(muro)
+muro2=COLOR(rgbToPlasmColor([255	,204,153]))(muro2)
+
+Mansarda=STRUCT([cameraMan,bagnoMan,balcone,muro,muro2,sottotetto,ParteSupTettoMansarda,tettoM])
+#ParteSupTettoMansarda,tettoM
+
+Mansarda=T([1,2,3])([3.9,1.5,2.8])(Mansarda)
+
 
 #Rimozione
-rimozione=CUBOID([10.1,7,4])
-rimozione=T([1,3])([3.9,3])(rimozione)
+rimozione=CUBOID([10.1,14,3.8])
+rimozione=T([1,3])([3.9,2.8])(rimozione)
 tetto=DIFFERENCE([tetto,rimozione])
+parteSup=DIFFERENCE([parteSup,rimozione])
 
-#Muri Stireria
-muroStir=CUBOID([6.4,3.6,2.8])
-muroStir=T([1,2,3])([7.5,6.9,2.6])(muroStir)
+
 
 #Giardino
 domain1D = larDomain([32])
@@ -700,12 +738,14 @@ parteSup=COLOR(rgbToPlasmColor([123	,27	,2	]))(parteSup)
 esterno=COLOR(rgbToPlasmColor([255	,204,153]))(esterno)
 baseEsterno=COLOR(rgbToPlasmColor([255	,204,153]))(baseEsterno)
 tetto=COLOR(rgbToPlasmColor([206,48,24]))(tetto)
-muroStir= COLOR(rgbToPlasmColor([255	,204,153]))(muroStir)
 giardino=COLOR(rgbToPlasmColor([184	,115	,51]))(giardino)
 giardino3= COLOR(rgbToPlasmColor([255	,204,153]))(giardino3)
 
 #Creo la siepe
-
+pianta= CUBOID([0.5,0.5,0.8])
+Tp=T(2)(0.6)
+piante1=STRUCT(NN(8)([Tp, pianta]))
+piante1=T([1,2])([-1.3,-8.2])(piante1)
 
 pianta2=T([1,2])([-1.1,-8.2])(pianta)
 pianta3=T([1,2])([-1.0,-8.8])(pianta)
@@ -759,9 +799,9 @@ siepe=STRUCT([siepe1,siepe2,siepe3,siepe4,siepe5,siepe6,siepe7,siepe8,piante1,
         pianta26,pianta27,pianta28])
 siepe=COLOR(rgbToPlasmColor([128 ,128,0]))(siepe)
 
-plan1 = STRUCT([principale,scalinata,scalinata2,esterno,baseEsterno,parteSup,tetto,Mansarda,muroStir,giardino,camino,
-	Mansarda,giardino3,giardinoRemove,siepe])
-
+plan1 = STRUCT([principale,scalinata,scalinata2,esterno,baseEsterno,parteSup,giardino,camino,
+	Mansarda,tetto,giardino3,giardinoRemove,siepe])
+#tetto,Mansarda
 
 #Visualizzo
 VIEW(plan1)
