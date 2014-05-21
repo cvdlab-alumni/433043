@@ -429,11 +429,11 @@ scalinata2=ROTATE([1,2])(-PI)(scalinata2)
 
 
 #Esterno
-est1= CUBOID([4.2,6,0.1])
-est1=T([1,2])([13.2,-5.5])(est1)
+est1= CUBOID([4.2,6,0.2])
+est1=T([1,2,3])([13.2,-5.5,-0.1])(est1)
 
-est2= CUBOID([14.7,3,0.1])
-est2=T([1,2])([-1.5,-2.5])(est2)
+est2= CUBOID([14.7,3,0.2])
+est2=T([1,2,3])([-1.5,-2.5,-0.1])(est2)
 
 
 

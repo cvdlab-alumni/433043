@@ -197,7 +197,7 @@ salita=ROTATE([1,2])(PI/2)(salita)
 salita=T([1,2])([17.3,-6])(salita)
 
 #MuroGarage
-muroGarage=CUBOID([0.4,18.6,2.9])
+muroGarage=CUBOID([0.4,18.7,2.9])
 muroGarage=T([1,2])([21.9,-6.2])(muroGarage)
 
 
