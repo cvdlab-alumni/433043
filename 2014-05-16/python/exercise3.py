@@ -13,8 +13,11 @@ def NumberCell(master,hpc):
 
 
 #Prende in input una lista di Diagram da inserire, il master e la lista di celle
-#in cui inserire i vari Diagram.
-def InserisciDiagram(diagram,master,toMerge):
+#in cui inserire i vari Diagram. Come ulteriore parametro gli si da in input
+#la lista di celle da rimuovere
+
+def InserisciEliminaDiagram(diagram,master,toMerge,toRemove):
+ master = master[0],[cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
  ToMerge=list.sort(toMerge)
  ToMerge=list.reverse(toMerge)	
  cont=0
@@ -34,23 +37,21 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = NumberCell(master,hpc)
 
 
-CelleDaTogliere=[13,33,37,17]
-master = master[0],[cell for k,cell in enumerate(CV) if not (k in CelleDaTogliere)]
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = NumberCell(master, hpc)
-
 VIEW(hpc)
+
+
+
 
 diagram1 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram2 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram3 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram4 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 
+ToRemove=[13,33,37,17]
 ToMerge=([11,29,17,35])
-hpc=InserisciDiagram([diagram1,diagram2,diagram3,diagram4],master,ToMerge)
+
+hpc=InserisciEliminaDiagram([diagram1,diagram2,diagram3,diagram4],master,ToMerge,ToRemove)
 VIEW(hpc)
 
-ToMerge=([11,29])
-hpc=InserisciDiagram([diagram1,diagram2],master,ToMerge)
-VIEW(hpc)
+
 
