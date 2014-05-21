@@ -54,7 +54,14 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [30,35,9,14,20]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-camera1=DRAW2(master)
+camera=DRAW2(master)
+
+
+camera=COLOR(rgbToPlasmColor([255	,204,153]))(camera)
+finestra1=creaFinestre(1,1.2)
+finestra1=T([1,3])([1.6,1.1])(finestra1)
+camera1=STRUCT([camera,finestra1])
+
 
 #Camera2
 master = assemblyDiagramInit([5,3,2])([[.1,1.5,1,1.5,.1],[.1,3,.1],[.1,2.7]])
@@ -80,7 +87,14 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [30,35,9,15,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-camera2=DRAW2(master)
+camera2Temp=DRAW2(master)
+camera2Temp=COLOR(rgbToPlasmColor([255	,204,153]))(camera2Temp)
+
+finestra0=creaFinestre(1.2,1.2)
+finestra0=ROTATE([1,2])(PI)(finestra0)
+finestra0=T([1,2,3])([2.6,3.2,1.1])(finestra0)
+
+camera2=STRUCT([camera2Temp,finestra0])
 camera2=T(2)(5)(camera2)
 
 
@@ -89,6 +103,7 @@ master = assemblyDiagramInit([3,5,2])([[.1,2.2,.1],[.1,.4,0.9,.4,.1],[.1,2.7]])
 V,CV = master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
 
 #Porta
 toMerge = 25
@@ -108,7 +123,18 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,1)
 #Rimozione
 toRemove = [14,16,12,28,31]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-bagno=DRAW2(master)
+bagnoTemp=DRAW2(master)
+
+
+bagnoTemp=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoTemp)
+
+finestra0=creaFinestre(1,1.2)
+finestra0=ROTATE([1,2])(-PI/2)(finestra0)
+finestra0=T([2,3])([1.5,1.1])(finestra0)
+
+bagno=STRUCT([bagnoTemp,finestra0])
+
+
 bagno=T(2)(3.1)(bagno)
 
 #Stireria
@@ -116,6 +142,7 @@ master = assemblyDiagramInit([5,3,2])([[.1,1.4,1,.5,.1],[.1,2.1,.1],[.1,2.7]])
 V,CV = master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
+
 
 #Porta
 toMerge = 13
@@ -131,11 +158,20 @@ master = diagram2cell(diagram0,master,toMerge)
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
+
 #Rimozione
-toRemove = [34,28,9,14,19]
+toRemove = [34,28,9,14,19,31,37]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 DRAW2(master)
-stireria=DRAW2(master)
+stireriaTemp=DRAW2(master)
+stireriaTemp=COLOR(rgbToPlasmColor([255	,204,153]))(stireriaTemp)
+
+finestra0=creaFinestre(1,1.2)
+finestra0=ROTATE([1,2])(-PI)(finestra0)
+finestra0=T([1,2,3])([2.5,2.3,1.1])(finestra0)
+
+stireria=STRUCT([stireriaTemp,finestra0])
+
 stireria=T([1,2])([10.8,8.2])(stireria)
 
 #Cucina
@@ -178,7 +214,15 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [61,63,57,31,59,14,25,36,16,27,38,18,29,40,20,31,42]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-cucina=DRAW2(master)
+cucinaTemp=DRAW2(master)
+cucinaTemp=COLOR(rgbToPlasmColor([255	,204,153]))(cucinaTemp)
+
+finestra0=creaFinestre(1,1.2)
+finestra0=ROTATE([1,2])(PI/2)(finestra0)
+finestra0=T([1,2,3])([4.2,1.6,1.1])(finestra0)
+
+cucina=STRUCT([cucinaTemp,finestra0])
+
 cucina=T([1,2])([13.2,4.1])(cucina)
 
 
@@ -202,6 +246,7 @@ toRemove = [29,15,9,20]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 bagno2=DRAW2(master)
 bagno2=T([1,2])([10.2,5.3])(bagno2)
+bagno2=COLOR(rgbToPlasmColor([255	,204,153]))(bagno2)
 
 #Scale
 master = assemblyDiagramInit([3,5,2])([[.1,3.4,.1],[.1,.2,1,.2,.1],[.1,2.7]])
@@ -228,7 +273,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [28,15,34,13,17,14]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-scale=DRAW2(master)
+scaleTemp=DRAW2(master)
+scaleTemp=COLOR(rgbToPlasmColor([255	,204,153]))(scaleTemp)
+
+finestra0=creaFinestre(1.2,1.2)
+finestra0=ROTATE([1,2])(PI)(finestra0)
+finestra0=T([1,2,3])([2.4,1.6,1.1])(finestra0)
+
+scale=STRUCT([scaleTemp,finestra0])
+
+
 scale=T([1,2])([4,6.6])(scale)
 
 #Remove
@@ -242,6 +296,11 @@ toRemove = [5,11,17,3,9,15]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 remove=DRAW2(master)
 remove=T([1,2])([7.6,6.6])(remove)
+remove=COLOR(rgbToPlasmColor([255	,204,153]))(remove)
+
+finestra0=creaFinestre(1.2,1.2)
+finestra0=ROTATE([1,2])(PI)(finestra0)
+finestra0=T([1,2,3])([2.4,1.6,1.1])(finestra0)
 
 #Soggiorno2
 master = assemblyDiagramInit([5,3,2])([[.15,0.8,1.6,0.8,.15],[.1,6.0,.1],[.1,2.7]])
@@ -261,7 +320,13 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [29,3,9,14,20,26,11,16,22]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-soggiorno2=DRAW2(master)
+soggiornoTemp2=DRAW2(master)
+
+soggiornoTemp2=COLOR(rgbToPlasmColor([255	,204,153]))(soggiornoTemp2)
+
+finestra0=creaFinestre(1.6,2.3)
+finestra0=T([1])(0.95)(finestra0)
+soggiorno2=STRUCT([soggiornoTemp2,finestra0])
 soggiorno2=T([1,2])([4.1,0.5])(soggiorno2)
 
 
@@ -302,7 +367,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [58,56,54,52,5,12,19,27,34,41,49,7,14,21,29,36,43,51,10,17,32,39]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-soggiorno3=DRAW2(master)
+soggiornoTemp3=DRAW2(master)
+soggiornoTemp3=COLOR(rgbToPlasmColor([255	,204,153]))(soggiornoTemp3)
+finestra0=creaFinestre(2,2.3)
+finestra0=T(1)(0.4)(finestra0)
+
+finestra1=creaFinestre(2,2.3)
+finestra1=T(1)(3.3)(finestra1)
+
+soggiorno3=STRUCT([soggiornoTemp3,finestra0,finestra1])
+
 soggiorno3=T([1])([7.6])(soggiorno3)
 
 
@@ -315,8 +389,6 @@ hpc = cellNumbering (master,hpc)(range(len(CV)),CYAN,2)
 
 
 
-
-
 #Finestra
 toMerge = 13
 diagram0 = assemblyDiagramInit([1,1,2])([[2],[.1],[2.2,.5]])
@@ -325,11 +397,20 @@ hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 
-
 #Rimozione
 toRemove = [29,9,14,20,3,28,5,11,16,22,23]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-soggiorno4=DRAW2(master)
+soggiornoTemp4=DRAW2(master)
+soggiornoTemp4=COLOR(rgbToPlasmColor([255	,204,153]))(soggiornoTemp4)
+
+
+
+finestra0=creaFinestre(2,2.3)
+finestra0=T(1)(1.1)(finestra0)
+
+soggiorno4=STRUCT([soggiornoTemp4,finestra0])
+
+
 soggiorno4=T([1,2])([13.2,0.5])(soggiorno4)
 
 
@@ -368,8 +449,18 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [47,42,12,21,14,23,16,25,3,10,1,19,31,29,33,35,37,27]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-remove2=DRAW2(master)
+remove2Temp=DRAW2(master)
+
+remove2Temp=COLOR(rgbToPlasmColor([255	,204,153]))(remove2Temp)
+
+finestra0=creaFinestre(1.2,1.2)
+finestra0=ROTATE([1,2])(PI)(finestra0)
+finestra0=T([1,2,3])([2.5,5.2,1.1])(finestra0)
+
+remove2=STRUCT([remove2Temp,finestra0])
 remove2=T([1,2])([7.5,5.3])(remove2)
+
+
 
 #Remove3
 master = assemblyDiagramInit([3,3,2])([[.1,2.1,.1],[.1,2,.1],[.1,2.7]])
@@ -550,7 +641,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [80,88,84,86,24,26,28,30,35,37,39,41,46,48,50,52,58,60,62,64,13,15,17,19,82]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-cameraMan=DRAW2(master)
+cameraManTemp=DRAW2(master)
+
+
+
+cameraManTemp=COLOR(rgbToPlasmColor([255	,204,153]))(cameraManTemp)
+
+finestra0=creaFinestre(1,1.2)
+finestra0=T([1,3])([3.7,1])(finestra0)
+
+cameraMan=STRUCT([cameraManTemp,finestra0])
 cameraMan=T([1])([4.2])(cameraMan)
 
 #bagnoMan
@@ -571,7 +671,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [50,17,26,36,46,15,24,34,44,13,22,32,42]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-bagnoMan=DRAW2(master)
+bagnoManTemp=DRAW2(master)
+
+bagnoManTemp=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoManTemp)
+
+finestra0=creaFinestre(1.6,1.2)
+finestra0=T([1,3])([0.5,1])(finestra0)
+
+bagnoMan=STRUCT([bagnoManTemp,finestra0])
+
+
 
 
 #Balcone
@@ -635,8 +744,6 @@ sottotetto=T([2])(5.4)(sottotetto)
 
 tettoM=COLOR(rgbToPlasmColor([206,48,24]))(tettoM)
 ParteSupTettoMansarda=COLOR(rgbToPlasmColor([123,27	,2	]))(ParteSupTettoMansarda)
-cameraMan=COLOR(rgbToPlasmColor([255	,204,153]))(cameraMan)
-bagnoMan=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoMan)
 balcone=COLOR(rgbToPlasmColor([255	,204,153]))(balcone)
 muro=COLOR(rgbToPlasmColor([255	,204,153]))(muro)
 muro2=COLOR(rgbToPlasmColor([255	,204,153]))(muro2)
@@ -748,7 +855,7 @@ principale=STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,so
 	,bagno2,remove,remove2,remove3])
 
 #Coloro
-principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
+
 camino=COLOR(rgbToPlasmColor([240,248,255]))(camino)
 scalinata=COLOR(rgbToPlasmColor([153,51,0]))(scalinata)
 scalinata2=COLOR(rgbToPlasmColor([229,228,226]))(scalinata2)
