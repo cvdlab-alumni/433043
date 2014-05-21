@@ -196,6 +196,9 @@ salita=ROTATE([2,3])(PI/2)(salita)
 salita=ROTATE([1,2])(PI/2)(salita)
 salita=T([1,2])([17.3,-6])(salita)
 
+#MuroGarage
+muroGarage=CUBOID([0.1,18.5,2.9])
+muroGarage=T([1,2])([21.9,-6])(muroGarage)
 
 #Assemblo
 
@@ -447,7 +450,7 @@ baseMuretto=T([1])([-1.5])(baseMuretto)
 
 
 principale=STRUCT([camera1,camera2,bagno,scale,garage,soggiorno2,soggiorno3,soggiorno4,soggiorno5,
-	remove,dispensa,camino,muretto,baseMuretto])
+	remove,dispensa,camino,muretto,baseMuretto,muroGarage])
 
 principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
 
@@ -460,6 +463,7 @@ ext1=COLOR(rgbToPlasmColor([255	,204,153]))(ext1)
 ext2=COLOR(rgbToPlasmColor([255	,204,153]))(ext2)
 #Assemblamento secondo piano
 plan2 = STRUCT([principale,esterno,ext1,ext2,giardinoPost])
+
 
 
 #Richiamo il piano terra
