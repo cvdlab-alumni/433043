@@ -201,7 +201,7 @@ muroGarage=CUBOID([0.4,18.5,2.9])
 muroGarage=T([1,2])([21.9,-6])(muroGarage)
 
 #MuroGarage2
-muroGarage2=CUBOID([0.4,10.7,0.5])
+muroGarage2=CUBOID([0.4,10.9,0.5])
 muroGarage2=T([1,2,3])([21.9,-5.8,2.9])(muroGarage2)
 
 
