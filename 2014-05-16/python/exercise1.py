@@ -645,6 +645,44 @@ giardino=STRUCT([giardino1,giardino2,
 giardino=T([2])(3.4)(giardino)
 giardino3=T([2])(3.4)(giardino3)
 
+#GiardinoREMOVE
+domain1D = larDomain([32])
+domain2D = larIntervals([32,48],'simplex')([1,1])
+b1 = BEZIER(S1)([[-1.3,4], [0.7,-7], [6.3,-7], [7.3,0]])
+b2=BEZIER(S1)([[-1.3,4], [0.7,5], [6.3,5], [7.3,0]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+giardinoR1 = PROD([path, Q(0.1)])
+giardinoR1=T([2,3])([-14.3,0.1])(giardinoR1)
+
+
+
+b1 = BEZIER(S1)([[9.7,0], [10.7,-7], [16.3,-7], [17.1,4]])
+b2=BEZIER(S1)([[9.7,0], [9.7,5], [16.3,5], [17.1,4]])
+controls = [b1,b2]
+mapping = BEZIER(S2)(controls)
+path = STRUCT(MKPOLS(larMap(mapping)(domain2D)))
+giardinoR2 = PROD([path, Q(0.1)])
+giardinoR2=T([2,3])([-14.3,0.1])(giardinoR2)
+
+
+
+giardinoR3=CUBOID([18.4,4.5,0.1])
+giardinoR3=T([1,2,3])([-1.3,-10.5,0.1])(giardinoR3)
+
+
+giardinoR4=CUBOID([12.8,6,0.1])
+giardinoR4=T([1,2,3])([2.1,-14,0.1])(giardinoR4)
+
+#Assemblo
+giardinoR=STRUCT([giardinoR1,giardinoR2,
+        giardinoR4])
+giardinoR=T([2])(3.4)(giardinoR)
+giardinoR3=T([2])(3.4)(giardinoR3)
+giardinoRemove=STRUCT([giardinoR,giardinoR3])
+giardinoRemove=T(3)(-0.2)(giardinoRemove)
+giardinoRemove=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoRemove)
 
 
 
@@ -666,10 +704,67 @@ muroStir= COLOR(rgbToPlasmColor([255	,204,153]))(muroStir)
 giardino=COLOR(rgbToPlasmColor([184	,115	,51]))(giardino)
 giardino3= COLOR(rgbToPlasmColor([255	,204,153]))(giardino3)
 
+#Creo la siepe
 
+pianta= CUBOID([0.5,0.5,0.8])
+Tp=T(2)(0.6)
+piante1=STRUCT(NN(8)([Tp, pianta]))
+piante1=T([1,2])([-1.3,-8.2])(piante1)
+
+pianta2=T([1,2])([-1.1,-8.2])(pianta)
+pianta3=T([1,2])([-1.0,-8.8])(pianta)
+pianta4=T([1,2])([-0.8,-9.4])(pianta)
+pianta5=T([1,2])([-0.6,-10])(pianta)
+pianta6=T([1,2])([-0.4,-10.6])(pianta)
+pianta7=T([1,2])([-0.2,-11.2])(pianta)
+pianta8=T([1,2])([0,-11.8])(pianta)
+pianta9=T([1,2])([0.2,-12.4])(pianta)
+pianta10=T([1,2])([0.6,-13])(pianta)
+pianta11=T([1,2])([0.9,-13.6])(pianta)
+pianta12=T([1,2])([1.3,-14.2])(pianta)
+pianta13=T([1,2])([1.7,-14.8])(pianta)
+pianta14=T([1,2])([2.3,-15.4])(pianta)
+pianta15=T([1,2])([2.8,-15.6])(pianta)
+pianta16=T([1,2])([3.4,-15.8])(pianta)
+pianta17=T([1,2])([4.0,-15.8])(pianta)
+pianta18=T([1,2])([4.6,-15.6])(pianta)
+pianta19=T([1,2])([5.1,-15.4])(pianta)
+pianta20=T([1,2])([5.4,-14.9])(pianta)
+pianta21=T([1,2])([5.8,-14.4])(pianta)
+pianta22=T([1,2])([6.2,-13.8])(pianta)
+pianta23=T([1,2])([6.4,-13.2])(pianta)
+pianta24=T([1,2])([6.6,-12.6])(pianta)
+pianta25=T([1,2])([6.8,-12])(pianta)
+pianta26=T([1,2])([7,-11.4])(pianta)
+pianta27=T([1,2])([7,-10.6])(pianta)
+pianta28=T([1,2])([9.3,-10.6])(pianta)
+
+
+
+siepe1=STRUCT([pianta18,pianta19,pianta20,pianta21,pianta22,pianta23,pianta24,pianta25])
+siepe2=STRUCT([pianta18,pianta19,pianta20,pianta21,pianta22,pianta23,pianta24,pianta25])
+siepe2=T(1)(9)(siepe2)
+siepe3=STRUCT([pianta7,pianta8,pianta9,pianta10,pianta11,pianta12,pianta13,pianta14,pianta15,pianta16,pianta17])
+siepe4=STRUCT([pianta7,pianta8,pianta9,pianta10,pianta11,pianta12,pianta13,pianta14,pianta15,pianta16,pianta17])
+siepe4=T(1)(9.5)(siepe4)
+siepe5=STRUCT([pianta5,pianta6,pianta7,pianta8,pianta9])
+siepe6=STRUCT([pianta5,pianta6,pianta7,pianta8,pianta9])
+siepe6=ROTATE([1,3])(PI)(siepe6)
+siepe6=T([1,2,3])([16.6,1,0.8])(siepe6)
+siepe7=STRUCT([pianta2,pianta3,pianta4])
+siepe8=STRUCT([pianta2,pianta3])
+siepe8=ROTATE([1,3])(PI)(siepe8)
+siepe8=T([1,2,3])([16.2,0.5,0.8])(siepe8)
+
+
+
+
+siepe=STRUCT([siepe1,siepe2,siepe3,siepe4,siepe5,siepe6,siepe7,siepe8,piante1,
+        pianta26,pianta27,pianta28])
+siepe=COLOR(rgbToPlasmColor([128 ,128,0]))(siepe)
 
 plan1 = STRUCT([principale,scalinata,scalinata2,esterno,baseEsterno,parteSup,tetto,Mansarda,muroStir,giardino,camino,
-	Mansarda,giardino3])
+	Mansarda,giardino3,giardinoRemove,siepe])
 
 
 #Visualizzo

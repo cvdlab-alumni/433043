@@ -40,8 +40,6 @@ hpc = NumberCell(master,hpc)
 VIEW(hpc)
 
 
-
-
 diagram1 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram2 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
 diagram3 = assemblyDiagramInit([3,1,2])([[2,1,2],[.3],[2.2,.5]])
