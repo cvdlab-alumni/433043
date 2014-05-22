@@ -219,13 +219,37 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [5,13,21,28,11,26,39,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-garage2=DRAW2(master)
-garage2=COLOR(rgbToPlasmColor([255	,204,153]))(garage2)
+garage20=DRAW2(master)
+garage20=COLOR(rgbToPlasmColor([255	,204,153]))(garage20)
+
+
+portaGarage0=CUBOID([2.9,0.1,2.2])
+anta1=CUBOID([0.1,0.1,2.1])
+anta1=T([2,3])([-0.1,0.1])(anta1)
+anta2=CUBOID([0.1,0.1,2.1])
+anta2=T([1,2,3])([2.8,-0.1,0.1])(anta2)
+anta3=CUBOID([2.9,0.1,0.1])
+anta3=T(2)(-0.1)(anta3)
+anta4=CUBOID([2.9,0.1,0.1])
+anta4=T([2,3])([-0.1,2.1])(anta4)
+anta5=CUBOID([0.1,0.1,2.2])
+anta5=T([1,2])([0.9,-0.1])(anta5)
+anta6=CUBOID([0.1,0.1,2.2])
+anta6=T([1,2])([1.9,-0.1])(anta6)
+
+ante=STRUCT([anta1,anta2,anta3,anta4,anta5,anta6])
+ante=COLOR(rgbToPlasmColor([47,47,47]))(ante)
+portaGarage0=COLOR(rgbToPlasmColor([47,47,47]))(portaGarage0)
+portaGarage=STRUCT([ante,portaGarage0])
+portaGarage=T([1,3])([5.6,0.1])(portaGarage)
+
+garage2=STRUCT([garage20,portaGarage])
 garage2=T([1,2])([13.3,4.6])(garage2)
+
 
 #pianoGarage
 pianoGarage=CUBOID([4.6,4.6,0.1])
-pianoGarage=T([1])([17.3])(pianoGarage)
+pianoGarage=T([1,3])([17.3])(pianoGarage)
 
 #SalitaGarage
 

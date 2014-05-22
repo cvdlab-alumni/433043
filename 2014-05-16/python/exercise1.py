@@ -30,6 +30,18 @@ def creaFinestre(x,z):
  finestra=STRUCT([finestra0,ante])
  return finestra
 
+def creaPorta(x,z):
+ porta0=CUBOID([x,0.1,z])
+ porta0=COLOR(rgbToPlasmColor([192,64,0]))(porta0)
+ cilind_T = CYLINDER([0.025, (10.0/12)*0.1])(50)
+ cilind_T=ROTATE([2,3])(PI/2)(cilind_T)
+ cilind_T=T([1,3])([x-0.1,z/2])(cilind_T)
+ cilind_T=COLOR(rgbToPlasmColor([205,133,63]))(cilind_T)
+ porta=STRUCT([porta0,cilind_T])
+ 
+ return porta
+
+
 #Camera1
 master = assemblyDiagramInit([5,3,2])([[.1,1.5,1,1.5,.1],[.1,3,.1],[.1,2.7]])
 V,CV = master
@@ -221,7 +233,13 @@ finestra0=creaFinestre(1,1.2)
 finestra0=ROTATE([1,2])(PI/2)(finestra0)
 finestra0=T([1,2,3])([4.2,1.6,1.1])(finestra0)
 
-cucina=STRUCT([cucinaTemp,finestra0])
+porta0=creaPorta(1,2.2)
+porta0=ROTATE([1,2])(PI)(porta0)
+porta0=T([1,2,3])([2.1,4.2,0.1])(porta0)
+
+
+cucina=STRUCT([cucinaTemp,finestra0,porta0])
+
 
 cucina=T([1,2])([13.2,4.1])(cucina)
 
@@ -408,6 +426,7 @@ soggiornoTemp4=COLOR(rgbToPlasmColor([255	,204,153]))(soggiornoTemp4)
 finestra0=creaFinestre(2,2.3)
 finestra0=T(1)(1.1)(finestra0)
 
+
 soggiorno4=STRUCT([soggiornoTemp4,finestra0])
 
 
@@ -453,11 +472,15 @@ remove2Temp=DRAW2(master)
 
 remove2Temp=COLOR(rgbToPlasmColor([255	,204,153]))(remove2Temp)
 
+porta0=creaPorta(1.1,2.2)
+porta0=ROTATE([1,2])(-PI/2)(porta0)
+porta0=T([2,3])([5.1,0.1])(porta0)
+
 finestra0=creaFinestre(1.2,1.2)
 finestra0=ROTATE([1,2])(PI)(finestra0)
 finestra0=T([1,2,3])([2.5,5.2,1.1])(finestra0)
 
-remove2=STRUCT([remove2Temp,finestra0])
+remove2=STRUCT([remove2Temp,finestra0,porta0])
 remove2=T([1,2])([7.5,5.3])(remove2)
 
 
@@ -650,8 +673,12 @@ cameraManTemp=COLOR(rgbToPlasmColor([255	,204,153]))(cameraManTemp)
 finestra0=creaFinestre(1,1.2)
 finestra0=T([1,3])([3.7,1])(finestra0)
 
-cameraMan=STRUCT([cameraManTemp,finestra0])
-cameraMan=T([1])([4.2])(cameraMan)
+porta0=creaPorta(1.1,2.1)
+porta0=T([1,3])([0.6,0.1])(porta0)
+
+cameraMan=STRUCT([cameraManTemp,finestra0,porta0])
+cameraMan=T([1])([4.1])(cameraMan)
+
 
 #bagnoMan
 master = assemblyDiagramInit([5,5,2])([[.1,0.5,1.5,2,.1],[.1,0.5,1.3,1.5,.1],[.1,2.3]])
