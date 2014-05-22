@@ -561,11 +561,27 @@ scalinata2=ROTATE([1,2])(-PI)(scalinata2)
 
 
 #Esterno
-est1= CUBOID([4.2,6,0.2])
+est1= CUBOID([4,6,0.2])
 est1=T([1,2,3])([13.2,-5.5,-0.1])(est1)
 
-est2= CUBOID([14.7,3,0.2])
-est2=T([1,2,3])([-1.5,-2.5,-0.1])(est2)
+est2= CUBOID([14.7,2.8,0.2])
+est2=T([1,2,3])([-1.5,-2.3,-0.1])(est2)
+
+est3=CUBOID([14.5,0.2,0.2])
+est3=T([1,2,3])([-1.5,-2.5,-0.1])(est3)
+est3=COLOR(rgbToPlasmColor([147,147,147]))(est3)
+
+est4=CUBOID([0.2,3.2,0.2])
+est4=T([1,2,3])([13,-5.5,-0.1])(est4)
+est4=COLOR(rgbToPlasmColor([147,147,147]))(est4)
+
+est5=CUBOID([4,0.2,0.2])
+est5=T([1,2,3])([13,-5.7,-0.1])(est5)
+est5=COLOR(rgbToPlasmColor([147,147,147]))(est5)
+
+est6=CUBOID([0.5,1.7,0.5])
+est6=T([1,2,3])([16.9,-7,-0.1])(est6)
+est6=COLOR(rgbToPlasmColor([255	,204,153]))(est6)
 
 
 
@@ -892,6 +908,7 @@ baseEsterno=COLOR(rgbToPlasmColor([255	,204,153]))(baseEsterno)
 tetto=COLOR(rgbToPlasmColor([206,48,24]))(tetto)
 giardino=COLOR(rgbToPlasmColor([184	,115	,51]))(giardino)
 giardino3= COLOR(rgbToPlasmColor([255	,204,153]))(giardino3)
+est3=COLOR(rgbToPlasmColor([147,147,147]))(est3)
 
 #Creo la siepe
 pianta= CUBOID([0.5,0.5,0.8])
@@ -952,7 +969,7 @@ siepe=STRUCT([siepe1,siepe2,siepe3,siepe4,siepe5,siepe6,siepe7,siepe8,piante1,
 siepe=COLOR(rgbToPlasmColor([128 ,128,0]))(siepe)
 
 plan1 = STRUCT([principale,scalinata,scalinata2,esterno,baseEsterno,parteSup,giardino,camino,
-	Mansarda,tetto,giardino3,giardinoRemove,siepe])
+	Mansarda,tetto,giardino3,giardinoRemove,siepe,est3,est4,est5,est6])
 #tetto,Mansarda
 
 #Visualizzo
