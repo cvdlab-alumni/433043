@@ -72,7 +72,12 @@ camera=DRAW2(master)
 camera=COLOR(rgbToPlasmColor([255	,204,153]))(camera)
 finestra1=creaFinestre(1,1.2)
 finestra1=T([1,3])([1.6,1.1])(finestra1)
-camera1=STRUCT([camera,finestra1])
+
+porta0=creaPorta(0.6,2.2)
+porta0=ROTATE([1,2])(PI)(porta0)
+porta0=T([1,2,3])([3.65,3.2,0.1])(porta0)
+
+camera1=STRUCT([camera,finestra1,porta0])
 
 
 #Camera2
@@ -106,7 +111,10 @@ finestra0=creaFinestre(1.2,1.2)
 finestra0=ROTATE([1,2])(PI)(finestra0)
 finestra0=T([1,2,3])([2.6,3.2,1.1])(finestra0)
 
-camera2=STRUCT([camera2Temp,finestra0])
+porta0=creaPorta(0.6,2.2)
+
+porta0=T([1,3])([3.05,0.1])(porta0)
+camera2=STRUCT([camera2Temp,finestra0,porta0])
 camera2=T(2)(5)(camera2)
 
 
@@ -144,8 +152,11 @@ finestra0=creaFinestre(1,1.2)
 finestra0=ROTATE([1,2])(-PI/2)(finestra0)
 finestra0=T([2,3])([1.5,1.1])(finestra0)
 
-bagno=STRUCT([bagnoTemp,finestra0])
+porta0=creaPorta(0.9,2.2)
+porta0=ROTATE([1,2])(PI/2)(porta0)
+porta0=T([1,2,3])([2.4,0.5,0.1])(porta0)
 
+bagno=STRUCT([bagnoTemp,finestra0,porta0])
 
 bagno=T(2)(3.1)(bagno)
 
@@ -182,8 +193,10 @@ finestra0=creaFinestre(1,1.2)
 finestra0=ROTATE([1,2])(-PI)(finestra0)
 finestra0=T([1,2,3])([2.5,2.3,1.1])(finestra0)
 
-stireria=STRUCT([stireriaTemp,finestra0])
+porta0=creaPorta(1,2.2)
+porta0=T([1,3])([1.5,0.1])(porta0)
 
+stireria=STRUCT([stireriaTemp,finestra0,porta0])
 stireria=T([1,2])([10.8,8.2])(stireria)
 
 #Cucina
@@ -238,9 +251,16 @@ porta0=ROTATE([1,2])(PI)(porta0)
 porta0=T([1,2,3])([2.1,4.2,0.1])(porta0)
 
 
-cucina=STRUCT([cucinaTemp,finestra0,porta0])
+porta1=creaPorta(1,2.2)
+porta1=T([1,3])([1.1,0.1])(porta1)
 
 
+porta2=creaPorta(1.2,2.2)
+porta2=ROTATE([1,2])(-PI/2)(porta2)
+porta2=T([2,3])([3.8,0.1])(porta2)
+
+
+cucina=STRUCT([cucinaTemp,finestra0,porta0,porta1,porta2])
 cucina=T([1,2])([13.2,4.1])(cucina)
 
 
@@ -262,9 +282,16 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [29,15,9,20]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-bagno2=DRAW2(master)
+bagnoTemp2=DRAW2(master)
+bagnoTemp2=COLOR(rgbToPlasmColor([255	,204,153]))(bagnoTemp2)
+
+porta0=creaPorta(1,2.2)
+porta0=ROTATE([1,2])(PI)(porta0)
+porta0=T([1,2,3])([2.5,1.4,0.1])(porta0)
+
+bagno2=STRUCT([porta0,bagnoTemp2])
 bagno2=T([1,2])([10.2,5.3])(bagno2)
-bagno2=COLOR(rgbToPlasmColor([255	,204,153]))(bagno2)
+
 
 #Scale
 master = assemblyDiagramInit([3,5,2])([[.1,3.4,.1],[.1,.2,1,.2,.1],[.1,2.7]])
@@ -298,7 +325,11 @@ finestra0=creaFinestre(1.2,1.2)
 finestra0=ROTATE([1,2])(PI)(finestra0)
 finestra0=T([1,2,3])([2.4,1.6,1.1])(finestra0)
 
-scale=STRUCT([scaleTemp,finestra0])
+porta0=creaPorta(1,2.2)
+porta0=ROTATE([1,2])(PI/2)(porta0)
+porta0=T([1,2,3])([3.6,0.3,0.1])(porta0)
+
+scale=STRUCT([scaleTemp,finestra0,porta0])
 
 
 scale=T([1,2])([4,6.6])(scale)
@@ -692,7 +723,21 @@ finestra0=T([1,3])([3.7,1])(finestra0)
 porta0=creaPorta(1.1,2.1)
 porta0=T([1,3])([0.6,0.1])(porta0)
 
-cameraMan=STRUCT([cameraManTemp,finestra0,porta0])
+porta1=creaPorta(1.1,2.1)
+porta1=ROTATE([1,2])(PI)(porta1)
+porta1=T([1,2,3])([1.7,5.3,0.1])(porta1)
+
+porta2=creaPorta(1.3,2.1)
+porta2=ROTATE([1,2])(-PI/2)(porta2)
+porta2=T([2,3])([1.9,0.1])(porta2)
+
+porta3=creaPorta(1.3,2.1)
+porta3=ROTATE([1,2])(-PI/2)(porta3)
+porta3=T([2,3])([5.2,0.1])(porta3)
+
+cameraMan=STRUCT([cameraManTemp,finestra0,porta0,porta1,porta2,porta3])
+
+
 cameraMan=T([1])([4.1])(cameraMan)
 
 
