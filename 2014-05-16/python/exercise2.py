@@ -33,6 +33,17 @@ def creaFinestre(x,z):
  finestra=STRUCT([finestra0,ante])
  return finestra
 
+def creaPorta(x,z):
+ porta0=CUBOID([x,0.1,z])
+ porta0=COLOR(rgbToPlasmColor([192,64,0]))(porta0)
+ cilind_T = CYLINDER([0.025, (10.0/12)*0.1])(50)
+ cilind_T=ROTATE([2,3])(PI/2)(cilind_T)
+ cilind_T=T([1,3])([x-0.1,z/2])(cilind_T)
+ cilind_T=COLOR(rgbToPlasmColor([205,133,63]))(cilind_T)
+ porta=STRUCT([porta0,cilind_T])
+ 
+ return porta
+
 #Camera1
 master = assemblyDiagramInit([4,5,2])([[.1,1.9,2,.1],[.1,1,2,1,.1],[.1,2.7]])
 V,CV = master
@@ -67,7 +78,11 @@ finestra0=creaFinestre(2,1.2)
 finestra0=ROTATE([1,2])(-PI/2)(finestra0)
 finestra0=T([2,3])([3.1,1.1])(finestra0)
 
-camera1=STRUCT([camera1Temp,finestra0])
+porta0=creaPorta(0.7,2.2)
+porta0=ROTATE([1,2])(PI)(porta0)
+porta0=T([1,2,3])([3.34,4.2,0.1])(porta0)
+
+camera1=STRUCT([camera1Temp,finestra0,porta0])
 
 
 
@@ -104,8 +119,12 @@ finestra0=creaFinestre(1,1.2)
 finestra0=ROTATE([1,2])(-PI/2)(finestra0)
 finestra0=T([2,3])([2.1,1.1])(finestra0)
 
-camera2=STRUCT([camera2Temp,finestra0])
+porta0=creaPorta(0.7,2.2)
+porta0=T([1,3])([2.65,0.1])(porta0)
+
+camera2=STRUCT([camera2Temp,finestra0,porta0])
 camera2=T(2)(6)(camera2)
+
 
 
 
@@ -143,7 +162,11 @@ finestra0=creaFinestre(1,1.2)
 finestra0=ROTATE([1,2])(-PI/2)(finestra0)
 finestra0=T([2,3])([1.5,1.1])(finestra0)
 
-bagno=STRUCT([bagnoTemp,finestra0])
+porta0=creaPorta(1,2.2)
+porta0=ROTATE([1,2])(PI/2)(porta0)
+porta0=T([1,2,3])([2.4,0.5,0.1])(porta0)
+
+bagno=STRUCT([bagnoTemp,finestra0,porta0])
 bagno=T(2)(4.1)(bagno)
 
 
@@ -194,8 +217,14 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [39,12,22,14,24,16,26,36,34,32,30]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-garage1=DRAW2(master)
-garage1=COLOR(rgbToPlasmColor([255	,204,153]))(garage1)
+garage1Temp=DRAW2(master)
+garage1Temp=COLOR(rgbToPlasmColor([255	,204,153]))(garage1Temp)
+
+porta0=creaPorta(1,2.2)
+porta0=ROTATE([1,2])(-PI/2)(porta0)
+porta0=T([2,3])([1.3,0.1])(porta0)
+
+garage1=STRUCT([porta0,garage1Temp])
 garage1=T([1,2])([7.6,5.3])(garage1)
 
 
@@ -295,6 +324,7 @@ soggiorno2=DRAW2(master)
 soggiorno2=T([1])([4.1])(soggiorno2)
 
 
+
 #Soggiorno3
 master = assemblyDiagramInit([3,4,2])([[.1,5.5,.1],[.1,.4,5.3,.1],[.1,2.7]])
 V,CV= master
@@ -306,7 +336,6 @@ toRemove = [5,13,21,15,11,7,23,3,19]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
 soggiorno3=DRAW2(master)
 soggiorno3=T([1])([7.6])(soggiorno3)
-
 
 #Soggiorno4
 master = assemblyDiagramInit([3,5,2])([[.1,4,.1],[.1,1.,2,1.3,.1],[.1,2.7]])
@@ -381,7 +410,14 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 #Rimozione
 toRemove = [23,21,19,17,15,40,38,42,45]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-soggiorno5=DRAW2(master)
+soggiorno5Temp=DRAW2(master)
+soggiorno5Temp = COLOR(rgbToPlasmColor([255	,204,153]))(soggiorno5Temp)
+
+porta0=creaPorta(0.6,2.2)
+porta0=ROTATE([1,2])(-PI/2)(porta0)
+porta0=T([2,3])([5,0.1])(porta0)
+
+soggiorno5=STRUCT([porta0,soggiorno5Temp])
 soggiorno5=T([1,2])([7.6,0.1])(soggiorno5)
 
 
@@ -414,10 +450,18 @@ hpc = cellNumbering (master,hpc)(range(len(master[1])),CYAN,2)
 
 toRemove = [15,13,17,29]
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-dispensa=DRAW2(master)
+dispensaTemp=DRAW2(master)
+dispensaTemp = COLOR(rgbToPlasmColor([255	,204,153]))(dispensaTemp)
+
+porta0=creaPorta(0.7,2.2)
+porta0=ROTATE([1,2])(PI/2)(porta0)
+porta0=T([1,2,3])([2.2,0.5,0.1])(porta0)
+
+dispensa=STRUCT([porta0,dispensaTemp])
 dispensa=T([1,2])([4,2.5])(dispensa)
 
-#Camino
+
+#Camino0
 camino=CUBOID([1,1,8.5])
 camino=T([1])([17.3])(camino)
 
@@ -609,8 +653,8 @@ siepe5=COLOR(rgbToPlasmColor([85,104	,5]))(siepe5)
 
 
 
-principale=STRUCT([scale,garage,soggiorno2,soggiorno3,soggiorno5,
-	remove,dispensa,camino,muretto,baseMuretto,muroGarage,muroGarage2,muroGarage3])
+principale=STRUCT([scale,garage,soggiorno2,soggiorno3,
+	remove,camino,muretto,baseMuretto,muroGarage,muroGarage2,muroGarage3])
 
 principale = COLOR(rgbToPlasmColor([255	,204,153]))(principale)
 
@@ -629,7 +673,8 @@ StradaDX=COLOR(rgbToPlasmColor([150,75,0]))(StradaDX)
 siepe=STRUCT([siepe1,siepe2,siepe3,siepe4,siepe5])
 
 #Assemblamento secondo piano
-plan2 = STRUCT([camera1,camera2,bagno,soggiorno4,principale,esterno,ext1,ext2,giardinoPost,giardinoPost2,siepe,StradaDX])
+plan2 = STRUCT([camera1,camera2,bagno,soggiorno4,soggiorno5,
+	principale,dispensa,esterno,ext1,ext2,giardinoPost,giardinoPost2,siepe,StradaDX])
 
 
 
