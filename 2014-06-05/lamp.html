@@ -1,641 +1,742 @@
 <title>Homework 4- Pietro Coronas</title> 
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+}
 
-    #stats {  /* Align stats top-left */
-      position: absolute;
-      left: 0px;
-      top: 0px;
-    }
-  </style> 
-  </head> 
-  <body>
-    <!-- Librerie Javascript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script> 
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
-    <script src="TrackballControls.js"></script>
-    <script type="text/javascript" src="bitstream_vera_sans_mono_roman.typeface.js"></script>  
-    <script src="tween.min.js"></script>
-        <script>
+#stats {  /* Align stats top-left */
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+</style> 
+</head> 
+<body>
+<!-- Librerie Javascript -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+<script src="TrackballControls.js"></script>
+<script type="text/javascript" src="bitstream_vera_sans_mono_roman.typeface.js"></script>  
+<script src="tween.min.js"></script>
+    <script>
+  
+  $(function () {
+    var stats = initStats();
+
+   //Inizializzo la scena,la camera, il renderer e il trackball control
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+    var inspectedCamera1 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var inspectedCamera2 = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    var renderer = new THREE.WebGLRenderer();
+    var trackballControls = new THREE.TrackballControls(camera);
+        trackballControls.enabled=false;
+
+    renderer.setClearColor(new THREE.Color(0x0066FF));
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    renderer.shadowMapEnabled = true;
+
+    // Posiziono la camera
+    camera.position.set(200,0, 80);
+    camera.rotation.z=Math.PI/2;
+    camera.up = new THREE.Vector3(0,0,10);
+    camera.lookAt(scene.position);
+
+    //Posiziono la prima ispected camera
+    inspectedCamera1.position.set(200,250,70);
+    inspectedCamera1.rotation.z=Math.PI/2;        
+    inspectedCamera1.up = new THREE.Vector3(0,0,5);
+    inspectedCamera1.lookAt(scene.position);
+
+    //Posiziono la seconda ispected camera
+    inspectedCamera2.position.set(200,-250,70);
+    inspectedCamera2.rotation.z=Math.PI/2;        
+    inspectedCamera2.up = new THREE.Vector3(0,0,5);
+    inspectedCamera2.lookAt(scene.position);
+    
+    
+    scene.add(inspectedCamera1);
+    scene.add(inspectedCamera2);
+
+    // Creo il piano. Ho scelto un Phong material anche per il piano.
+    var planeGeometry = new THREE.PlaneGeometry(100,200,100,1400);
+    var planeMaterial = new THREE.MeshPhongMaterial({color: 0x0033FF});
+    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.receiveShadow = true;    
+    scene.add(plane);  
+
+    var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+    var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff3333});
+    var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(30,40,5);
+    cube.castShadow=true;
+    scene.add(cube);    
+
+
+
+      // Aggiungo una ambientLight
+    var ambiColor = "#0c0c0c";
+    var ambientLight = new THREE.AmbientLight(ambiColor);
+    scene.add(ambientLight);
+
+     //Aggiungo una directionalLight in modo da illuminare la scena
+    var lightColor = "#ffffff";
+    var directionalLight = new THREE.DirectionalLight(lightColor);
+    directionalLight.position.set(0, 0, 100);
+    directionalLight.intensity = 2;
+    directionalLight.castShadow=true;
+
+      directionalLight.shadowCameraNear = 20;
+      directionalLight.shadowCameraFar = 500;
+      directionalLight.shadowCameraLeft = -200;
+      directionalLight.shadowCameraRight = 200;
+      directionalLight.shadowCameraTop = 200;
+      directionalLight.shadowCameraBottom = -200;
+
       
-      $(function () {
-        var stats = initStats();
+      directionalLight.shadowMapHeight = 1024;
+      directionalLight.shadowMapWidth = 1024;
 
-       //Inizializzo la scena,la camera, il renderer e il trackball control
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-        var renderer = new THREE.WebGLRenderer();
-        var trackballControls = new THREE.TrackballControls(camera);
+    scene.add(directionalLight);
 
-        renderer.setClearColor(new THREE.Color(0x0066FF));
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        renderer.shadowMapEnabled = true;
+     
+    //Creo una funzione per la base della lampada
+    function createBase (){
+    var cylinderGeometry = new THREE.CylinderGeometry(4, 4, 1.5, 40, 40, false);
+    var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0xFFFFCC, shininess: 100, metal: true});          
+    var base = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    base.castShadow=true;
+    base.position.set(0, 0,0);
+    base.rotation.x=Math.PI/2;
+    base.position.y=-20;           
 
-        // Posiziono la camera
-        camera.position.set(70,0, 30);
-        camera.rotation.z=Math.PI/2;
-        camera.up = new THREE.Vector3(0,0,5);
-        camera.lookAt(scene.position);
+    var cylinderGeometry = new THREE.CylinderGeometry(0.5, 2, 1.5, 40, 40, false);
+    var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
+    var appoggio = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+    appoggio.position.set(0,1.5,0);
+    appoggio.castShadow=true;
+    
+    //Questo Object3D sarà il punto di aggancio per la parte superiore della lampada
+    var hook = new THREE.Object3D();
+    hook.position.set(0,3,0);
+    
+    appoggio.add(hook);
+    base.add(appoggio);
+    
 
-        // Creo il piano. Ho scelto un Phong material anche per il piano.
-        var planeGeometry = new THREE.PlaneGeometry(50,100,40,80);
-        var planeMaterial = new THREE.MeshPhongMaterial({color: 0x0033FF});
-        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.receiveShadow = true;    
-        scene.add(plane);        
+    return base;   
+    }
 
-          // Aggiungo una ambientLight
-        var ambiColor = "#0c0c0c";
-        var ambientLight = new THREE.AmbientLight(ambiColor);
-        scene.add(ambientLight);
-
-         //Aggiungo una directionalLight in modo da illuminare la scena
-        var lightColor = "#ffffff";
-        var directionalLight = new THREE.DirectionalLight(lightColor);
-        directionalLight.position.set(0, 100, 100);
-        directionalLight.intensity = 1;
-        scene.add(directionalLight);
-
-        var directionalLight2 = new THREE.DirectionalLight(lightColor);
-        directionalLight2.position.set(0, -100, 100);
-        directionalLight2.intensity = 1;
-        scene.add(directionalLight2);
-
-        
-        
-        //Creo una funzione per la base della lampada
-        function createBase (){
-        var cylinderGeometry = new THREE.CylinderGeometry(4, 4, 1.5, 40, 40, false);
-        var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0xFFFFCC, shininess: 100, metal: true});          
-        var base = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-        base.position.set(0, 0,0);
-        base.rotation.x=Math.PI/2;
-        base.position.y=-20;
+    //Creo una funzione per la struttura prncipale della lampada
+    function mkJoint (radius, height) {
+      var joint = new THREE.Object3D();
+      var cylinder = new THREE.Object3D();
 
                
-
-        var cylinderGeometry = new THREE.CylinderGeometry(0.5, 2, 1.5, 40, 40, false);
-        var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
-        var appoggio = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-        appoggio.position.set(0,1.5,0);
-        
-        //Questo Object3D sarà il punto di aggancio per la parte superiore della lampada
-        var hook = new THREE.Object3D();
-        hook.position.set(0,3,0);
-        
-        appoggio.add(hook);
-        base.add(appoggio);
-        
-
-        return base;   
-        }
-
-        //Creo una funzione per la struttura prncipale della lampada
-        function mkJoint (radius, height) {
-          var joint = new THREE.Object3D();
-          var cylinder = new THREE.Object3D();
-
-                   
-          var sphereGeometry = new THREE.SphereGeometry(radius, 10,10);
-          var sphereMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
-          var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-          sphere.position.set(0, 0, 0);
-
-          //Creo una struttura a 4 cilindri che aggiungerò all'Object3D cylinder
-          var cylinderGeometry = new THREE.CylinderGeometry(radius/4, radius/4, height, 8, 8, false);
-          var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0xFFFFCC, shininess: 100, metal: true});
-          
-          var cylinder1 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-          cylinder1.position.set(0.4, 0, 0.4);
-          cylinder.add(cylinder1);
-
-          var cylinder2 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-          cylinder2.position.set(-0.4, 0, -0.4);
-          cylinder.add(cylinder2); 
-
-          var cylinder3 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-          cylinder3.position.set(-0.4, 0, 0.4);
-          cylinder.add(cylinder3); 
-
-          var cylinder4 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
-          cylinder4.position.set(0.4, 0, -0.4);
-          cylinder.add(cylinder4); 
-
-          //Posiziono il cilindro          
-          cylinder.position.set(0, 0, height / 2 + radius);
-          cylinder.rotation.x = Math.PI/2;  
-
-          var hook = new THREE.Object3D();
-          hook.position.set(0, height/2+radius,0);
-          hook.rotation.x = -Math.PI/2;          
-
-          joint.add(sphere);
-          sphere.add(cylinder);
-          cylinder.add(hook);
-
-          joint.sphere = sphere;
-          joint.cylinder = cylinder;
-          joint.hook = hook;
-
-          return joint; }
-
-          //Creo una funzione per la parte finale della lampada
-
-        function mkJoint2 (radius, height) {
-          var joint = new THREE.Object3D();          
-
-          var sphereGeometry = new THREE.SphereGeometry(radius, 10,10);
-          var sphereMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
-          var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-          sphere.position.set(0, 0, 0);
-     
-          //Creo la "Coppa" che circonda la lampadina. Utilizzo una semiSfera
-          var sphereGeometry2 = new THREE.SphereGeometry(3*radius, 40, 40, 0, 6.3, Math.PI/2);
-          var sphereMaterial2 = new  THREE.MeshPhongMaterial({ambient: 0xffffff, color:  0xFFFFCC, shininess: 100, shading: THREE.FlatShading, metal:true});
-          sphereMaterial2.side = THREE.DoubleSide;
-          var halfSphere = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
-          halfSphere.DoubleSide;
-          halfSphere.position.set(0, 0, 3*radius+radius);
-          halfSphere.rotation.x = Math.PI/2;
-          halfSphere.castShadow = true;
-
-          //Creo la lampadina usando il Phong Material e impostando opacità e trasparenza in modo da sembrare realistica.          
-          var sphereMaterial1 = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: 0xFFFACD, shininess: 1000, trasparency:true});
-          sphereMaterial1.opacity=0.6;
-          sphereMaterial1.transparent=true;
-
-          
-          var lampadina = new THREE.Mesh(sphereGeometry, sphereMaterial1);
-          lampadina.position.set(0, 0,3*radius);
-          
-
-          //Creo la luce della lampadina 
-          var lightColor = "#ffffff";
-          var spotLight = new THREE.SpotLight(lightColor);
-          spotLight.position.set(0, 0, 3*radius+radius);
-          spotLight.intensity = 15;
-          spotLight.angle=0.3;
-          spotLight.distance=100;
-          spotLight.exponent=1;
-          spotLight.rotation.x = -Math.PI;
-          
-          spotLight.castShadow = true;
-          spotLight.shadowCameraNear = 2;
-          spotLight.shadowCameraFar = 30;
-          spotLight.shadowCameraFov = 70;
-          spotLight.shadowDarkness = 0.5;
-          spotLight.shadowMapWidth = 256;
-          spotLight.shadowMapHeight = 256;
-          spotLight.shadow;         
-
-          lampadina.add(spotLight);
-
-          //Aggiungo una pointlight per illuminare la parte intorno alla lampadina e dare un aspetto piu realistico.
-          var light = new THREE.PointLight( 0xffffff, 10, 3);   
-          lampadina.add(light);       
-          
-        
-          //Creo un Object 3D che userò come target per la spotlight
-          var luce = new THREE.Object3D();
-          luce.position.set(0, 0, 3*radius+radius+radius);
-          spotLight.target = luce;
-          spotLight.lookAt(luce);   
-          
-          //il grafo della parte finale della lampada sarà sphere-half sphere-lampadina-spotlight-luce
-          joint.add(sphere);
-          sphere.add(halfSphere);
-          sphere.add(lampadina);
-          lampadina.add(spotLight)
-          lampadina.add(luce)          
-
-          joint.light=light;                
-          joint.sphere = sphere;
-          joint.halfSphere = halfSphere;
-          joint.lampadina=lampadina;
-          joint.spotLight=spotLight
-          
-
-          return joint;
-        }   
-
-         
-        //Creo la struttura della lampada utilizzando le funzioni appena definite. Imposto le rotazioni in modo che sia già piegata.
-        var height = 6;
-        var radius = 1;
-
-        
-        var joint1 = mkJoint(radius, height);
-        joint1.rotation.x = -0.5;
-        
-        var joint2 = mkJoint(radius, height);
-        joint2.rotation.x = 0.8;
-        joint1.hook.add(joint2);
-
-        var joint3 = mkJoint2(radius, height);
-        joint3.rotation.x = 0.5;
-        joint2.hook.add(joint3);
-
-        joint1.castShadow=true;
-        
-        lamp=createBase();
-        joint1.rotation.x=-((Math.PI/2) +0.5);
-        
-        joint1.position.y=3;
-        lamp.add(joint1);
-
-       
-
-        scene.add(lamp);       
-
-
-        //Creo il testo.        
-        var materialArray = [new THREE.MeshLambertMaterial({color: 0x000000}),new THREE.MeshLambertMaterial({color: 0x000000})];
-        var textGeom = new THREE.TextGeometry( "P   X A R",{
-          size: 13,
-          height: 2,
-          weight:"normal",
-          font: "bitstream vera sans mono",
-          bevelThickness: 1.3,
-          bevelSize: 0,
-          bevelSegments:2,
-          bevelEnabled: false,
-          curveSegments: 100,
-          steps: 1
-          });
-   
-        var textMesh= new THREE.Mesh(textGeom, new THREE.MeshFaceMaterial(materialArray));
-        textMesh.rotation.x =Math.PI/2;
-        textMesh.rotation.y = Math.PI/2;
-        textMesh.position.y=-47;
-        textMesh.position.z=1;
-        scene.add(textMesh);
-        textMesh.castShadow = true;
-        textMesh.receiveShadow = true;
-
-        
-         var textGeom = new THREE.TextGeometry( "I",{
-          size: 13,
-          height: 2,
-          weight:"normal",
-          font: "bitstream vera sans mono",
-          bevelThickness: 1.3,
-          bevelSize: 0,
-          bevelSegments:2,
-          bevelEnabled: false,
-          curveSegments: 100,
-          steps: 1
-          });
-
-        var textMesh2= new THREE.Mesh(textGeom, new THREE.MeshFaceMaterial(materialArray));
-        textMesh2.rotation.x =Math.PI/2;
-        textMesh2.rotation.y = Math.PI/2;
-        textMesh2.position.y=-25;
-        textMesh2.position.z=1;
-        scene.add(textMesh2);
-        textMesh2.scale.x=0;
-        textMesh2.scale.y=0;
-        textMesh2.scale.z=0;
-        textMesh2.castShadow = true;
-        textMesh2.receiveShadow = true;
-
-
-        //Mi salvo la scala del testo in 3 variabili in modo da poterle richiamare nell'animazione
-
-        var scalax =  textMesh.scale.x;
-        var scalay =  textMesh.scale.y;
-        var scalaz =  textMesh.scale.z;
-
-       
-
-
-
-
-
-        $('body').append(renderer.domElement);
-        
-
-         
-
-        var lampTween36 = new TWEEN.Tween( joint2.sphere.rotation)
-        .to({z: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTween35 = new TWEEN.Tween( joint2.sphere.rotation)
-        .to({z: 2.3}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween36);
-
-         var lampTween34 = new TWEEN.Tween( joint1.sphere.rotation)
-        .to({z: 1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween35);
-
-        var lampTween33 = new TWEEN.Tween( joint2.sphere.rotation)
-        .to({z: 1.8}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-         var lampTween32 = new TWEEN.Tween(lamp.position)
-        .to({z: 0.5}, 1000)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween33,lampTween34);
-        
-
-
-        var lampTween30 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTween31 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-
-
-        var lampTween29 = new TWEEN.Tween(lamp.position)
-        .to({z: 15}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween31,lampTween30,lampTween32);
-
-        var lampTween28 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTween27 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);        
-
-        var lampTween26 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween27,lampTween28,lampTween29);
-        
-        
-
-
-        var lampTween25 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: -0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTween24 = new TWEEN.Tween(textMesh2.scale)
-          .to({x:0,y:0,z:0}, 3500)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-        var lampTween23 = new TWEEN.Tween(lamp.position)
-          .to({x:0,y:-20,z:13}, 900)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-        var lampTween22 = new TWEEN.Tween(lamp.position)
-        .to({z: 20}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween23,lampTween24,lampTween25,lampTween26);
-
-        
-
-
-        var lampTween21 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTween20 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);        
-
-
-              
-
-        var lampTween19 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween20,lampTween21,lampTween22);
-        
-
-
-        var lampTween18 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: -0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-         var lampTween17 = new TWEEN.Tween(lamp.position)
-          .to({x:0,y:-18,z:15}, 900)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-        
-
-         var lampTween16 = new TWEEN.Tween(lamp.position)
-          .to({x:5,y:-5,z:20}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween17,lampTween18,lampTween19);
-
-         var lampTween15 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-
-        var lampTween14 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: 0}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        
-        var lampTween13 = new TWEEN.Tween(joint3.sphere.rotation)
-        .to({x:0.5}, 700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween14,lampTween15,lampTween16);
-
-        var lampTween12 = new TWEEN.Tween(lamp.rotation)
-        .to({y:6}, 700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween13);
-
-        var lampTween11 = new TWEEN.Tween(textMesh2.scale)
-        .to({x:scalax,y:scalay,z:scalaz}, 700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween12);
-
-        var lampTween10 = new TWEEN.Tween(lamp.rotation)
-        .to({y:8.5}, 700)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween11);
-        
-
-       
-        var lampTween9 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x:1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween10);
-
-         var lampTween8 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x:-0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        
-
-
-        var lampTween7 = new TWEEN.Tween(lamp.position)
-        .to({x:8,y:0,z:0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        
-
-        var lampTween6 = new TWEEN.Tween(lamp.position)
-        .to({x:2,y:-10,z:3}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween7,lampTween8,lampTween9);
-
-         var lampTween5 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 0.1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-        
-
-        var lampTween4 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: 0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-
-        var lampTweeny = new TWEEN.Tween(lamp.rotation)
-        .to({y: 3}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTween4,lampTween5,lampTween6);
-        
-
-
-        var lampTween3 = new TWEEN.Tween(joint2.sphere.rotation)
-        .to({x: 1}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut)
-        .chain(lampTweeny);
-
-
-        var lampTween2 = new TWEEN.Tween(joint1.sphere.rotation)
-        .to({x: -0.5}, 800)
-        .easing(TWEEN.Easing.Quadratic.InOut);
-        
-
-        
-
-
-         var controls = new function () {
-          this.alpha = 0.0;
-          this.beta = 0.0;
-          this.gamma = 0.0;
-          this.delta = 0.0;
-          this.epsilon = 0.0;
-          
-          this.OnOff=false;
-          this.Trackball_Controls=true;
-          this.AnimationStart=false;
-          
-
-          this.angle = 1.5
-          this.intensity = 15;
-          this.exponent = 30;
-
-          
-        };
-
-        //Creo la gui.
-        var gui = new dat.GUI();
-
-        //Creo una folder per i controlli della lampada
-        var lampFolder = gui.addFolder("Movimenti Lampada");
-        var light = new THREE.PointLight( 0xffffff, 10, 3);   
-
-        //Aggiungo le varie rotazioni dei vari componenti
-        lampFolder.add(controls, 'alpha', 0.0, 2*Math.PI).onChange(function (value) {
-          joint1.sphere.rotation.z = value; 
-        });
-        lampFolder.add(controls, 'beta', 0.0, Math.PI/2).onChange(function (value) {
-          joint1.sphere.rotation.x = value; 
-        });
-
-        lampFolder.add(controls, 'gamma', 0.0, Math.PI/2).onChange(function (value) {
-          joint2.sphere.rotation.x = value; 
-        });
-        lampFolder.add(controls, 'delta', 0.0, 2*Math.PI).onChange(function (value) {
-          joint2.sphere.rotation.z = value; 
-        });
-        lampFolder.add(controls, 'epsilon', 0.0, Math.PI/2).onChange(function (value) {
-          joint3.sphere.rotation.x = value; 
-        });
-        
-        //Creo una folder per i valori della luce.
-        var lampFolder =  gui.addFolder("Valori luce");
-        
-        lampFolder.add(controls, 'intensity', 0, 30).onChange(function (e) {
-          joint3.spotLight.intensity = e;
-        });
-
-        lampFolder.add(controls, 'exponent', 0, 100).onChange(function (e) {
-          joint3.spotLight.exponent = e;
-        });
-
-        lampFolder.add(controls, 'angle', 0, Math.PI).onChange(function (e) {
-          joint3.spotLight.angle = e;
-        });
-
-        //Aggiungo un controllo per disattivare il trackball control         
-        var TrackballControlsFolder = gui.addFolder("TrackballControls ");
-         TrackballControlsFolder.add(controls, "Trackball_Controls").onChange(function (e){
-          trackballControls.enabled = e;
-
-            });
-
-        //Aggiungo il controllo on/off per la luce della lampadina   
-        var OnOffLightFolder = gui.addFolder("On/Off Lampada");
-         OnOffLightFolder.add(controls, "OnOff");
-
-         var AnimationFolder = gui.addFolder("Animation");
-           AnimationFolder.add(controls, 'AnimationStart').onChange(function (e) {
-          if (e) {
-                   
-             var lampTween1 = new TWEEN.Tween(lamp.position)
-                .to({x: 10,y:-45,z:0.5}, 600)
-                .easing(TWEEN.Easing.Bounce.Out)
-                .chain(lampTween2,lampTween3)
-                .start();}
-        });
-
-        
+      var sphereGeometry = new THREE.SphereGeometry(radius, 10,10);
+      var sphereMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
+      var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      sphere.position.set(0, 0, 0);
+      sphere.castShadow=true;
+
+      //Creo una struttura a 4 cilindri che aggiungerò all'Object3D cylinder
+      var cylinderGeometry = new THREE.CylinderGeometry(radius/4, radius/4, height, 8, 8, false);
+      var cylinderMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0xFFFFCC, shininess: 100, metal: true});
+      
+      var cylinder1 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+      cylinder1.position.set(0.4, 0, 0.4);
+      cylinder1.castShadow=true;
+      cylinder.add(cylinder1);
+
+      var cylinder2 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+      cylinder2.position.set(-0.4, 0, -0.4);
+      cylinder2.castShadow=true;
+      cylinder.add(cylinder2); 
+
+      var cylinder3 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+      cylinder3.position.set(-0.4, 0, 0.4);
+      cylinder3.castShadow=true;
+      cylinder.add(cylinder3); 
+
+      var cylinder4 = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+      cylinder4.position.set(0.4, 0, -0.4);
+      cylinder4.castShadow=true;
+      cylinder.add(cylinder4); 
+
+      //Posiziono il cilindro          
+      cylinder.position.set(0, 0, height / 2 + radius);
+      cylinder.rotation.x = Math.PI/2;  
+
+      var hook = new THREE.Object3D();
+      hook.position.set(0, height/2+radius,0);
+      hook.rotation.x = -Math.PI/2;          
+
+      joint.add(sphere);
+      sphere.add(cylinder);
+      cylinder.add(hook);
+
+      joint.sphere = sphere;
+      joint.cylinder = cylinder;
+      joint.hook = hook;
 
       
+      return joint; }
 
-        function render() {
-          stats.update();
-          trackballControls.update();
-          TWEEN.update();
-          
+      //Creo una funzione per la parte finale della lampada
 
-          //Aggiungo controlli if per la luce e per l'ombra
-          if (controls.OnOff) {          
-           joint3.spotLight.intensity=7;
-           joint3.light.intensity=10;           
-           joint3.spotLight.shadowDarkness = 0.5;}
+    function mkJoint2 (radius, height) {
+      var joint = new THREE.Object3D();          
 
-          if (!controls.OnOff) {
-           joint3.spotLight.intensity=0;
-           joint3.light.intensity=0;           
-           joint3.spotLight.shadowDarkness = 0;}
+      var sphereGeometry = new THREE.SphereGeometry(radius, 10,10);
+      var sphereMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x242424, shininess: 100, metal: true});
+      var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      sphere.position.set(0, 0, 0);
+      sphere.castShadow=true;
+ 
+      //Creo la "Coppa" che circonda la lampadina. Utilizzo una semiSfera
+      var sphereGeometry2 = new THREE.SphereGeometry(3*radius, 40, 40, 0, 6.3, Math.PI/2);
+      var sphereMaterial2 = new  THREE.MeshPhongMaterial({ambient: 0xffffff, color:  0xFFFFCC, shininess: 100, shading: THREE.FlatShading, metal:true});
+      sphereMaterial2.side = THREE.DoubleSide;
+      var halfSphere = new THREE.Mesh(sphereGeometry2, sphereMaterial2);
+      halfSphere.DoubleSide;
+      halfSphere.position.set(0, 0, 3*radius+radius);
+      halfSphere.rotation.x = Math.PI/2;
+      halfSphere.castShadow = true;
+
+      //Creo la lampadina usando il Phong Material e impostando opacità e trasparenza in modo da sembrare realistica.          
+      var sphereMaterial1 = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: 0xFFFACD, shininess: 1000, trasparency:true});
+      sphereMaterial1.opacity=0.6;
+      sphereMaterial1.transparent=true;      
+      var lampadina = new THREE.Mesh(sphereGeometry, sphereMaterial1);
+      lampadina.position.set(0, 0,3*radius);
+      
+
+      //Creo la luce della lampadina 
+      var lightColor = "#ffffff";
+      var spotLight = new THREE.SpotLight(lightColor);
+      spotLight.position.set(0, 0, 3*radius+radius);
+      spotLight.intensity = 15;
+      spotLight.angle=0.3;
+      spotLight.distance=100;
+      spotLight.exponent=1;
+      spotLight.rotation.x = -Math.PI;
+      
+      spotLight.castShadow = true;
+      spotLight.shadowCameraNear = 2;
+      spotLight.shadowCameraFar = 70;
+      
+      spotLight.shadowCameraFov = 30;
+      spotLight.shadowDarkness = 0.5;
+      spotLight.shadowMapWidth = 256;
+      spotLight.shadowMapHeight = 256;
+      spotLight.shadow;         
+
+      lampadina.add(spotLight);
+
+      //Aggiungo una pointlight per illuminare la parte intorno alla lampadina e dare un aspetto piu realistico.
+      var light = new THREE.PointLight( 0xffffff, 10, 3);   
+      lampadina.add(light);       
+      
     
-          
-          requestAnimationFrame(render);
-          renderer.render(scene, camera);
-        }
+      //Creo un Object 3D che userò come target per la spotlight
+      var luce = new THREE.Object3D();
+      luce.position.set(0, 0, 3*radius+radius+radius);
+      spotLight.target = luce;
+      spotLight.lookAt(luce);   
+      
+      //il grafo della parte finale della lampada sarà sphere-half sphere-lampadina-spotlight-luce
+      joint.add(sphere);
+      sphere.add(halfSphere);
+      sphere.add(lampadina);
+      lampadina.add(spotLight)
+      lampadina.add(luce)          
 
-        function initStats() {
-          var stats = new Stats();
-          stats.setMode(0); // 0: fps, 1: ms
-          $('body').append(stats.domElement);
-          return stats;
-        }
+      joint.light=light;                
+      joint.sphere = sphere;
+      joint.halfSphere = halfSphere;
+      joint.lampadina=lampadina;
+      joint.spotLight=spotLight  
 
-        render();
+      joint.castShadow=true; 
 
+      return joint;
+    }   
+
+     
+    //Creo la struttura della lampada utilizzando le funzioni appena definite. Imposto le rotazioni in modo che sia già piegata.
+    var height = 6;
+    var radius = 1;
+    
+    var joint1 = mkJoint(radius, height);
+    joint1.rotation.x = -0.5;
+   
+    var joint2 = mkJoint(radius, height);
+    joint2.castShadow=true;
+    joint2.rotation.x = 0.8;
+    joint1.hook.add(joint2);
+
+    var joint3 = mkJoint2(radius, height);
+    
+    joint3.rotation.x = 0.5;
+    joint2.hook.add(joint3);
+
+   
+    
+    lamp=createBase();
+    joint1.rotation.x=-((Math.PI/2) +0.5);
+    
+    joint1.position.y=3;
+    lamp.add(joint1);
+    
+
+    //Mi salvo gli angoli di rotazione delle componenti della lampada per richiamarli nell'animazione
+    var beta = joint1.sphere.rotation.x;        
+    var alfa = joint1.sphere.rotation.z;
+    var gamma = joint2.sphere.rotation.x;        
+    var delta = joint2.sphere.rotation.z;
+    var epsilon = joint3.sphere.rotation.x;   
+
+    scene.add(lamp);       
+
+
+    //Creo il testo.        
+    var materialArray = [new THREE.MeshPhongMaterial({specular : 0xffffff,color: 0x000000,shininess : 100,metal:true}),
+        new THREE.MeshPhongMaterial({specular : 0xffffff,color: 0x000000,shininess : 100,metal:true})];
+    var textGeom = new THREE.TextGeometry( "P   X A R",{
+      size: 13,
+      height:3,
+      weight:"normal",
+      font: "bitstream vera sans mono",
+      bevelThickness: 1.3,
+      bevelSize: 0,
+      bevelSegments:2,
+      bevelEnabled: false,
+      curveSegments: 100,
+      steps: 1
       });
-    </script>
- </body>
+
+    var textMesh= new THREE.Mesh(textGeom, new THREE.MeshFaceMaterial(materialArray));
+    textMesh.rotation.x =Math.PI/2;
+    textMesh.rotation.y = Math.PI/2;
+    textMesh.position.y=-47;
+    textMesh.position.z=1;
+    scene.add(textMesh);
+    textMesh.castShadow = true;
+    textMesh.receiveShadow = true;
+
+    //Aggiungo la I come testo separato in modo da controllarla nell'animazione    
+     var textGeom = new THREE.TextGeometry( "I",{
+      size: 13,
+      height: 3,
+      weight:"normal",
+      font: "bitstream vera sans mono",
+      bevelThickness: 1.3,
+      bevelSize: 0,
+      bevelSegments:2,
+      bevelEnabled: false,
+      curveSegments: 100,
+      steps: 1
+      });
+
+     var textMesh2= new THREE.Mesh(textGeom, new THREE.MeshFaceMaterial(materialArray));
+    textMesh2.rotation.x =Math.PI/2;
+    textMesh2.rotation.y = Math.PI/2;
+    textMesh2.position.y=-25;
+    textMesh2.position.z=1;
+    scene.add(textMesh2);
+    textMesh2.scale.x=0;
+    textMesh2.scale.y=0;
+    textMesh2.scale.z=0;
+    textMesh2.castShadow = true;
+    textMesh2.receiveShadow = true;
+
+
+    //Mi salvo la scala del testo in 3 variabili in modo da poterle richiamare nell'animazione
+    var scalax =  textMesh.scale.x;
+    var scalay =  textMesh.scale.y;
+    var scalaz =  textMesh.scale.z;
+
+    $('body').append(renderer.domElement);           
+   
+   //PRIMA ANIMAZIONE        
+   //Lampada in posizione iniziale 
+   var lampTween41 = new TWEEN.Tween(joint3.sphere.rotation)
+    .to({x: epsilon}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween40 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({z: delta}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween39 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: gamma}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+     var lampTween38 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({z: alfa}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);        
+
+     var lampTween37 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: beta}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween36 = new TWEEN.Tween( joint2.sphere.rotation)
+    .to({z: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween37,lampTween38,lampTween39,lampTween40,lampTween41);
+
+    var lampTween35 = new TWEEN.Tween( joint2.sphere.rotation)
+    .to({z: 2.3}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween36);
+
+     var lampTween34 = new TWEEN.Tween( joint1.sphere.rotation)
+    .to({z: 1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween35);
+
+     var lampTween33 = new TWEEN.Tween( joint2.sphere.rotation)
+    .to({z: 1.8}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+     var lampTween32 = new TWEEN.Tween(lamp.position)
+    .to({z: 0.5}, 1000)
+    .easing(TWEEN.Easing.Bounce.Out)
+    .chain(lampTween33,lampTween34);    
+
+     var lampTween30 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween31 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);    
+
+    var lampTween29 = new TWEEN.Tween(lamp.position)
+    .to({z: 15}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween31,lampTween30,lampTween32);
+
+    var lampTween28 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween27 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);        
+
+    var lampTween26 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween27,lampTween28,lampTween29);     
+    
+    var lampTween25 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: -0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    //Schiacciamento lettera
+    var lampTween24 = new TWEEN.Tween(textMesh2.scale)
+      .to({x:0,y:0,z:0}, 2500)
+    .easing(TWEEN.Easing.Quadratic.InOut);        
+
+    var lampTween23 = new TWEEN.Tween(lamp.position)
+      .to({x:0,y:-20,z:13}, 900)
+    .easing(TWEEN.Easing.Quadratic.InOut);        
+
+    var lampTween22 = new TWEEN.Tween(lamp.position)
+    .to({z: 20}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween23,lampTween24,lampTween25,lampTween26);     
+
+    var lampTween21 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween20 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);     
+
+    var lampTween19 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween20,lampTween21,lampTween22);
+    
+    var lampTween18 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: -0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween17 = new TWEEN.Tween(lamp.position)
+    .to({x:0,y:-18,z:15}, 900)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+    
+    var lampTween16 = new TWEEN.Tween(lamp.position)
+      .to({x:5,y:-5,z:20}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween17,lampTween18,lampTween19);
+
+     var lampTween15 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+    
+     var lampTween14 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+    
+    var lampTween13 = new TWEEN.Tween(joint3.sphere.rotation)
+    .to({x:0.5}, 2300)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween14,lampTween15,lampTween16);
+
+    var lampTween12 = new TWEEN.Tween(lamp.rotation)
+    .to({y:6}, 700)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween13);
+
+    var lampTween11 = new TWEEN.Tween(textMesh2.scale)
+    .to({x:scalax,y:scalay,z:scalaz}, 700)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween12);
+
+    var lampTween10 = new TWEEN.Tween(lamp.rotation)
+    .to({y:8.5}, 700)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween11);      
+
+    var lampTween9 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x:1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween10);
+
+     var lampTween8 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x:-0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    
+    var lampTween7 = new TWEEN.Tween(lamp.position)
+    .to({x:9,y:0,z:0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    
+    //secondo salto
+    var lampTween12a = new TWEEN.Tween(lamp.position)
+    .to({x:11,y:-20,z:8}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween7,lampTween8,lampTween9);
+
+     var lampTween11a = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 0.1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);      
+
+     var lampTween10a = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    //fine salto 1
+    var lampTween9a = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x:1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween10a,lampTween11a,lampTween12a);
+
+     var lampTween8a = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x:-0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)      
+
+     var lampTween7a = new TWEEN.Tween(lamp.position)
+    .to({x:13,y:-50,z:0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)       
+
+    //Primo salto 
+    var lampTween6 = new TWEEN.Tween(lamp.position)
+    .to({x:15,y:-70,z:8}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween7a,lampTween8a,lampTween9a);
+
+     var lampTween5 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 0.1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTween4 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: 0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    var lampTweeny = new TWEEN.Tween(lamp.rotation)
+    .to({y: 3}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTween4,lampTween5,lampTween6);      
+
+    var lampTween3 = new TWEEN.Tween(joint2.sphere.rotation)
+    .to({x: 1}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .chain(lampTweeny);
+
+    var lampTween2 = new TWEEN.Tween(joint1.sphere.rotation)
+    .to({x: -0.5}, 800)
+    .easing(TWEEN.Easing.Quadratic.InOut);
+
+    //FINE PRIMA ANIMAZIONE
+
+    
+
+
+    var renderCamera = camera; 
+    var height=plane.geometry.parameters.width / 2.0; 
+    var lenght=plane.geometry.parameters.width;
+
+    //Controlli della gui.
+    var controls = new function () {
+      //Controlli angoli
+      this.alpha = 0.0;
+      this.beta = 0.0;
+      this.gamma = 0.0;
+      this.delta = 0.0;
+      this.epsilon = 0.0;
+
+      this.asseX = 0.0;
+      this.asseY = 0.0;
+      
+      this.OnOff=false;
+      this.Trackball_Controls=false;
+      this.StartAnimation1=false;
+      
+
+      //Controlli luce      
+      this.angle = 1.2
+      this.distance = 200;
+      this.exponent = 30;
+      this.rotationSpeed = 0.05;
+
+      //Controlli camera
+      this.CameraRight = false;
+      this.CameraLeft = false;         
+    };
+
+    //Creo la gui.
+    var gui = new dat.GUI();
+
+    //Creo una folder per i controlli della lampada
+    var lampFolder = gui.addFolder("Angles Settings");
+    var light = new THREE.PointLight( 0xffffff, 10, 3);   
+
+    //Aggiungo le varie rotazioni dei vari componenti
+    lampFolder.add(controls, 'alpha', 0.0, 2*Math.PI).onChange(function (e) {
+      joint1.sphere.rotation.z = e; 
+    });
+    lampFolder.add(controls, 'beta', 0.0, Math.PI/2).onChange(function (e) {
+      joint1.sphere.rotation.x =e; 
+    });
+
+    lampFolder.add(controls, 'gamma', 0.0, Math.PI/2).onChange(function (e) {
+      joint2.sphere.rotation.x =e; 
+    });
+    lampFolder.add(controls, 'delta', 0.0, 2*Math.PI).onChange(function (e) {
+      joint2.sphere.rotation.z = e; 
+    });
+    lampFolder.add(controls, 'epsilon', 0.0, Math.PI/2).onChange(function (e) {
+      joint3.sphere.rotation.x = e; 
+    });
+
+    //Creo una folder per lo spostamento della lampada
+    var moveFolder =  gui.addFolder("Lamp position settings");
+     moveFolder.add(controls, 'asseX', -1.0, 1.0).onChange(function(e) {
+            lamp.position.x = e* height;
+          });
+     moveFolder.add(controls, 'asseY', -1.0, 1.0).onChange(function(e) {
+            lamp.position.y = e*lenght;
+          });
+    
+    //Creo una folder per i valori della luce.
+    var lampFolder =  gui.addFolder("Light settings");
+    
+    lampFolder.add(controls, 'distance', 100, 300).onChange(function (e) {
+      joint3.spotLight.distance = e;
+    });
+
+    lampFolder.add(controls, 'exponent', 0, 100).onChange(function (e) {
+      joint3.spotLight.exponent = e;
+    });
+
+    lampFolder.add(controls, 'angle', 0, 1.5).onChange(function (e) {
+      joint3.spotLight.angle = e;
+    });
+
+    //Aggiungo un controllo per disattivare il trackball control         
+    var TrackballControlsFolder = gui.addFolder("TrackballControls ");
+     TrackballControlsFolder.add(controls, "Trackball_Controls").onChange(function (e){
+      trackballControls.enabled = e;
+
+        });
+
+    //Aggiungo il controllo on/off per la luce della lampadina   
+    var OnOffLightFolder = gui.addFolder("On/Off Lamp");
+     OnOffLightFolder.add(controls, "OnOff");
+
+    //Aggiungo il controllo per cambiare camera
+    var CameraFolder = gui.addFolder("Change camera");
+     CameraFolder.add(controls, "CameraRight").onChange(function (e) {      
+        renderCamera = e ? inspectedCamera1 : camera;});
+     CameraFolder.add(controls, "CameraLeft").onChange(function (e) {
+            renderCamera = e ? inspectedCamera2 : camera;
+  });      
+    //Aggiungo il cotrollo per attivare l'animazione
+     var AnimationFolder = gui.addFolder("Animation");
+       AnimationFolder.add(controls, 'StartAnimation1').onChange(function (e) {
+      if (e) {
+        //Posiziono la lampada con i parametri iniziali.
+       controls.OnOff=true;
+       joint1.sphere.rotation.x=beta;       
+       joint1.sphere.rotation.z=alfa;
+       joint2.sphere.rotation.x=gamma;        
+       joint2.sphere.rotation.z=delta;
+       joint3.sphere.rotation.x=epsilon;
+
+       //Lancio l'animazione
+          var lampTween1 = new TWEEN.Tween(lamp.position)
+            .to({x: 20,y:-90,z:0.5}, 600)
+            .easing(TWEEN.Easing.Bounce.Out)
+            .chain(lampTween2,lampTween3)
+            .start();}
+    });  
+
+    
+
+    function render() {
+      stats.update();
+      trackballControls.update();
+      TWEEN.update();      
+      
+     //Aggiungo controlli if per la luce e per l'ombra
+      if (controls.OnOff) {          
+       joint3.spotLight.intensity=7;
+       joint3.light.intensity=10;           
+       joint3.spotLight.shadowDarkness = 0.5;}
+
+      if (!controls.OnOff) {
+       joint3.spotLight.intensity=0;
+       joint3.light.intensity=0;           
+       joint3.spotLight.shadowDarkness = 0;}
+
+       cube.rotation.x += controls.rotationSpeed;
+       cube.rotation.y += controls.rotationSpeed;
+       cube.rotation.z += controls.rotationSpeed;
+
+     
+
+      
+      requestAnimationFrame(render);
+      renderer.render(scene, renderCamera);
+    }
+
+    function initStats() {
+      var stats = new Stats();
+      stats.setMode(0); // 0: fps, 1: ms
+      $('body').append(stats.domElement);
+      return stats;
+    }
+
+    render();
+
+  });
+</script>
+</body>
 </html>
