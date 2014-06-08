@@ -174,7 +174,7 @@
           lampadina.position.set(0, 0,3*radius);
           
 
-          //Creo la luce della lampadina
+          //Creo la luce della lampadina 
           var lightColor = "#ffffff";
           var spotLight = new THREE.SpotLight(lightColor);
           spotLight.position.set(0, 0, 3*radius+radius);
@@ -193,7 +193,7 @@
           spotLight.shadowMapHeight = 256;
           spotLight.shadow;         
 
-          scene.add(spotLight);
+          lampadina.add(spotLight);
 
           //Aggiungo una pointlight per illuminare la parte intorno alla lampadina e dare un aspetto piu realistico.
           var light = new THREE.PointLight( 0xffffff, 10, 3);   
@@ -248,12 +248,22 @@
         joint1.position.y=3;
         lamp.add(joint1);
 
+        var positionx=joint1.rotation.x;
+        var positiony=joint1.rotation.y;
+        var positionz=joint1.rotation.z;
+        var positionx2=joint2.rotation.x;
+        var positiony2=joint2.rotation.y;
+        var positionz2=joint2.rotation.z;
+        var positionx3=joint3.rotation.x;
+        var positiony3=joint3.rotation.y;
+        var positionz3=joint3.rotation.z;
+
         scene.add(lamp);       
 
 
         //Creo il testo.        
         var materialArray = [new THREE.MeshLambertMaterial({color: 0x000000}),new THREE.MeshLambertMaterial({color: 0x000000})];
-        var textGeom = new THREE.TextGeometry( "P   x a r",{
+        var textGeom = new THREE.TextGeometry( "P   X A R",{
           size: 13,
           height: 2,
           weight:"normal",
@@ -275,19 +285,246 @@
         textMesh.castShadow = true;
         textMesh.receiveShadow = true;
 
+        
+         var textGeom = new THREE.TextGeometry( "I",{
+          size: 13,
+          height: 2,
+          weight:"normal",
+          font: "bitstream vera sans mono",
+          bevelThickness: 1.3,
+          bevelSize: 0,
+          bevelSegments:2,
+          bevelEnabled: false,
+          curveSegments: 100,
+          steps: 1
+          });
+
+        var textMesh2= new THREE.Mesh(textGeom, new THREE.MeshFaceMaterial(materialArray));
+        textMesh2.rotation.x =Math.PI/2;
+        textMesh2.rotation.y = Math.PI/2;
+        textMesh2.position.y=-25;
+        textMesh2.position.z=1;
+        scene.add(textMesh2);
+        textMesh2.scale.x=0;
+        textMesh2.scale.y=0;
+        textMesh2.scale.z=0;
+        textMesh2.castShadow = true;
+        textMesh2.receiveShadow = true;
+
+
+        //Mi salvo la scala del testo in 3 variabili in modo da poterle richiamare nell'animazione
+
+        var scalax =  textMesh.scale.x;
+        var scalay =  textMesh.scale.y;
+        var scalaz =  textMesh.scale.z;
+
+       
+
+
+
+
 
         $('body').append(renderer.domElement);
-
-        //var lampTween2 = new TWEEN.Tween(joint1.position)
-        //.to({x: -4, y: 3, z: 0}, 2000)
-        //.easing(TWEEN.Easing.Quadratic.InOut);
         
 
-         //var lampTween1 = new TWEEN.Tween(joint1.position)
-        //to({x: -13, y: 3, z: -5}, 4000)
-        //.easing(TWEEN.Easing.Bounce.Out)
-        //.chain(lampTween2)
-        //.start();
+         
+
+        var lampTween36 = new TWEEN.Tween( joint2.sphere.rotation)
+        .to({z: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTween35 = new TWEEN.Tween( joint2.sphere.rotation)
+        .to({z: 2.3}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween36);
+
+         var lampTween34 = new TWEEN.Tween( joint1.sphere.rotation)
+        .to({z: 1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween35);
+
+        var lampTween33 = new TWEEN.Tween( joint2.sphere.rotation)
+        .to({z: 1.8}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+         var lampTween32 = new TWEEN.Tween(lamp.position)
+        .to({z: 0.5}, 1000)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween33,lampTween34);
+        
+
+
+        var lampTween30 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTween31 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+
+
+        var lampTween29 = new TWEEN.Tween(lamp.position)
+        .to({z: 15}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween31,lampTween30,lampTween32);
+
+        var lampTween28 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTween27 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);        
+
+        var lampTween26 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween27,lampTween28,lampTween29);
+        
+        
+
+
+        var lampTween25 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: -0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTween24 = new TWEEN.Tween(textMesh2.scale)
+          .to({x:0,y:0,z:0}, 3500)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+        var lampTween23 = new TWEEN.Tween(lamp.position)
+          .to({x:0,y:-20,z:13}, 900)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+        var lampTween22 = new TWEEN.Tween(lamp.position)
+        .to({z: 20}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween23,lampTween24,lampTween25,lampTween26);
+
+        
+
+
+        var lampTween21 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTween20 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);        
+
+
+              
+
+        var lampTween19 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween20,lampTween21,lampTween22);
+        
+
+
+        var lampTween18 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: -0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+         var lampTween17 = new TWEEN.Tween(lamp.position)
+          .to({x:0,y:-18,z:15}, 900)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+        
+
+         var lampTween16 = new TWEEN.Tween(lamp.position)
+          .to({x:5,y:-5,z:20}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween17,lampTween18,lampTween19);
+
+         var lampTween15 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+
+        var lampTween14 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: 0}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        
+        var lampTween13 = new TWEEN.Tween(joint3.sphere.rotation)
+        .to({x:0.5}, 700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween14,lampTween15,lampTween16);
+
+        var lampTween12 = new TWEEN.Tween(lamp.rotation)
+        .to({y:6}, 700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween13);
+
+        var lampTween11 = new TWEEN.Tween(textMesh2.scale)
+        .to({x:scalax,y:scalay,z:scalaz}, 700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween12);
+
+        var lampTween10 = new TWEEN.Tween(lamp.rotation)
+        .to({y:8.5}, 700)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween11);
+        
+
+       
+        var lampTween9 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x:1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween10);
+
+         var lampTween8 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x:-0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        
+
+
+        var lampTween7 = new TWEEN.Tween(lamp.position)
+        .to({x:8,y:0,z:0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        
+
+        var lampTween6 = new TWEEN.Tween(lamp.position)
+        .to({x:2,y:-10,z:3}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween7,lampTween8,lampTween9);
+
+         var lampTween5 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 0.1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+        
+
+        var lampTween4 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: 0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+
+        var lampTweeny = new TWEEN.Tween(lamp.rotation)
+        .to({y: 3}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTween4,lampTween5,lampTween6);
+        
+
+
+        var lampTween3 = new TWEEN.Tween(joint2.sphere.rotation)
+        .to({x: 1}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .chain(lampTweeny);
+
+
+        var lampTween2 = new TWEEN.Tween(joint1.sphere.rotation)
+        .to({x: -0.5}, 800)
+        .easing(TWEEN.Easing.Quadratic.InOut);
+        
+
+        
 
 
          var controls = new function () {
@@ -299,6 +536,8 @@
           
           this.OnOff=false;
           this.Trackball_Controls=true;
+          this.AnimationStart=false;
+          
 
           this.angle = 1.5
           this.intensity = 15;
@@ -357,6 +596,17 @@
         //Aggiungo il controllo on/off per la luce della lampadina   
         var OnOffLightFolder = gui.addFolder("On/Off Lampada");
          OnOffLightFolder.add(controls, "OnOff");
+
+         var AnimationFolder = gui.addFolder("Animation");
+           AnimationFolder.add(controls, 'AnimationStart').onChange(function (e) {
+          if (e) {
+                   
+             var lampTween1 = new TWEEN.Tween(lamp.position)
+                .to({x: 10,y:-45,z:0.5}, 600)
+                .easing(TWEEN.Easing.Bounce.Out)
+                .chain(lampTween2,lampTween3)
+                .start();}
+        });
 
         
 
