@@ -937,6 +937,8 @@ giardinoRemove=COLOR(rgbToPlasmColor([34,139,34	]))(giardinoRemove)
 
 
 
+
+
 #Assemblo
 
 principale=STRUCT([camera1,camera2,bagno,stireria,scale,soggiorno2,soggiorno3,soggiorno4,cucina
