@@ -61,17 +61,30 @@ The directory assets/textures/General contains the texture's project. Most are i
 ####Project's Animation:
 
 Rain's Animations
+
 Fire's Fireplace
+
 Shower's Animation
+
 Radio's Animation
+
 Camera's light Animation
+
 Day/Night 's Animation
+
 Snow's Animation
+
 Kitchen Stove's Animation
+
 Doors Opening/Closing
+
 Video Tv
+
 Sounds of various Animations
+
 First Person Mode
+
+-------------------------------------------------------------
 
 
 
