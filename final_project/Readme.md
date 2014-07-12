@@ -5,7 +5,7 @@ Final Project of Computational Graphics
 433043
 ---------------------------------------
 
-#### Link to Final Project: [here](http://PCoronas90.github.io/prova/lamp.html)
+#### Link to Final Project: [here](http://PCoronas90.github.io/final_project/index.html)
 ---------------------------------------
 
 ####Script's Details:
