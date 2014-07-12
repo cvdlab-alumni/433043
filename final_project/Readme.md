@@ -5,7 +5,7 @@ Final Project of Computational Graphics
 433043
 ---------------------------------------
 
-#### Link to Final Project: [here](http://PCoronas90.github.io/tree/master/final_project/)
+#### Link to Final Project: [here](http://PCoronas90.github.io/prova/)
 ---------------------------------------
 
 ####Script's Details:
