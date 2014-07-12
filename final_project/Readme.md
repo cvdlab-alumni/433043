@@ -1,7 +1,7 @@
 Final Project of Computational Graphics
 ---------------------------------------
 
-Coronas Pietro
+####Coronas Pietro
 433043
 ---------------------------------------
 
@@ -43,6 +43,7 @@ Coronas Pietro
 [TweenAnimation.js](script/TweenAnimation.js): Script for defining animations using Tween.js
 
 [VideoAnimation.js](script/VideoAnimation.js):  Scripts for video's animation.
+
 ----------------------------------------
 ####Other Informations:
 
