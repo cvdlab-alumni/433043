@@ -10,37 +10,37 @@ Final Project of Computational Graphics
 
 ####Script's Details:
 
-[index.html] (index.html): Main Pages in which are imported all the necessary libraries and define the main variables.
+[index.html] (index.html): Main Pages in which are imported all the necessary libraries and defined  main variables.
 
-[AudioAnimation.js](script/AudioAnimation.js): Contains a function for creating sound effects included in the project.
+[AudioAnimation.js](script/AudioAnimation.js): Contains a function to create sound effects included in the project.
 
-[FirstPersonControl.js] (script/FirstPersonControl.js): Contains the code needed for the animation in the first person accessible from the Gui.
+[FirstPersonControl.js] (script/FirstPersonControl.js): Contains the code needed for first person's animation.
 
-[FornitureCreator.js](scriptFornitureCreator.js/): It contains the functions necessary to import the furniture in Obj/Mtl format.
+[FornitureCreator.js](scriptFornitureCreator.js/): Contains  functions necessary to import the furniture in Obj/Mtl format.
 
-[GardenCreator.js](script/GardenCreator.js): Scripts for the external environment of the house.
+[GardenCreator.js](script/GardenCreator.js): Scripts for  external environment of the house.
 
-[GeneralFunction.js](script/GeneralFunction.js): It contains the main functions of the project.
+[GeneralFunction.js](script/GeneralFunction.js): Contains  main functions of  project.
 
 [Gui.js](script/Gui.js): Control interface.
 
-[HomeCreator.js](script/HomeCreator.js): This script contains a function for loading various Obj's model rooms and all their details (doors, windows, shape, furniture, etc ...).
+[HomeCreator.js](script/HomeCreator.js): This script contains a function needed to load various Obj's model rooms and all their details (doors, windows, shape, furniture, etc ...).
 
 [Init.js](script/Init.js): Initialization script.
 
-[Interni.js](script/Interni.js):Script for creating internal objects.
+[Interni.js](script/Interni.js):Script for internal objects.
 
-[MeshFunctions.js](script/MeshFunctions.js): Contains functions for the creation of the shape of each room of the house, both internal and external.
+[MeshFunctions.js](script/MeshFunctions.js): Contains functions for shape of each room of the house, both internal and external.
 
 [MeshGenerator.js](script/MeshGenerator.js): Script for shape's creation.
 
-[ParticleAnimation.js](script/ParticleAnimation.js): Contains the definitions of animations using ParticleEngine.
+[ParticleAnimation.js](script/ParticleAnimation.js): Contains  definitions of animations using ParticleEngine.
 
-[ParticleEngine.js](script/ParticleEngine.js):Script developed by Lee Stemkosky for creating  particle system's animations. 
+[ParticleEngine.js](script/ParticleEngine.js):Script developed by Lee Stemkosky to create particle system's animations. 
 
-[PortWindowCreator.js](script/PortWindowCreator.js): Script for creating windows and doors.
+[PortWindowCreator.js](script/PortWindowCreator.js): Script needed to create windows and doors.
  
-[TweenAnimation.js](script/TweenAnimation.js): Script for defining animations using Tween.js
+[TweenAnimation.js](script/TweenAnimation.js): Script needed to define animations using Tween.js
 
 [VideoAnimation.js](script/VideoAnimation.js):  Scripts for video's animation.
 
@@ -51,11 +51,11 @@ The directory assets/LarImportFile contains a file with code for conversion of t
 
 The direcotry assets/fornituresModels contains the Obj/mtl model of each appartment's fornitures.
 
-The directory assets/movies contains the video in obv format for the Tv's animation
+The directory assets/movies contains the video in obv format for  Tv's animation
 
-The directory assets/sounds contains the mp3 files for the audio's animations.
+The directory assets/sounds contains the mp3 files for  audio's animations.
 
-The directory assets/textures/General contains the texture's project. Most are in the format 128x128 to be lighter on the project.
+The directory assets/textures/General contains the texture's project. Most are in  format 128x128 to be lighter on the project.
 
 ---------------------------------------
 ####Project's Animation:
