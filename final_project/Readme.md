@@ -16,7 +16,7 @@ Final Project of Computational Graphics
 
 [FirstPersonAnimation.js] (script/FirstPersonAnimation.js): Contains the code needed for first person's animation.
 
-[FornitureCreator.js](script/FornitureCreator.js/): Contains  functions necessary to import the furniture in Obj/Mtl format.
+[FornituresCreator.js](script/FornituresCreator.js/): Contains  functions necessary to import the furniture in Obj/Mtl format.
 
 [GardenCreator.js](script/GardenCreator.js): Scripts for  external environment of the house.
 
