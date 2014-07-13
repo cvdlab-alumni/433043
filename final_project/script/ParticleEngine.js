@@ -1,5 +1,3 @@
-
-
 particleVertexShader = 
 [
 "attribute vec3  customColor;",

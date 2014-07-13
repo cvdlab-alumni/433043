@@ -14,9 +14,9 @@ Final Project of Computational Graphics
 
 [AudioAnimation.js](script/AudioAnimation.js): Contains a function to create sound effects included in the project.
 
-[FirstPersonControl.js] (script/FirstPersonControl.js): Contains the code needed for first person's animation.
+[FirstPersonAnimation.js] (script/FirstPersonAnimation.js): Contains the code needed for first person's animation.
 
-[FornitureCreator.js](scriptFornitureCreator.js/): Contains  functions necessary to import the furniture in Obj/Mtl format.
+[FornitureCreator.js](script/FornitureCreator.js/): Contains  functions necessary to import the furniture in Obj/Mtl format.
 
 [GardenCreator.js](script/GardenCreator.js): Scripts for  external environment of the house.
 
